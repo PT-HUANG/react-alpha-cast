@@ -1,0 +1,14 @@
+Brand
+#FF7F50
+
+Secondary
+#30A9DE
+
+Positive
+#4CAF50
+
+Negative
+#FF5050
+
+Caution
+#F6AE2D
