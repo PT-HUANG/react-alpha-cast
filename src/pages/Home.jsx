@@ -26,7 +26,7 @@ export default function Home() {
   return (
     <div className="home_container">
       <Navbar className="navbar" />
-      <Main className="main" />
+      <Main className="main" userData={userData} />
     </div>
   );
 }
