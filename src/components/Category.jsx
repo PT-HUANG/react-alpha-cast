@@ -86,6 +86,7 @@ function Category({
         id={id}
         show={modalStatus.edit}
         onHide={() => handleClose("edit")}
+        emoji={emoji}
         content={content}
         onSave={onSave}
       />

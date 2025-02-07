@@ -36,7 +36,7 @@ function CreateModal({ show, onHide, onCreate }) {
       </Modal.Header>
       <input
         type="text"
-        className="editInput"
+        className="createInput"
         placeholder="請輸入分類名稱"
         ref={inputRef}
         key="changeTitle"

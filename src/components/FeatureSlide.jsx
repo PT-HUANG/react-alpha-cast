@@ -25,17 +25,17 @@ function FeatureSlide() {
   const settings = {
     dots: true, // 啟用分頁點
     customPaging: () => (
-      <div className="paginator"
+      <div
+        className="paginator"
         style={{
           position: "absolute",
           transform: "translateX(-50%)",
           top: "0%",
           width: "32px",
-          height: "4px",  
+          height: "4px",
           borderRadius: "8px",
         }}
-      >
-      </div>
+      ></div>
     ),
     infinite: true,
     speed: 500,
@@ -75,9 +75,11 @@ function FeatureSlide() {
 function Slide({ bgColor, img, p1, p2 }) {
   return (
     <StyledCard className="card" $bgColor={bgColor}>
-      <img src={img} className="card_img" alt="slide" />
-      <p className="card_p1">{p1}</p>
-      <p className="card_p2">{p2}</p>
+      <div className="card_container">
+        <img src={img} className="card_img" alt="slide" />
+        <p className="card_p1">{p1}</p>
+        <p className="card_p2">{p2}</p>
+      </div>
     </StyledCard>
   );
 }

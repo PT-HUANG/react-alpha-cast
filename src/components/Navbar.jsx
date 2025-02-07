@@ -49,10 +49,10 @@ function Navbar() {
     setCategory(nextCategory);
   }
 
-  function handleSave(newTitle, id) {
+  function handleSave(newTitle, id, emoji) {
     const nextCategory = category.map((c) => {
       if (c.id === id) {
-        return { ...c, content: newTitle };
+        return { ...c, emoji, content: newTitle };
       } else return c;
     });
     setCategory(nextCategory);

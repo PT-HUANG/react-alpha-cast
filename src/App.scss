@@ -191,6 +191,7 @@ hr {
   }
 }
 
+// React Slick Custom CSS
 .slider-container {
   overflow: hidden;
 }
@@ -198,20 +199,30 @@ hr {
 .slick-slider,
 .slick-list,
 .slick-track,
-.slick-slide > div {
+.slick-slide > div,
+.card {
   height: 100%;
 }
 
 .card {
-  position: relative;
+  --bs-card-border-radius: none;
+}
+
+.card_container {
+  height: 80%;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
 }
 
 .card_img {
+  margin-top: 0.5rem;
   width: 60%;
   max-width: 250px;
 }
@@ -225,12 +236,12 @@ hr {
 .card_p2 {
   font-size: 0.85rem;
   margin: 1rem auto 4rem auto;
-  width: 90%;
+  width: 70%;
   text-align: center;
 }
 
 .slick-dots {
-  top: 86.6%;
+  top: 91%;
   li {
     all: unset !important;
     .paginator {
@@ -276,25 +287,20 @@ hr {
 }
 
 @media screen and (min-width: 768px) {
-  .card_img,
-  .card_p1,
-  .card_p2 {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+  .card_container {
+    top: 45%;
   }
   .card_img {
-    max-width: unset;
-    top: 10%;
+    max-width: 424px;
   }
   .card_p1 {
-    font-size: 2.625rem;
-    top: 56.8%;
+    font-size: 1.5rem;
   }
-
   .card_p2 {
     font-size: 1rem;
-    top: 65.1%;
+  }
+  .slick-dots {
+    top: 90%;
   }
   .custom-prev,
   .custom-next {
@@ -302,6 +308,47 @@ hr {
   }
 }
 
+@media screen and (min-width: 992px) {
+  .card_container {
+    top: 40%;
+  }
+  .card_p1 {
+    font-size: 2rem;
+  }
+  .card_p2 {
+    margin-top: 1.75rem;
+    font-size: 1.15rem;
+  }
+  .slick-dots {
+    top: 90%;
+  }
+  .custom-prev,
+  .custom-next {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .card_container {
+    top: 40%;
+  }
+  .card_p1 {
+    font-size: 2.625rem;
+  }
+  .card_p2 {
+    margin-top: 3rem;
+    font-size: 1.5rem;
+  }
+  .slick-dots {
+    top: 90%;
+  }
+  .custom-prev,
+  .custom-next {
+    font-size: 2rem;
+  }
+}
+
+// Login Loading...
 .loading_container {
   position: absolute;
   top: 0%;
@@ -440,25 +487,70 @@ hr {
 }
 
 .modal.fade .modal-dialog {
-  transform: translate(0, 30%);
+  transform: translate(0, 20%);
 }
 
 .modal.show .modal-dialog {
-  transform: translate(0, 50%);
+  transform: translate(0, 30%);
 }
 
 .btn-save {
-  background-color: #FF7F50;
+  background-color: #ff7f50;
   border: none;
 }
 
+.input_container {
+  display: flex;
+  position: relative;
+  margin: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 5rem;
+}
+
+.emoji_selector {
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+  top: 7%;
+  left: 2.5%;
+  font-size: 2rem;
+  padding: 0.5rem;
+  box-sizing: content-box;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+
+.emoji_selector:hover {
+  cursor: pointer;
+  background-color: #dddcdc;
+}
+
+.emoji_selector > div {
+  position: absolute;
+  top: 16%;
+  left: 6%;
+}
+
 .editInput {
-  width: 95%;
-  background-color: #F7F7F7;
+  width: 100%;
+  background-color: #f2f0f0;
   border: none;
   border-radius: 8px;
+  padding: 1rem;
+  padding-left: 4rem;
+}
+
+.emojiPicker {
+  font-size: 1rem;
+}
+
+.createInput {
+  width: 90%;
   margin: 1rem auto 5rem auto;
   padding: 1rem;
+  background-color: #f2f0f0;
+  border: none;
+  border-radius: 8px;
 }
 
 .deleteContent {
@@ -476,7 +568,8 @@ hr {
   grid-template-rows: auto;
 }
 
-.btn-save, .btn-cancel {
+.btn-save,
+.btn-cancel {
   padding: 14px;
 }
 
