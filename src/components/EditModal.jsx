@@ -20,11 +20,8 @@ function EditModal({ id, show, onHide, emoji, content, onSave }) {
   }
   function handleSave() {
     if (currentInputValue) {
-      // 使用 setTimeout 確保狀態已更新，否則會因為異步更新而無法取得最新的值
-      setTimeout(() => {
-        onSave(currentInputValue, id, currentEmoji);
-        onHide();
-      }, 0);
+      onSave(currentInputValue, id, currentEmoji);
+      onHide();
     }
   }
   function handleToggleEmojiPicker() {

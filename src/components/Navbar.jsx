@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import logo from "../assets/images/logo.png";
 import Category from "./Category";
 import AddCategory from "./AddCategory";
@@ -55,7 +54,10 @@ function Navbar() {
         return { ...c, emoji, content: newTitle };
       } else return c;
     });
-    setCategory(nextCategory);
+    // 這邊加上setTimeout能夠正常運行
+    setTimeout(() => {
+      setCategory(nextCategory);
+    }, 0);
   }
 
   function handleDelete(id) {
@@ -65,10 +67,11 @@ function Navbar() {
         return { ...c, isSelected: true };
       } else return c;
     });
-    console.log(nextCategory);
-    setTimeout(() => {
-      setCategory(nextCategory);
-    }, 0);
+    // 這邊重新渲染畫面會發現state沒有改變
+    setCategory(nextCategory);
+    // setTimeout(() => {
+    //   setCategory(nextCategory);
+    // }, 0);
   }
 
   function handleCreate(newId, title) {
