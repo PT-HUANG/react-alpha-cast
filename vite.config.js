@@ -6,6 +6,6 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
-    allowedHosts: ["g9rqdp-3000.csb.app"],
+    allowedHosts: ["h6fvzf-3000.csb.app"],
   },
 });
