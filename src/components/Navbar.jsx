@@ -37,46 +37,39 @@ const dummyData = [
 ];
 
 function Navbar() {
-  const [category, setCategory] = useState(dummyData);
+  const [categories, setCategories] = useState(dummyData);
 
   function handleSelect(id) {
-    const nextCategory = category.map((c) => {
+    const nextCategory = categories.map((c) => {
       if (c.id === id) {
         return { ...c, isSelected: true };
       } else return { ...c, isSelected: false };
     });
-    setCategory(nextCategory);
+    setCategories(nextCategory);
   }
 
   function handleSave(newTitle, id, emoji) {
-    const nextCategory = category.map((c) => {
+    const nextCategory = categories.map((c) => {
       if (c.id === id) {
         return { ...c, emoji, content: newTitle };
       } else return c;
     });
-    // 這邊加上setTimeout能夠正常運行
-    setTimeout(() => {
-      setCategory(nextCategory);
-    }, 0);
+    setCategories(nextCategory);
   }
 
   function handleDelete(id) {
-    let nextCategory = category.filter((c) => c.id !== id);
+    let nextCategory = categories.filter((c) => c.id !== id);
     nextCategory = nextCategory.map((c, index) => {
       if (index === 0) {
         return { ...c, isSelected: true };
       } else return c;
     });
-    // 這邊重新渲染畫面會發現state沒有改變
-    setCategory(nextCategory);
-    // setTimeout(() => {
-    //   setCategory(nextCategory);
-    // }, 0);
+    setCategories(nextCategory);
   }
 
   function handleCreate(newId, title) {
     let nextCategory = [
-      ...category,
+      ...categories,
       {
         id: newId,
         emoji: "🔰",
@@ -84,16 +77,14 @@ function Navbar() {
         isSelected: false,
       },
     ];
-    setTimeout(() => {
-      setCategory(nextCategory);
-    }, 0);
+    setCategories(nextCategory);
   }
 
   return (
     <div className="navbar_container">
       <img src={logo} className="navbar_logo" alt="logo" />
       <hr className="navbar_hr" />
-      {category.map((data) => {
+      {categories.map((data) => {
         return (
           <Category
             key={data.id}
@@ -101,9 +92,7 @@ function Navbar() {
             emoji={data.emoji}
             content={data.content}
             isSelected={data.isSelected}
-            onClick={() => {
-              handleSelect(data.id);
-            }}
+            onSelect={handleSelect}
             onSave={handleSave}
             onDelete={handleDelete}
           />

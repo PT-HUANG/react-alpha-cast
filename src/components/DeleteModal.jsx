@@ -19,7 +19,14 @@ function EditModal({ id, show, onHide, emoji, content, onDelete }) {
         <Button variant="light" className="btn-cancel" onClick={onHide}>
           取消
         </Button>
-        <Button variant="primary" className="btn-save" onClick={handleDelete}>
+        <Button
+          variant="primary"
+          className="btn-save"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleDelete();
+          }}
+        >
           刪除
         </Button>
       </Modal.Footer>

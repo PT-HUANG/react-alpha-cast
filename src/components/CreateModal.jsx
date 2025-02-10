@@ -12,10 +12,8 @@ function CreateModal({ show, onHide, onCreate }) {
   function handleSave() {
     if (currentInputValue) {
       const newId = Math.floor(Math.random() * (10000 - 100 + 1)) + 100;
-      setTimeout(() => {
-        onCreate(newId, currentInputValue);
-        onHide();
-      }, 0);
+      onCreate(newId, currentInputValue);
+      onHide();
     }
   }
 
@@ -47,7 +45,14 @@ function CreateModal({ show, onHide, onCreate }) {
         <Button variant="light" className="btn-cancel" onClick={onHide}>
           取消
         </Button>
-        <Button variant="primary" className="btn-save" onClick={handleSave}>
+        <Button
+          variant="primary"
+          className="btn-save"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleSave();
+          }}
+        >
           儲存
         </Button>
       </Modal.Footer>

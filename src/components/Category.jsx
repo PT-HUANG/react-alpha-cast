@@ -20,7 +20,7 @@ function Category({
   emoji,
   content,
   isSelected,
-  onClick,
+  onSelect,
   onSave,
   onDelete,
 }) {
@@ -60,7 +60,7 @@ function Category({
     <StyledCategoryContainer
       className="category"
       $isSelected={isSelected}
-      onClick={onClick}
+      onClick={() => onSelect(id)}
     >
       <div className="category_title">
         <span className="category_emoji">{emoji}</span>
