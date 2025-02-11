@@ -1,14 +1,5 @@
-/**
- * This is an example of a basic node.js script that performs
- * the Authorization Code with PKCE oAuth2 flow to authenticate
- * against the Spotify Accounts.
- *
- * For more information, read
- * https://developer.spotify.com/documentation/web-api/tutorials/code-pkce-flow
- */
-
 const clientId = "e45b9aa8bed142158c16baceb64f9f43";
-const redirectUrl = "http://localhost:3000/login"; // your redirect URL - must be localhost URL and/or HTTPS
+const redirectUrl = "http://localhost:3000/login";
 
 const authorizationEndpoint = "https://accounts.spotify.com/authorize";
 const tokenEndpoint = "https://accounts.spotify.com/api/token";
@@ -57,18 +48,6 @@ if (code) {
   const updatedUrl = url.search ? url.href : url.href.replace("?", "");
   window.history.replaceState({}, document.title, updatedUrl);
 }
-
-// If we have a token, we're logged in, so fetch user data and render logged in template
-if (currentToken.access_token) {
-  const userData = await getUserData();
-  // renderTemplate("main", "logged-in-template", userData);
-  // renderTemplate("oauth", "oauth-template", currentToken);
-}
-
-// Otherwise we're not logged in, so render the login template
-// if (!currentToken.access_token) {
-//   renderTemplate("main", "login");
-// }
 
 async function redirectToSpotifyAuthorize() {
   const possible =
@@ -162,49 +141,7 @@ export async function logoutClick() {
   window.location.href = redirectUrl;
 }
 
-async function refreshTokenClick() {
-  const token = await refreshToken();
-  currentToken.save(token);
-  renderTemplate("oauth", "oauth-template", currentToken);
-}
-
-// HTML Template Rendering with basic data binding - demoware only.
-function renderTemplate(targetId, templateId, data = null) {
-  const template = document.getElementById(templateId);
-  const clone = template.content.cloneNode(true);
-
-  const elements = clone.querySelectorAll("*");
-  elements.forEach((ele) => {
-    const bindingAttrs = [...ele.attributes].filter((a) =>
-      a.name.startsWith("data-bind")
-    );
-
-    bindingAttrs.forEach((attr) => {
-      const target = attr.name
-        .replace(/data-bind-/, "")
-        .replace(/data-bind/, "");
-      const targetType = target.startsWith("onclick") ? "HANDLER" : "PROPERTY";
-      const targetProp = target === "" ? "innerHTML" : target;
-
-      const prefix = targetType === "PROPERTY" ? "data." : "";
-      const expression = prefix + attr.value.replace(/;\n\r\n/g, "");
-
-      // Maybe use a framework with more validation here ;)
-      try {
-        ele[targetProp] =
-          targetType === "PROPERTY"
-            ? eval(expression)
-            : () => {
-                eval(expression);
-              };
-        ele.removeAttribute(attr.name);
-      } catch (ex) {
-        console.error(`Error binding ${expression} to ${targetProp}`, ex);
-      }
-    });
-  });
-
-  const target = document.getElementById(targetId);
-  target.innerHTML = "";
-  target.appendChild(clone);
-}
+// async function refreshTokenClick() {
+//   const token = await refreshToken();
+//   currentToken.save(token);
+// }

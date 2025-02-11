@@ -2,22 +2,22 @@
 
 ## 登入頁
 
-- [ ] 畫面左側，按設計稿顯示 LOGO v
-- [ ] 畫面左側，按設計稿顯示 **`使用 SPOTIFY 帳號登入`** 按鈕，點選後導至 Spotify 驗證頁執行授權流程 v
-- [ ] 畫面左側，按設計稿顯示 **`沒有帳號嗎？註冊帳號`** 連結，點選後另開分頁導至 Spotify 的註冊頁 v
-- [ ] 畫面右側，按設計稿顯示feature slides v
-- [ ] feature slides 可自動輪播 v
-- [ ] feature slides 可透過左右箭頭切換 v
+- [v] 畫面左側，按設計稿顯示 LOGO
+- [v] 畫面左側，按設計稿顯示 **`使用 SPOTIFY 帳號登入`** 按鈕，點選後導至 Spotify 驗證頁執行授權流程
+- [v] 畫面左側，按設計稿顯示 **`沒有帳號嗎？註冊帳號`** 連結，點選後另開分頁導至 Spotify 的註冊頁
+- [v] 畫面右側，按設計稿顯示feature slides
+- [v] feature slides 可自動輪播
+- [v] feature slides 可透過左右箭頭切換
 
 ---
 
 ## Callback 頁
 
-- [ ] 完成 Spotify 授權流程後，由 Spotify 導至 Callback 頁 v
-- [ ] 初始化，從 Spotify 取得 token v
-- [ ] 初始化，從 Spotify 取得帳戶資訊 v
-- [ ] 初始化，從 Server 取得使用者資訊以及 token  server是指哪裡的server?
-- [ ] 初始化，從 Server 取得使用者建立的分類      server是指哪裡的server?
+- [v] 完成 Spotify 授權流程後，由 Spotify 導至 Callback 頁
+- [v] 初始化，從 Spotify 取得 token
+- [ ] 初始化，從 Spotify 取得帳戶資訊
+- [ ] 初始化，從 Server 取得使用者資訊以及 token
+- [ ] 初始化，從 Server 取得使用者建立的分類
 - [ ] 初始化的過程中，顯示載入中的 UI v
 - [ ] 初始化完成後，導至 **`播放主頁`** v
 

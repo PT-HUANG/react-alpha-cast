@@ -3,9 +3,9 @@ import Navbar from "./Navbar"
 import Main from "./Main"
 import UserInfo from "./UserInfo"
 import Player from "./Player"
-import EditModal from "./EditModal"
-import DeleteModal from "./DeleteModal"
+import EditModal from "./Modal/EditModal"
+import DeleteModal from "./Modal/DeleteModal"
+import CreateModal from "./Modal/CreateModal";
 import AddCategory from "./AddCategory";
-import CreateModal from "./CreateModal";
 
 export { FeatureSlide, Navbar, Main, UserInfo, Player, EditModal, DeleteModal, AddCategory, CreateModal };
