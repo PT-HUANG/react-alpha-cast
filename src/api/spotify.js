@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const clientId = "e45b9aa8bed142158c16baceb64f9f43";
 const redirectUrl = "http://localhost:3000/login";
 
@@ -145,3 +147,21 @@ export async function logoutClick() {
 //   const token = await refreshToken();
 //   currentToken.save(token);
 // }
+
+// 在每次發送API前都做這個檢查
+export async function isTokenValid() {
+  try {
+    // 確認是否可以發送請求
+    await axios.get("https://api.spotify.com/v1/me", {
+      headers: {
+        Authorization: "Bearer " + currentToken.access_token,
+      },
+    });
+  } catch (error) {
+    if (error.status === 401) {
+      // 這邊是前面有宣告更新token的方法
+      const token = await refreshToken();
+      currentToken.save(token);
+    }
+  }
+}
