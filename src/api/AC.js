@@ -1,17 +1,17 @@
 import axios from "axios";
-const baseURL = "https://spotify-backend.alphacamp.io/"
+const baseURL = "https://spotify-backend.alphacamp.io";
 
 export const getUserInfo = async () => {};
 
 export const getNewToken = async () => {
-  const spotifyToken = localStorage.getItem("access_token")
+  const spotifyToken = localStorage.getItem("access_token");
   try {
-    const {data} = await axios.post(`${baseURL}api/users`, {
-      spotifyToken
-    })
-    return data
+    const { data } = await axios.post(`${baseURL}/api/users`, {
+      spotifyToken,
+    });
+    return data;
   } catch (error) {
-    console.error('[Login failed]: ', error)
+    console.error("[Login failed]: ", error);
   }
 };
 

@@ -55,10 +55,6 @@ function Welcome() {
             <i className="fa-solid fa-right-to-bracket"></i>
             <span>開始體驗</span>
           </a>
-          <a className="home_link" href="/home">
-            <i className="fa-solid fa-house"></i>
-            <span href="/home">主畫面</span>
-          </a>
         </div>
       </WelcomeWrapper>
     </WelcomeContainer>

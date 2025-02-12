@@ -6,17 +6,16 @@ import { useAuth } from "../context/AuthContext";
 
 export default function Home() {
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     async function handleHomePage() {
-      if (!isAuthenticated) {
+      const result = await isTokenValid();
+      if (!result) {
         navigate("/login");
       }
-      isTokenValid();
     }
     handleHomePage();
-  }, [navigate]);
+  });
 
   return (
     <div className="home_container">

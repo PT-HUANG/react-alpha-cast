@@ -31,10 +31,10 @@ export const AuthProvider = ({ children }) => {
           setPayload({ display_name, images });
         },
         login: async () => {
-          const { id, favoriteEpisodeIds, apiToken } = await getNewToken();
+          const { id, favoriteEpisodeIds, token } = await getNewToken();
           setPayload({ ...payload, id, favoriteEpisodeIds });
           setIsAuthenticated(true);
-          localStorage.setItem("apiToken", apiToken);
+          localStorage.setItem("apiToken", token);
         },
         logout: async () => {
           await logoutClick();
