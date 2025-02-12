@@ -1,7 +1,9 @@
 import { FeatureSlide } from "../components";
-import { loginWithSpotifyClick } from "../api/spotify";
+import { loginWithSpotifyClick } from "../api/Spotify";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { isTokenValid } from "../api/Spotify";
+import { useAuth } from "../context/AuthContext";
 
 // image
 import ac_logo from "../assets/images/login_logo.png";
@@ -12,29 +14,30 @@ import "slick-carousel/slick/slick-theme.css";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [isVerified, setIsVerified] = useState(false);
+  const { isAuthenticated, getProfile, login } = useAuth();
 
   useEffect(() => {
-    const getSpotifyToken = async () => {
-      const access_token = localStorage.getItem("access_token");
-      if (access_token) {
-        setIsVerified(true);
-        setTimeout(() => {
-          navigate("/home");
-        }, 4000);
-      } else setIsVerified(false);
-    };
-
-    getSpotifyToken();
+    async function handleLogin() {
+      const validity = await isTokenValid();
+      if (!validity) {
+        return;
+      }
+      await getProfile();
+      await login();
+      setTimeout(() => {
+        navigate("/home");
+      }, 3000);
+    }
+    handleLogin();
   }, [navigate]);
 
   return (
     <div
       className={
-        isVerified ? "loginPage_container disabled" : "loginPage_container"
+        isAuthenticated ? "loginPage_container disabled" : "loginPage_container"
       }
     >
-      {isVerified ? (
+      {isAuthenticated ? (
         <div className="loading_container">
           <div className="loader"></div>
         </div>

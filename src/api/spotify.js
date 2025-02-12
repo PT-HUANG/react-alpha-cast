@@ -124,13 +124,22 @@ async function refreshToken() {
   return await response.json();
 }
 
-async function getUserData() {
-  const response = await fetch("https://api.spotify.com/v1/me", {
-    method: "GET",
-    headers: { Authorization: "Bearer " + currentToken.access_token },
-  });
+// export async function getUserData() {
+//   const response = await fetch("https://api.spotify.com/v1/me", {
+//     method: "GET",
+//     headers: { Authorization: "Bearer " + currentToken.access_token },
+//   });
 
-  return await response.json();
+//   return await response.json();
+// }
+
+export async function getProfile() {
+  const { data } = await axios.get("https://api.spotify.com/v1/me", {
+    headers: {
+      Authorization: "Bearer " + currentToken.access_token,
+    },
+  });
+  return data
 }
 
 // Click handlers
@@ -143,25 +152,30 @@ export async function logoutClick() {
   window.location.href = redirectUrl;
 }
 
-// async function refreshTokenClick() {
-//   const token = await refreshToken();
-//   currentToken.save(token);
-// }
+export async function refreshTokenClick() {
+  const token = await refreshToken();
+  currentToken.save(token);
+}
 
-// 在每次發送API前都做這個檢查
+// 在每次發送Spotify API前都做這個檢查
 export async function isTokenValid() {
+  if(!currentToken.access_token) {
+    return false
+  }
   try {
-    // 確認是否可以發送請求
     await axios.get("https://api.spotify.com/v1/me", {
       headers: {
         Authorization: "Bearer " + currentToken.access_token,
       },
     });
+    console.log("Valid")
+    return true
   } catch (error) {
     if (error.status === 401) {
-      // 這邊是前面有宣告更新token的方法
       const token = await refreshToken();
       currentToken.save(token);
+      console.log("Refreshed")
+      return true
     }
   }
 }

@@ -1,31 +1,27 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Navbar, Main } from "../components";
-import axios from "axios";
+import { isTokenValid } from "../api/Spotify";
+import { useAuth } from "../context/AuthContext";
 
 export default function Home() {
-  const [userData, setUserData] = useState({});
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
-    let accessToken = localStorage.getItem("access_token");
-    async function getProfile(accessToken) {
-      const { data } = await axios.get("https://api.spotify.com/v1/me", {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-        },
-      });
-      console.log(data);
-      setUserData(data);
+    async function handleHomePage() {
+      if (!isAuthenticated) {
+        navigate("/login");
+      }
+      isTokenValid();
     }
-
-    getProfile(accessToken);
+    handleHomePage();
   }, [navigate]);
 
   return (
     <div className="home_container">
       <Navbar className="navbar" />
-      <Main className="main" userData={userData} />
+      <Main className="main" />
     </div>
   );
 }

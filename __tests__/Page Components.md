@@ -15,11 +15,12 @@
 
 - [v] 完成 Spotify 授權流程後，由 Spotify 導至 Callback 頁
 - [v] 初始化，從 Spotify 取得 token
-- [ ] 初始化，從 Spotify 取得帳戶資訊
-- [ ] 初始化，從 Server 取得使用者資訊以及 token
-- [ ] 初始化，從 Server 取得使用者建立的分類
-- [ ] 初始化的過程中，顯示載入中的 UI v
-- [ ] 初始化完成後，導至 **`播放主頁`** v
+- [v] 初始化，從 Spotify 取得帳戶資訊(Spotify username和大頭貼)
+- [v] 初始化，從 Server 取得使用者資訊以及 token
+- [v] 初始化，從 Server 取得使用者建立的分類
+- [V] 初始化的過程中，顯示載入中的 UI
+- [V] 初始化完成後，導至 **`播放主頁`**
+
 
 ---
 
