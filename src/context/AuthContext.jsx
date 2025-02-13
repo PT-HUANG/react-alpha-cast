@@ -1,5 +1,5 @@
 import { useState, useContext, createContext } from "react";
-import { getNewToken } from "../api/AC";
+import { getUserInfo, getNewToken } from "../api/AC";
 import { getProfile, logoutClick } from "../api/Spotify";
 
 const defaultAuthContext = {
@@ -14,32 +14,27 @@ const AuthContext = createContext(defaultAuthContext);
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [payload, setPayload] = useState(null);
+  const [currentMember, setCurrentMember] = useState({});
 
   return (
     <AuthContext.Provider
       value={{
         isAuthenticated,
-        currentMember: payload && {
-          display_name: payload.display_name,
-          images: payload.images,
-          id: payload.id,
-          favoriteEpisodeIds: payload.favoriteEpisodeIds,
-        },
+        currentMember,
         getProfile: async () => {
           const { display_name, images } = await getProfile();
-          setPayload({ display_name, images });
+          const { id, favoriteEpisodeIds } = await getUserInfo();
+          setCurrentMember({ display_name, images, id, favoriteEpisodeIds });
         },
         login: async () => {
-          const { id, favoriteEpisodeIds, token } = await getNewToken();
-          setPayload({ ...payload, id, favoriteEpisodeIds });
+          const { token } = await getNewToken();
           setIsAuthenticated(true);
           localStorage.setItem("apiToken", token);
         },
         logout: async () => {
           await logoutClick();
           localStorage.removeItem("apiToken");
-          setPayload(null);
+          setCurrentMember(null);
           setIsAuthenticated(false);
         },
       }}

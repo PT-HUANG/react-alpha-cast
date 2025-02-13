@@ -6,6 +6,7 @@ import { useAuth } from "../context/AuthContext";
 
 export default function Home() {
   const navigate = useNavigate();
+  const { getProfile } = useAuth();
 
   useEffect(() => {
     async function handleHomePage() {
@@ -13,9 +14,10 @@ export default function Home() {
       if (!result) {
         navigate("/login");
       }
+      getProfile();
     }
     handleHomePage();
-  });
+  }, []);
 
   return (
     <div className="home_container">

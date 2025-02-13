@@ -168,13 +168,12 @@ export async function isTokenValid() {
         Authorization: "Bearer " + currentToken.access_token,
       },
     });
-    console.log("Valid")
     return true
   } catch (error) {
     if (error.status === 401) {
       const token = await refreshToken();
       currentToken.save(token);
-      console.log("Refreshed")
+      console.log("Spotiy Token Refreshed")
       return true
     }
   }

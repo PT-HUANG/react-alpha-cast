@@ -386,6 +386,7 @@ hr {
 
 // ======> Home Page <======
 .home_container {
+  position: relative;
   max-width: 1440px;
   margin: 0 auto;
   background-color: #ececec;
@@ -553,10 +554,12 @@ hr {
   border-radius: 8px;
 }
 
-.deleteContent {
+.deleteContent, .logoutContent {
   width: 95%;
   margin: 1rem auto 5rem auto;
   padding: 1rem;
+  padding-left: 1.5rem;
+  font-size: 1.2rem;
 }
 
 .modal-footer {
@@ -578,6 +581,41 @@ hr {
   --bs-btn-hover-bg: #f35921;
   --bs-btn-active-color: #fff;
   --bs-btn-active-bg: #f35921;
+}
+
+.userinfo {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 184px;
+  height: 48px;
+  background-color: #FAFAFA;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.avatar {
+  border-radius: 25px;
+}
+
+.account {
+  margin: 0 0.5rem;
+}
+
+.click-disabled {
+  pointer-events: none;
+}
+
+.logout {
+  top: 130%;
+  left: 0%;
+}
+
+.logout li {
+  padding: 10px 20px;
 }
 
 // ======> Home Page <======

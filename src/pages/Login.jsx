@@ -14,7 +14,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 export default function Login() {
   const navigate = useNavigate();
-  const { isAuthenticated, getProfile, login } = useAuth();
+  const { isAuthenticated, login } = useAuth();
 
   useEffect(() => {
     async function handleLogin() {
@@ -22,7 +22,6 @@ export default function Login() {
       if (!validity) {
         return;
       }
-      await getProfile();
       await login();
       setTimeout(() => {
         navigate("/home");

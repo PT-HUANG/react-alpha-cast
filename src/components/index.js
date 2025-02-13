@@ -6,6 +6,7 @@ import Player from "./Player"
 import EditModal from "./Modal/EditModal"
 import DeleteModal from "./Modal/DeleteModal"
 import CreateModal from "./Modal/CreateModal";
+import LogoutModal from "./Modal/LogoutModal"
 import AddCategory from "./AddCategory";
 
-export { FeatureSlide, Navbar, Main, UserInfo, Player, EditModal, DeleteModal, AddCategory, CreateModal };
+export { FeatureSlide, Navbar, Main, UserInfo, Player, EditModal, DeleteModal, CreateModal, LogoutModal, AddCategory };
