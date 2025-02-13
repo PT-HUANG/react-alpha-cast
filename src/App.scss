@@ -618,4 +618,26 @@ hr {
   padding: 10px 20px;
 }
 
+.player_container {
+  position: absolute;
+  top: 12.5%;
+  left: 69%;
+  width: 26.4%;
+  height: 43%;
+  background-color: #fff;
+  padding: 1rem 2rem;
+  border-radius: 16px;
+  box-shadow: 16px 16px 40px 0px #C7C7C73D;
+}
+
+.player_title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #1A202C;
+}
+
+.player_hr {
+  height: 2px;
+  background-color: #c3c8ce;
+}
 // ======> Home Page <======
