@@ -19,7 +19,10 @@ const defaultUserContext = {
 const UserContext = createContext(defaultUserContext);
 
 export const UserProvider = ({ children }) => {
-  const [userInfo, setUserInfo] = useState({});
+  const [userInfo, setUserInfo] = useState({
+    categories: [],
+    favorites: { favoriteEpisodeIds: [], isSelected: false },
+  });
 
   return (
     <UserContext.Provider
@@ -32,7 +35,7 @@ export const UserProvider = ({ children }) => {
             JSON.parse(localStorage.getItem("categoryEmojis")) || {};
           const nextCategories = categories.map((c) => ({
             ...c,
-            emoji: savedEmojis[c.id] || "🔰", // 如果有存過 emoji，就用存的，否則用預設值
+            emoji: savedEmojis[c.id] || "🔰",
             isSelected: false,
           }));
 
