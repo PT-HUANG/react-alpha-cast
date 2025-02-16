@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { EditModal, DeleteModal } from "../components";
+import { useUser } from "../Context/UserContext";
 
 const StyledCategoryContainer = styled.div`
   background-color: ${(props) => (props.$isSelected ? "#111111" : "#F6F7F8")};
@@ -15,20 +16,13 @@ const StyledOption = styled.div`
   color: ${(props) => (props.$isSelected ? "#FFFFFF" : "#71809680")};
 `;
 
-function Category({
-  id,
-  emoji,
-  content,
-  isSelected,
-  onSelect,
-  onSave,
-  onDelete,
-}) {
+function Category({ id, emoji, name, isSelected }) {
   const [isVisible, setIsVisible] = useState(false);
   const [modalStatus, setModalStatus] = useState({
     edit: false,
     delete: false,
   });
+  const { selectCategory } = useUser();
 
   function handleToggleOption() {
     setIsVisible(!isVisible);
@@ -60,12 +54,12 @@ function Category({
     <StyledCategoryContainer
       className="category"
       $isSelected={isSelected}
-      onClick={() => onSelect(id)}
+      onClick={() => selectCategory(id)}
     >
       <div className="category_title">
         <span className="category_emoji">{emoji}</span>
         <StyledContent className="category_content" $isSelected={isSelected}>
-          {content}
+          {name}
         </StyledContent>
       </div>
       <StyledOption
@@ -87,8 +81,7 @@ function Category({
         show={modalStatus.edit}
         onHide={() => handleClose("edit")}
         emoji={emoji}
-        content={content}
-        onSave={onSave}
+        name={name}
       />
       <DeleteModal
         id={id}
@@ -96,8 +89,7 @@ function Category({
         onHide={() => handleClose("delete")}
         title="刪除分類"
         emoji={emoji}
-        content={content}
-        onDelete={onDelete}
+        name={name}
       />
     </StyledCategoryContainer>
   );

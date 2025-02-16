@@ -1,29 +1,27 @@
 import { useState, useRef } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { useUser } from "../../Context/UserContext";
 
-function CreateModal({ show, onHide, onCreate }) {
+function CreateModal({ show, onHide }) {
   const [currentInputValue, setCurrentInputValue] = useState("");
   const inputRef = useRef(null);
+  const { createCategory } = useUser();
 
   function handleInputChange(e) {
     setCurrentInputValue(e.target.value);
   }
   function handleSave() {
     if (currentInputValue) {
-      const newId = Math.floor(Math.random() * (10000 - 100 + 1)) + 100;
-      onCreate(newId, currentInputValue);
+      createCategory(currentInputValue);
       onHide();
     }
   }
 
   function handleKeyDown(e) {
     if (currentInputValue && e.key === "Enter") {
-      const newId = Math.floor(Math.random() * (10000 - 100 + 1)) + 100;
-      setTimeout(() => {
-        onCreate(newId, currentInputValue);
-        onHide();
-      }, 0);
+      createCategory(currentInputValue);
+      onHide();
     }
   }
 

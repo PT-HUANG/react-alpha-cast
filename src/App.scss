@@ -554,7 +554,8 @@ hr {
   border-radius: 8px;
 }
 
-.deleteContent, .logoutContent {
+.deleteContent,
+.logoutContent {
   width: 95%;
   margin: 1rem auto 5rem auto;
   padding: 1rem;
@@ -592,7 +593,7 @@ hr {
   justify-content: center;
   width: 184px;
   height: 48px;
-  background-color: #FAFAFA;
+  background-color: #fafafa;
   border-radius: 25px;
   cursor: pointer;
 }
@@ -620,20 +621,20 @@ hr {
 
 .player_container {
   position: absolute;
-  top: 12.5%;
+  top: 22.5%;
   left: 69%;
   width: 26.4%;
   height: 43%;
   background-color: #fff;
   padding: 1rem 2rem;
   border-radius: 16px;
-  box-shadow: 16px 16px 40px 0px #C7C7C73D;
+  box-shadow: 16px 16px 40px 0px #c7c7c73d;
 }
 
 .player_title {
   font-size: 1.5rem;
   font-weight: 500;
-  color: #1A202C;
+  color: #1a202c;
 }
 
 .player_hr {

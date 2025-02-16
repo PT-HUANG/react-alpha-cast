@@ -2,25 +2,27 @@ import { useState, useRef, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import EmojiPicker from "emoji-picker-react";
+import { useUser } from "../../Context/UserContext";
 
-function EditModal({ id, show, onHide, emoji, content, onSave }) {
-  const [currentInputValue, setCurrentInputValue] = useState(content);
+function EditModal({ id, name, emoji, show, onHide }) {
+  const [currentInputValue, setCurrentInputValue] = useState(name);
   const [isOpen, setEmojiOpen] = useState(false);
   const [currentEmoji, setCurrentEmoji] = useState(emoji);
   const inputRef = useRef(null);
+  const { editCategory } = useUser();
 
   function handleInputChange(e) {
     setCurrentInputValue(e.target.value);
   }
   function handleKeyDown(e) {
     if (currentInputValue && e.key === "Enter") {
-      onSave(currentInputValue, id, currentEmoji);
+      editCategory(id, currentInputValue, currentEmoji);
       onHide();
     }
   }
   function handleSave() {
     if (currentInputValue) {
-      onSave(currentInputValue, id, currentEmoji);
+      editCategory(id, currentInputValue, currentEmoji);
       onHide();
     }
   }
@@ -66,7 +68,8 @@ function EditModal({ id, show, onHide, emoji, content, onSave }) {
         <input
           type="text"
           className="editInput"
-          defaultValue={content}
+          placeholder="請輸入分類名稱"
+          defaultValue={name}
           ref={inputRef}
           key="changeTitle"
           onChange={handleInputChange}

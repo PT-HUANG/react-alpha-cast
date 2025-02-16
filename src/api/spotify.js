@@ -139,7 +139,7 @@ export async function getProfile() {
       Authorization: "Bearer " + currentToken.access_token,
     },
   });
-  return data
+  return data;
 }
 
 // Click handlers
@@ -159,8 +159,8 @@ export async function refreshTokenClick() {
 
 // 在每次發送Spotify API前都做這個檢查
 export async function isTokenValid() {
-  if(!currentToken.access_token) {
-    return false
+  if (!currentToken.access_token) {
+    return false;
   }
   try {
     await axios.get("https://api.spotify.com/v1/me", {
@@ -168,13 +168,15 @@ export async function isTokenValid() {
         Authorization: "Bearer " + currentToken.access_token,
       },
     });
-    return true
+    return true;
   } catch (error) {
     if (error.status === 401) {
       const token = await refreshToken();
       currentToken.save(token);
-      console.log("Spotiy Token Refreshed")
-      return true
+      console.log("Spotiy Token Refreshed");
+      return true;
+    } else {
+      logoutClick();
     }
   }
 }

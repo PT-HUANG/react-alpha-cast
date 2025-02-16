@@ -1,9 +1,12 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { useUser } from "../../Context/UserContext";
 
-function EditModal({ id, show, onHide, emoji, content, onDelete }) {
+function EditModal({ id, show, onHide, emoji, name }) {
+  const { deleteCategory } = useUser();
+
   function handleDelete() {
-    onDelete(id);
+    deleteCategory(id);
     onHide();
   }
 
@@ -13,7 +16,7 @@ function EditModal({ id, show, onHide, emoji, content, onDelete }) {
         <Modal.Title>刪除分類</Modal.Title>
       </Modal.Header>
       <div className="deleteContent">
-        {`您確定要繼續刪除 ${emoji} ${content} 分類嗎?`}
+        {`您確定要繼續刪除 ${emoji} ${name} 分類嗎?`}
       </div>
       <Modal.Footer>
         <Button variant="light" className="btn-cancel" onClick={onHide}>

@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { Navbar, Main } from "../components";
 import { isTokenValid } from "../api/Spotify";
 import { useAuth } from "../context/AuthContext";
+// import { useUser } from "../Context/UserContext";
 
 export default function Home() {
   const navigate = useNavigate();
-  const { getProfile } = useAuth();
+  const { currentMember, getProfile } = useAuth();
+  // const { userInfo, getCategories } = useUser();
 
   useEffect(() => {
     async function handleHomePage() {
@@ -14,10 +16,10 @@ export default function Home() {
       if (!result) {
         navigate("/login");
       }
-      getProfile();
+      await getProfile();
     }
     handleHomePage();
-  }, []);
+  }, [navigate]);
 
   return (
     <div className="home_container">
