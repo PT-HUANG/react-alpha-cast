@@ -48,7 +48,7 @@ export const createCategory = async (name) => {
   try {
     const { data } = await axios.post(
       `${baseURL}/api/categories`,
-      { name: name },
+      { name: `🔰${name}` },
       {
         headers: {
           Authorization: "Bearer " + apiToken,

@@ -21,7 +21,8 @@ const UserContext = createContext(defaultUserContext);
 export const UserProvider = ({ children }) => {
   const [userInfo, setUserInfo] = useState({
     categories: [],
-    favorites: { favoriteEpisodeIds: [], isSelected: false },
+    favorites: { name: "已收藏", favoriteEpisodeIds: [], isSelected: false },
+    toShow: {},
   });
 
   return (
@@ -31,18 +32,44 @@ export const UserProvider = ({ children }) => {
         getCategories: async () => {
           const { categories } = await getCategories();
           const { favoriteEpisodeIds } = await getUserInfo();
-          const savedEmojis =
-            JSON.parse(localStorage.getItem("categoryEmojis")) || {};
-          const nextCategories = categories.map((c) => ({
-            ...c,
-            emoji: savedEmojis[c.id] || "🔰",
-            isSelected: false,
-          }));
 
-          setUserInfo({
-            categories: nextCategories,
-            favorites: { favoriteEpisodeIds, isSelected: false },
-          });
+          const defaultCategories = [
+            "通勤清單",
+            "學習清單",
+            "睡前清單",
+            "我的Podcast",
+          ];
+
+          const handleCategories = (categories) => {
+            categories.sort((a, b) => {
+              return Number(a.id) - Number(b.id);
+            });
+
+            setUserInfo({
+              ...userInfo,
+              categories: categories.map((c) => ({
+                ...c,
+                name: c.name.slice(2),
+                emoji: c.name.slice(0, 2),
+                isSelected: false,
+              })),
+              favorites: {
+                name: "已收藏",
+                favoriteEpisodeIds,
+                isSelected: false,
+              },
+            });
+          };
+
+          if (categories.length === 0) {
+            for (const category of defaultCategories) {
+              await createCategory(category);
+            }
+            const { categories } = await getCategories();
+            handleCategories(categories);
+          } else {
+            handleCategories(categories);
+          }
         },
         createCategory: async (name) => {
           await createCategory(name);
@@ -50,9 +77,13 @@ export const UserProvider = ({ children }) => {
           const newCategory = categories.reduce((latest, current) => {
             return Number(current.id) > Number(latest.id) ? current : latest;
           });
+          const newName = newCategory.name.slice(2);
+          const newEmoji = newCategory.name.slice(0, 1);
+
           const formattedCategory = {
             ...newCategory,
-            emoji: "🔰",
+            name: newName,
+            emoji: newEmoji,
             isSelected: false,
           };
           setUserInfo({
@@ -70,6 +101,7 @@ export const UserProvider = ({ children }) => {
               ...userInfo,
               categories: nextCategories,
               favorites: nextFavorites,
+              toShow: nextFavorites,
             });
           } else {
             const nextCategories = userInfo.categories.map((c) => {
@@ -78,19 +110,20 @@ export const UserProvider = ({ children }) => {
               } else return { ...c, isSelected: false };
             });
             const nextFavorites = { ...userInfo.favorites, isSelected: false };
+            const showInfo = nextCategories.filter(
+              (c) => c.isSelected === true
+            );
             setUserInfo({
               ...userInfo,
               categories: nextCategories,
               favorites: nextFavorites,
+              toShow: showInfo,
             });
           }
         },
         editCategory: async (id, newTitle, emoji) => {
-          await updateCategoryName(id, newTitle);
-          const savedEmojis =
-            JSON.parse(localStorage.getItem("categoryEmojis")) || {};
-          savedEmojis[id] = emoji;
-          localStorage.setItem("categoryEmojis", JSON.stringify(savedEmojis));
+          const updateName = emoji + newTitle;
+          await updateCategoryName(id, updateName);
           const nextCategories = userInfo.categories.map((c) =>
             c.id === id ? { ...c, name: newTitle, emoji } : c
           );

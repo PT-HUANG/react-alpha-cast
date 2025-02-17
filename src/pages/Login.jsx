@@ -1,7 +1,7 @@
 import { FeatureSlide } from "../components";
 import { loginWithSpotifyClick } from "../api/Spotify";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { isTokenValid } from "../api/Spotify";
 import { useAuth } from "../context/AuthContext";
 
@@ -25,7 +25,7 @@ export default function Login() {
       await login();
       setTimeout(() => {
         navigate("/home");
-      }, 3000);
+      }, 500);
     }
     handleLogin();
   }, [navigate]);
