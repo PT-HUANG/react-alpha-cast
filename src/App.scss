@@ -647,15 +647,46 @@ hr {
   height: 3.5rem;
 }
 
-.modal.fade .search_modal{
+.modal.fade .search_modal {
+  transform: translate(0, 0%);
+}
+
+.modal.show .search_modal {
   transform: translate(0, 10%);
 }
 
-.modal.show .search_modal{
-  transform: translate(0, 20%);
+.search_modal {
+  max-width: 45%;
 }
 
-.search_modal {
-  max-width: 45%; 
+.search_title {
+  padding-left: 1rem;
+}
+
+.search_icon {
+  font-size: 1.2rem;
+  position: absolute;
+  top: 24%;
+  left: 9%;
+  color: #acadb9;
+  cursor: pointer;
+}
+
+.search_icon:hover {
+  color: #000;
+}
+
+.searchInput {
+  width: 90%;
+  margin: 1rem auto 12rem auto;
+  padding: 1rem;
+  padding-left: 3rem;
+  background-color: #f2f0f0;
+  border: none;
+  border-radius: 8px;
+}
+
+.searchInput::placeholder {
+  color: #acadb9;
 }
 // ======> Home Page <======
