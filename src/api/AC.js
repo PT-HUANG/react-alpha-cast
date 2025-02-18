@@ -43,12 +43,13 @@ export const getCategories = async () => {
     console.error("[Get categories failed]: ", error);
   }
 };
-export const createCategory = async (name) => {
+export const createCategory = async (name, isDefault) => {
   const apiToken = localStorage.getItem("apiToken");
+  const categoryName = isDefault? name : `🔰${name}`
   try {
     const { data } = await axios.post(
       `${baseURL}/api/categories`,
-      { name: `🔰${name}` },
+      { name: categoryName },
       {
         headers: {
           Authorization: "Bearer " + apiToken,

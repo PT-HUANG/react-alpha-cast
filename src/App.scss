@@ -641,4 +641,21 @@ hr {
   height: 2px;
   background-color: #c3c8ce;
 }
+
+.empty_icon {
+  width: 3.5rem;
+  height: 3.5rem;
+}
+
+.modal.fade .search_modal{
+  transform: translate(0, 10%);
+}
+
+.modal.show .search_modal{
+  transform: translate(0, 20%);
+}
+
+.search_modal {
+  max-width: 45%; 
+}
 // ======> Home Page <======

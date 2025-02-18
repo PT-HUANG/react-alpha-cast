@@ -18,8 +18,6 @@ function Favorites() {
       $isSelected={userInfo.favorites.isSelected}
       onClick={() => {
         selectCategory("favorites");
-        // debug用
-        console.log(userInfo);
       }}
     >
       <div className="category_title">

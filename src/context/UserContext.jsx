@@ -34,11 +34,13 @@ export const UserProvider = ({ children }) => {
           const { favoriteEpisodeIds } = await getUserInfo();
 
           const defaultCategories = [
-            "通勤清單",
-            "學習清單",
-            "睡前清單",
-            "我的Podcast",
+            "🚌通勤清單",
+            "📚學習清單",
+            "💤睡前清單",
+            "🏘️我的Podcast",
           ];
+
+          const lastSelectedId = localStorage.getItem("selectedCategoryId");
 
           const handleCategories = (categories) => {
             categories.sort((a, b) => {
@@ -47,28 +49,37 @@ export const UserProvider = ({ children }) => {
 
             setUserInfo({
               ...userInfo,
-              categories: categories.map((c) => ({
-                ...c,
-                name: c.name.slice(2),
-                emoji: c.name.slice(0, 2),
-                isSelected: false,
-              })),
+              categories: categories.map((c, id) => {
+                return {
+                  ...c,
+                  name: c.name.slice(2),
+                  emoji: c.name.slice(0, 2),
+                  isSelected:
+                    c.id === lastSelectedId || (id === 0 && !lastSelectedId),
+                };
+              }),
               favorites: {
                 name: "已收藏",
                 favoriteEpisodeIds,
                 isSelected: false,
               },
+              toShow: categories.find(
+                (c, id) =>
+                  c.id === lastSelectedId || (id === 0 && !lastSelectedId)
+              ),
             });
           };
 
           if (categories.length === 0) {
+            const isDefault = true;
             for (const category of defaultCategories) {
-              await createCategory(category);
+              await createCategory(category, isDefault);
             }
             const { categories } = await getCategories();
             handleCategories(categories);
           } else {
-            handleCategories(categories);
+            const isDefault = false;
+            handleCategories(categories, isDefault);
           }
         },
         createCategory: async (name) => {
@@ -78,7 +89,7 @@ export const UserProvider = ({ children }) => {
             return Number(current.id) > Number(latest.id) ? current : latest;
           });
           const newName = newCategory.name.slice(2);
-          const newEmoji = newCategory.name.slice(0, 1);
+          const newEmoji = newCategory.name.slice(0, 2);
 
           const formattedCategory = {
             ...newCategory,
@@ -92,6 +103,8 @@ export const UserProvider = ({ children }) => {
           });
         },
         selectCategory: (id) => {
+          localStorage.setItem("selectedCategoryId", id);
+
           if (id === "favorites") {
             const nextCategories = userInfo.categories.map((c) => {
               return { ...c, isSelected: false };
@@ -110,9 +123,7 @@ export const UserProvider = ({ children }) => {
               } else return { ...c, isSelected: false };
             });
             const nextFavorites = { ...userInfo.favorites, isSelected: false };
-            const showInfo = nextCategories.filter(
-              (c) => c.isSelected === true
-            );
+            const showInfo = nextCategories.find((c) => c.isSelected === true);
             setUserInfo({
               ...userInfo,
               categories: nextCategories,

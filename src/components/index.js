@@ -10,6 +10,8 @@ import LogoutModal from "./Modal/LogoutModal";
 import AddCategory from "./AddCategory";
 import Favorites from "./Favorites";
 import Category from "./Category";
+import DefaultStatus from "./DefaultStatus";
+import SearchModal from "./Modal/SearchModal";
 
 export {
   FeatureSlide,
@@ -24,4 +26,6 @@ export {
   AddCategory,
   Category,
   Favorites,
+  DefaultStatus,
+  SearchModal,
 };

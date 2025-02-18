@@ -1,14 +1,12 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Navbar, Main } from "../components";
 import { isTokenValid } from "../api/Spotify";
 import { useAuth } from "../context/AuthContext";
-// import { useUser } from "../Context/UserContext";
 
 export default function Home() {
   const navigate = useNavigate();
-  const { currentMember, getProfile } = useAuth();
-  // const { userInfo, getCategories } = useUser();
+  const { getProfile } = useAuth();
 
   useEffect(() => {
     async function handleHomePage() {
