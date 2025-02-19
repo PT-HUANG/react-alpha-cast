@@ -12,6 +12,7 @@ import Favorites from "./Favorites";
 import Category from "./Category";
 import DefaultStatus from "./DefaultStatus";
 import SearchModal from "./Modal/SearchModal";
+import PodcastCard from "./PodcastCard";
 
 export {
   FeatureSlide,
@@ -28,4 +29,5 @@ export {
   Favorites,
   DefaultStatus,
   SearchModal,
+  PodcastCard,
 };

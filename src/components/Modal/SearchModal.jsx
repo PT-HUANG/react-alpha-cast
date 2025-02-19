@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { searchPodcast } from "../../api/spotify";
+import { PodcastCard } from "../../components";
 
 function SearchModal({ id, show, onHide }) {
   const [currentInputValue, setCurrentInputValue] = useState("");
@@ -39,21 +40,26 @@ function SearchModal({ id, show, onHide }) {
       <Modal.Header closeButton>
         <Modal.Title className="search_title">新增 Podcast</Modal.Title>
       </Modal.Header>
-      <i className="fa-solid fa-magnifying-glass search_icon"></i>
-      <input
-        type="text"
-        className="searchInput"
-        placeholder="開始搜尋..."
-        ref={inputRef}
-        key="changeTitle"
-        onChange={handleInputChange}
-        onKeyDown={handleKeyDown}
-      ></input>
-      {podcasts
-        ? podcasts.map((p) => {
-            return <div key={p.id}>{p.name}</div>;
-          })
-        : ""}
+      <div className="searchbar">
+        <i className="fa-solid fa-magnifying-glass search_icon"></i>
+        <input
+          type="text"
+          className="searchInput"
+          placeholder="開始搜尋..."
+          ref={inputRef}
+          key="changeTitle"
+          onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
+        ></input>
+        {podcasts.length !== 0 && <div className="result_title">搜尋結果</div>}
+      </div>
+      <div className="result_container">
+        {podcasts
+          ? podcasts.map((p) => {
+              return <PodcastCard key={id} info={p} />;
+            })
+          : ""}
+      </div>
       <Modal.Footer>
         <Button variant="light" className="btn-cancel" onClick={onHide}>
           取消

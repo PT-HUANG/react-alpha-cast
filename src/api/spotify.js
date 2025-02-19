@@ -181,11 +181,28 @@ export async function isTokenValid() {
   }
 }
 
+// export async function searchPodcast(str) {
+//   try {
+//     const queryStr = encodeURIComponent(str);
+//     const { data } = await axios.get(
+//       `https://api.spotify.com/v1/search?q=${queryStr}&type=show&limit=16&include_external=audio`,
+//       {
+//         headers: {
+//           Authorization: "Bearer " + currentToken.access_token,
+//         },
+//       }
+//     );
+//     return data;
+//   } catch (error) {
+//     console.error("[Search failed]: ", error);
+//   }
+// }
+
 export async function searchPodcast(str) {
   try {
     const queryStr = encodeURIComponent(str);
     const { data } = await axios.get(
-      `https://api.spotify.com/v1/search?q=${queryStr}&type=show&limit=16&include_external=audio`,
+      `https://api.spotify.com/v1/search?q=${queryStr}&type=show&limit=1&include_external=audio`,
       {
         headers: {
           Authorization: "Bearer " + currentToken.access_token,
