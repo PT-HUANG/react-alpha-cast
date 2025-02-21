@@ -82,7 +82,9 @@ function EditModal({ id, name, emoji, show, onHide }) {
         </Button>
         <Button
           variant="primary"
-          className="btn-save"
+          className={
+            currentInputValue.length ? "btn-save" : "btn-save disabled"
+          }
           onClick={(e) => {
             e.stopPropagation();
             handleSave();

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { EditModal, DeleteModal } from "../components";
+import { EditModal, DeleteModal, SearchModal } from "../components";
 import { useUser } from "../Context/UserContext";
 
 const StyledCategoryContainer = styled.div`
@@ -21,6 +21,7 @@ function Category({ id, emoji, name, isSelected }) {
   const [modalStatus, setModalStatus] = useState({
     edit: false,
     delete: false,
+    search: false,
   });
   const { selectCategory } = useUser();
 
@@ -72,7 +73,7 @@ function Category({ id, emoji, name, isSelected }) {
           <ul className="dropdown">
             <li onClick={() => handleShow("edit")}>編輯名稱</li>
             <li onClick={() => handleShow("delete")}>刪除分類</li>
-            <li>新增 Podcast</li>
+            <li onClick={() => handleShow("search")}>新增 Podcast</li>
           </ul>
         ) : null}
       </StyledOption>
@@ -90,6 +91,11 @@ function Category({ id, emoji, name, isSelected }) {
         title="刪除分類"
         emoji={emoji}
         name={name}
+      />
+      <SearchModal
+        id={id}
+        show={modalStatus.search}
+        onHide={() => handleClose("search")}
       />
     </StyledCategoryContainer>
   );

@@ -202,7 +202,7 @@ export async function searchPodcast(str) {
   try {
     const queryStr = encodeURIComponent(str);
     const { data } = await axios.get(
-      `https://api.spotify.com/v1/search?q=${queryStr}&type=show&limit=1&include_external=audio`,
+      `https://api.spotify.com/v1/search?q=${queryStr}&type=show&limit=12&include_external=audio`,
       {
         headers: {
           Authorization: "Bearer " + currentToken.access_token,
