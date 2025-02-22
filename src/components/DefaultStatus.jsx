@@ -32,7 +32,7 @@ const StyledButton = styled.div`
   }
 `;
 
-function DefaultStatus({ id }) {
+function DefaultStatus({ categoryId }) {
   const [modalStatus, setModalStatus] = useState(false);
 
   const handleClose = () => {
@@ -50,7 +50,11 @@ function DefaultStatus({ id }) {
         <StyledTitle>您尚未加入任何 Podcast，可以點擊按鈕新增！</StyledTitle>
         <StyledButton onClick={handleShow}>新增Podcast</StyledButton>
       </StyledContainer>
-      <SearchModal id={id} show={modalStatus} onHide={handleClose} />
+      <SearchModal
+        categoryId={categoryId}
+        show={modalStatus}
+        onHide={handleClose}
+      />
     </>
   );
 }

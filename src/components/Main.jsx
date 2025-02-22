@@ -5,32 +5,45 @@ import { useEffect } from "react";
 import { DefaultStatus } from "../components";
 
 function Main() {
-  const { userInfo, getCategories } = useUser();
+  const { userInfo, getCategories, getShows } = useUser();
+  const savedShows = userInfo.toShow.savedShows;
 
   useEffect(() => {
     async function handleMain() {
       await getCategories();
     }
     handleMain();
-  }, []);
+  }, [userInfo]);
 
   return (
     <div>
-      {userInfo.toShow.savedShows == {} ? (
-        <div className="main_container">{userInfo.toShow.name}</div>
+      {savedShows === undefined || savedShows.length === 0 ? (
+        <DefaultStatus categoryId={userInfo.toShow.id} />
       ) : (
-        <DefaultStatus id={userInfo.toShow.id} />
+        <div className="main_container">
+          {savedShows.map((show) => {
+            return <div key={show.id}>{show.id}</div>;
+          })}
+        </div>
       )}
       <button
         onClick={() => {
           console.log(userInfo);
           console.log(userInfo.toShow);
+          console.log("儲存的Podcast節目ID: ", savedShows);
         }}
       >
         Console
       </button>
+      <button
+        onClick={() => {
+          getShows(savedShows);
+        }}
+      >
+        印出Show
+      </button>
       <UserInfo />
-      <Player />
+      {/* <Player /> */}
     </div>
   );
 }

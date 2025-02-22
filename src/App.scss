@@ -391,7 +391,7 @@ hr {
   margin: 0 auto;
   background-color: #ececec;
   display: grid;
-  grid-template-columns: 18% 82%;
+  grid-template-columns: 20% 80%;
   grid-template-rows: 100vh;
   grid-template-areas: "navbar main";
 }
@@ -416,13 +416,13 @@ hr {
     width: 75%;
     border: 1px solid #e2e8f0;
     margin: 0 auto;
-    margin-bottom: 40px;
+    margin-bottom: 1rem;
   }
 }
 
 .category,
 .addCategory {
-  width: 75.3%;
+  width: 85%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -432,7 +432,7 @@ hr {
   border-radius: 12px;
   font-weight: 500;
   cursor: pointer;
-  box-sizing: content-box;
+  box-sizing: border-box;
 }
 
 .category_content {
@@ -460,31 +460,6 @@ hr {
 
 .category_option {
   position: relative;
-}
-
-.dropdown {
-  position: absolute;
-  z-index: 999;
-  top: 10px;
-  left: 10px;
-  width: 180px;
-  border-radius: 8px;
-  background-color: #fefefe;
-  color: #111111;
-  padding-left: 0;
-}
-
-.dropdown li {
-  padding: 20px;
-}
-
-.dropdown li:hover {
-  color: #ff7f50;
-}
-
-.dropdown li:nth-child(2) {
-  border-top: 1px solid #ebebeb;
-  border-bottom: 1px solid #ebebeb;
 }
 
 .modal.fade .modal-dialog {
@@ -607,11 +582,16 @@ hr {
 }
 
 .avatar {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  height: 100%;
   border-radius: 25px;
 }
 
 .account {
   margin: 0 0.5rem;
+  margin-left: 25%;
 }
 
 .click-disabled {

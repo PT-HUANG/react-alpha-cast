@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { EditModal, DeleteModal, SearchModal } from "../components";
 import { useUser } from "../Context/UserContext";
+import { createPortal } from "react-dom";
 
 const StyledCategoryContainer = styled.div`
   background-color: ${(props) => (props.$isSelected ? "#111111" : "#F6F7F8")};
@@ -16,6 +17,34 @@ const StyledOption = styled.div`
   color: ${(props) => (props.$isSelected ? "#FFFFFF" : "#71809680")};
 `;
 
+const StyleDropdown = styled.ul`
+  position: absolute;
+  z-index: 999;
+  top: ${(props) => props.$position.top}px;
+  left: ${(props) => props.$position.left}px;
+  width: 180px;
+  border-radius: 8px;
+  background-color: #fefefe;
+  color: #111111;
+  padding-left: 0;
+  cursor: pointer;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+
+  li {
+    padding: 20px;
+    font-weight: 500;
+  }
+
+  li:hover {
+    color: #ff7f50;
+  }
+
+  li:nth-child(2) {
+    border-top: 1px solid #ebebeb;
+    border-bottom: 1px solid #ebebeb;
+  }
+`;
+
 function Category({ id, emoji, name, isSelected }) {
   const [isVisible, setIsVisible] = useState(false);
   const [modalStatus, setModalStatus] = useState({
@@ -23,10 +52,12 @@ function Category({ id, emoji, name, isSelected }) {
     delete: false,
     search: false,
   });
+  const [position, setPosition] = useState({ top: 0, left: 0 });
   const { selectCategory } = useUser();
 
-  function handleToggleOption() {
+  function handleToggleOption(e) {
     setIsVisible(!isVisible);
+    setPosition({ top: e.clientY, left: e.clientX });
   }
 
   useEffect(() => {
@@ -66,16 +97,21 @@ function Category({ id, emoji, name, isSelected }) {
       <StyledOption
         className="category_option"
         $isSelected={isSelected}
-        onClick={handleToggleOption}
+        onClick={(e) => {
+          handleToggleOption(e);
+        }}
       >
         <i className="fa-solid fa-ellipsis-vertical"></i>
-        {isVisible && isSelected ? (
-          <ul className="dropdown">
-            <li onClick={() => handleShow("edit")}>編輯名稱</li>
-            <li onClick={() => handleShow("delete")}>刪除分類</li>
-            <li onClick={() => handleShow("search")}>新增 Podcast</li>
-          </ul>
-        ) : null}
+        {isVisible &&
+          isSelected &&
+          createPortal(
+            <StyleDropdown $position={position}>
+              <li onClick={() => handleShow("edit")}>編輯名稱</li>
+              <li onClick={() => handleShow("delete")}>刪除分類</li>
+              <li onClick={() => handleShow("search")}>新增 Podcast</li>
+            </StyleDropdown>,
+            document.body
+          )}
       </StyledOption>
       <EditModal
         id={id}
@@ -93,7 +129,7 @@ function Category({ id, emoji, name, isSelected }) {
         name={name}
       />
       <SearchModal
-        id={id}
+        categoryId={id}
         show={modalStatus.search}
         onHide={() => handleClose("search")}
       />

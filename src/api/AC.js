@@ -45,7 +45,7 @@ export const getCategories = async () => {
 };
 export const createCategory = async (name, isDefault) => {
   const apiToken = localStorage.getItem("apiToken");
-  const categoryName = isDefault? name : `🔰${name}`
+  const categoryName = isDefault ? name : `🔰${name}`;
   try {
     const { data } = await axios.post(
       `${baseURL}/api/categories`,
@@ -91,5 +91,22 @@ export const deleteCategory = async (id) => {
     console.error("[Delete category failed]: ", error);
   }
 };
-export const addShow = async () => {};
+export const addShow = async (categoryId, showId) => {
+  const apiToken = localStorage.getItem("apiToken");
+  try {
+    await axios.post(
+      `${baseURL}/api/categories/${categoryId}/shows`,
+      {
+        showId,
+      },
+      {
+        headers: {
+          Authorization: "Bearer " + apiToken,
+        },
+      }
+    );
+  } catch (error) {
+    console.error("[Delete category failed]: ", error);
+  }
+};
 export const removeShow = async () => {};

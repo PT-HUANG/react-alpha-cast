@@ -120,18 +120,8 @@ async function refreshToken() {
       refresh_token: currentToken.refresh_token,
     }),
   });
-
   return await response.json();
 }
-
-// export async function getUserData() {
-//   const response = await fetch("https://api.spotify.com/v1/me", {
-//     method: "GET",
-//     headers: { Authorization: "Bearer " + currentToken.access_token },
-//   });
-
-//   return await response.json();
-// }
 
 export async function getProfile() {
   const { data } = await axios.get("https://api.spotify.com/v1/me", {
@@ -159,50 +149,47 @@ export async function refreshTokenClick() {
 
 // 在每次發送Spotify API前都做這個檢查
 export async function isTokenValid() {
-  if (!currentToken.access_token) {
+  const access_token = localStorage.getItem("access_token");
+  if (access_token === undefined || !access_token) {
     return false;
   }
   try {
     await axios.get("https://api.spotify.com/v1/me", {
       headers: {
-        Authorization: "Bearer " + currentToken.access_token,
+        Authorization: "Bearer " + access_token,
       },
     });
     return true;
   } catch (error) {
     if (error.status === 401) {
-      const token = await refreshToken();
-      currentToken.save(token);
+      await refreshTokenClick();
       console.log("Spotiy Token Refreshed");
       return true;
-    } else {
-      logoutClick();
-    }
+    } else return false;
   }
 }
-
-// export async function searchPodcast(str) {
-//   try {
-//     const queryStr = encodeURIComponent(str);
-//     const { data } = await axios.get(
-//       `https://api.spotify.com/v1/search?q=${queryStr}&type=show&limit=16&include_external=audio`,
-//       {
-//         headers: {
-//           Authorization: "Bearer " + currentToken.access_token,
-//         },
-//       }
-//     );
-//     return data;
-//   } catch (error) {
-//     console.error("[Search failed]: ", error);
-//   }
-// }
 
 export async function searchPodcast(str) {
   try {
     const queryStr = encodeURIComponent(str);
     const { data } = await axios.get(
       `https://api.spotify.com/v1/search?q=${queryStr}&type=show&limit=12&include_external=audio`,
+      {
+        headers: {
+          Authorization: "Bearer " + currentToken.access_token,
+        },
+      }
+    );
+    return data;
+  } catch (error) {
+    console.error("[Search failed]: ", error);
+  }
+}
+
+export async function getShow(showId) {
+  try {
+    const { data } = await axios.get(
+      `https://api.spotify.com/v1/shows/${showId}?market=TW`,
       {
         headers: {
           Authorization: "Bearer " + currentToken.access_token,

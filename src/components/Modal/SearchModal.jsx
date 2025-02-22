@@ -3,12 +3,14 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { searchPodcast } from "../../api/spotify";
 import { PodcastCard } from "../../components";
+import { useUser } from "../../Context/UserContext";
 
-function SearchModal({ id, show, onHide }) {
+function SearchModal({ categoryId, show, onHide }) {
   const [currentInputValue, setCurrentInputValue] = useState("");
   const [podcasts, setPodcasts] = useState([]);
   const [isChosen, setIsChosen] = useState(false);
   const inputRef = useRef(null);
+  const { addShow } = useUser();
 
   function handleInputChange(e) {
     setCurrentInputValue(e.target.value);
@@ -24,9 +26,9 @@ function SearchModal({ id, show, onHide }) {
     console.log(podcasts);
   }
 
-  function hadleSelect(id) {
+  function hadleSelect(showId) {
     const nextPodcasts = podcasts.map((podcast) => {
-      if (podcast.id === id) {
+      if (podcast.id === showId) {
         return { ...podcast, isSelected: true };
       } else return { ...podcast, isSelected: false };
     });
@@ -34,22 +36,25 @@ function SearchModal({ id, show, onHide }) {
     setIsChosen(true);
   }
 
-  // 這邊邏輯要修正
   function handleSave() {
-    if (currentInputValue) {
+    const showId = podcasts.find((p) => {
+      return p.isSelected === true;
+    }).id;
+    if (showId) {
+      addShow(categoryId, showId);
       onHide();
     }
   }
 
-  function handleKeyDown(e) {
+  async function handleKeyDown(e) {
     if (currentInputValue && e.key === "Enter") {
-      handleSpotifySearch();
+      await handleSpotifySearch();
     }
   }
 
-  function handleSearch() {
+  async function handleSearch() {
     if (currentInputValue) {
-      handleSpotifySearch();
+      await handleSpotifySearch();
     }
   }
 

@@ -5,7 +5,9 @@ import {
   createCategory,
   updateCategoryName,
   deleteCategory,
+  addShow,
 } from "../api/AC";
+import { getShow } from "../api/Spotify";
 
 const defaultUserContext = {
   userInfo: null,
@@ -14,6 +16,8 @@ const defaultUserContext = {
   selectCategory: null,
   editCategory: null,
   deleteCategory: null,
+  addShow: null,
+  getShows: null,
 };
 
 const UserContext = createContext(defaultUserContext);
@@ -61,12 +65,13 @@ export const UserProvider = ({ children }) => {
               favorites: {
                 name: "已收藏",
                 favoriteEpisodeIds,
-                isSelected: false,
+                isSelected: lastSelectedId === "favorites" ? true : false,
               },
-              toShow: categories.find(
-                (c, id) =>
-                  c.id === lastSelectedId || (id === 0 && !lastSelectedId)
-              ),
+              toShow:
+                categories.find(
+                  (c, id) =>
+                    c.id === lastSelectedId || (id === 0 && !lastSelectedId)
+                ) || {},
             });
           };
 
@@ -144,7 +149,26 @@ export const UserProvider = ({ children }) => {
         deleteCategory: async (id) => {
           await deleteCategory(id);
           const nextCategories = userInfo.categories.filter((c) => c.id !== id);
+          setUserInfo({
+            ...userInfo,
+            categories: nextCategories,
+            toShow: nextCategories[0] || {},
+          });
+        },
+        addShow: async (categoryId, showId) => {
+          await addShow(categoryId, showId);
+          const nextCategories = userInfo.categories.map((c) =>
+            c.id === categoryId
+              ? { ...c, savedShows: [...c.savedShows, showId] }
+              : c
+          );
           setUserInfo({ ...userInfo, categories: nextCategories });
+        },
+        getShows: async (savedShows) => {
+          const showData = await Promise.all(
+            savedShows.map((show) => getShow(show.id))
+          );
+          console.log(showData);
         },
       }}
     >
