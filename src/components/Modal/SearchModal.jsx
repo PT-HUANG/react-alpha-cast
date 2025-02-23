@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { searchPodcast } from "../../api/spotify";
-import { PodcastCard } from "../../components";
+import { Result } from "../../components";
 import { useUser } from "../../Context/UserContext";
 
 function SearchModal({ categoryId, show, onHide }) {
@@ -83,7 +83,7 @@ function SearchModal({ categoryId, show, onHide }) {
         {podcasts
           ? podcasts.map((p) => {
               return (
-                <PodcastCard
+                <Result
                   key={p.id}
                   info={p}
                   $isSelected={p.isSelected}

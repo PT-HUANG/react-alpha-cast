@@ -391,7 +391,7 @@ hr {
   margin: 0 auto;
   background-color: #ececec;
   display: grid;
-  grid-template-columns: 20% 80%;
+  grid-template-columns: 16% 84%;
   grid-template-rows: 100vh;
   grid-template-areas: "navbar main";
 }
@@ -570,7 +570,7 @@ hr {
 .userinfo {
   position: absolute;
   top: 5%;
-  right: 5%;
+  right: 1%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -720,5 +720,36 @@ hr {
   position: absolute;
   top: 75%;
   left: 3%;
+}
+
+.podcast_container {
+  background-color: #1ed760;
+  width: 77%;
+  height: 100vh;
+  overflow-y: scroll;
+  padding: 0 1rem;
+  padding-top: 5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 190px);
+  grid-template-rows: auto;
+}
+.console_button {
+  position: absolute;
+  top: 20%;
+  right: 10%;
+}
+
+.card_button {
+  width: 30%;
+  margin: 0.5rem 1rem;
+  padding: 3px;
+  font-size: 0.875rem;
+  background: #30a9de;
+  border-color: #30a9de;
+}
+
+.card_button:hover {
+  background: #0c94cf;
+  border-color: #0c94cf;
 }
 // ======> Home Page <======

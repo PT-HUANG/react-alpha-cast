@@ -1,19 +1,18 @@
-import UserInfo from "./UserInfo";
-import Player from "./Player";
 import { useUser } from "../Context/UserContext";
-import { useEffect } from "react";
-import { DefaultStatus } from "../components";
+import { useState, useEffect } from "react";
+import { DefaultStatus, Card, UserInfo, Player } from "../components";
 
 function Main() {
-  const { userInfo, getCategories, getShows } = useUser();
-  const savedShows = userInfo.toShow.savedShows;
+  const { userInfo, getCategories } = useUser();
+  const savedShows = userInfo.savedShows || [];
 
   useEffect(() => {
     async function handleMain() {
       await getCategories();
+      console.log(savedShows);
     }
     handleMain();
-  }, [userInfo]);
+  }, []);
 
   return (
     <div>
@@ -21,26 +20,22 @@ function Main() {
         <DefaultStatus categoryId={userInfo.toShow.id} />
       ) : (
         <div className="main_container">
-          {savedShows.map((show) => {
-            return <div key={show.id}>{show.id}</div>;
-          })}
+          <div className="podcast_container">
+            {savedShows.map((show) => {
+              return <Card key={show.id} info={show} />;
+            })}
+          </div>
         </div>
       )}
       <button
+        className="console_button"
         onClick={() => {
           console.log(userInfo);
           console.log(userInfo.toShow);
-          console.log("儲存的Podcast節目ID: ", savedShows);
+          console.log(savedShows);
         }}
       >
         Console
-      </button>
-      <button
-        onClick={() => {
-          getShows(savedShows);
-        }}
-      >
-        印出Show
       </button>
       <UserInfo />
       {/* <Player /> */}

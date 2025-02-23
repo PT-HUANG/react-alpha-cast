@@ -37,7 +37,7 @@ const StyledSubtitle = styled.div`
   overflow: hidden;
 `;
 
-function PodcastCard({ info, $isSelected, onSelect }) {
+function Result({ info, $isSelected, onSelect }) {
   const { images, name, publisher, id } = info;
   const imagesToShow = images[1];
   const { height, url, width } = imagesToShow;
@@ -51,9 +51,8 @@ function PodcastCard({ info, $isSelected, onSelect }) {
       <img src={url} width={width} height={height} alt="" />
       <StyledTitle>{name}</StyledTitle>
       <StyledSubtitle>{publisher}</StyledSubtitle>
-      {/* <div>{id}</div> */}
     </StyledContainer>
   );
 }
 
-export default PodcastCard;
+export default Result;

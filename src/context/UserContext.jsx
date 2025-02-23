@@ -7,7 +7,7 @@ import {
   deleteCategory,
   addShow,
 } from "../api/AC";
-import { getShow } from "../api/Spotify";
+import { getShows } from "../api/Spotify";
 
 const defaultUserContext = {
   userInfo: null,
@@ -17,7 +17,6 @@ const defaultUserContext = {
   editCategory: null,
   deleteCategory: null,
   addShow: null,
-  getShows: null,
 };
 
 const UserContext = createContext(defaultUserContext);
@@ -27,6 +26,7 @@ export const UserProvider = ({ children }) => {
     categories: [],
     favorites: { name: "已收藏", favoriteEpisodeIds: [], isSelected: false },
     toShow: {},
+    savedShows: [],
   });
 
   return (
@@ -44,12 +44,19 @@ export const UserProvider = ({ children }) => {
             "🏘️我的Podcast",
           ];
 
-          const lastSelectedId = localStorage.getItem("selectedCategoryId");
-
-          const handleCategories = (categories) => {
+          const handleCategories = async (categories) => {
             categories.sort((a, b) => {
               return Number(a.id) - Number(b.id);
             });
+
+            const lastSelectedId = localStorage.getItem("selectedCategoryId");
+            const toShow =
+              categories.find(
+                (c, id) =>
+                  c.id === lastSelectedId || (id === 0 && !lastSelectedId)
+              ) || {};
+
+            const nextsavedShows = await getShows(toShow.savedShows);
 
             setUserInfo({
               ...userInfo,
@@ -67,11 +74,8 @@ export const UserProvider = ({ children }) => {
                 favoriteEpisodeIds,
                 isSelected: lastSelectedId === "favorites" ? true : false,
               },
-              toShow:
-                categories.find(
-                  (c, id) =>
-                    c.id === lastSelectedId || (id === 0 && !lastSelectedId)
-                ) || {},
+              toShow,
+              savedShows: nextsavedShows,
             });
           };
 
@@ -107,7 +111,7 @@ export const UserProvider = ({ children }) => {
             categories: [...userInfo.categories, formattedCategory],
           });
         },
-        selectCategory: (id) => {
+        selectCategory: async (id) => {
           localStorage.setItem("selectedCategoryId", id);
 
           if (id === "favorites") {
@@ -128,12 +132,16 @@ export const UserProvider = ({ children }) => {
               } else return { ...c, isSelected: false };
             });
             const nextFavorites = { ...userInfo.favorites, isSelected: false };
-            const showInfo = nextCategories.find((c) => c.isSelected === true);
+            const nextToshow = nextCategories.find(
+              (c) => c.isSelected === true
+            );
+            const nextsavedShows = await getShows(nextToshow.savedShows);
             setUserInfo({
               ...userInfo,
               categories: nextCategories,
               favorites: nextFavorites,
-              toShow: showInfo,
+              toShow: nextToshow,
+              savedShows: nextsavedShows,
             });
           }
         },
@@ -162,13 +170,13 @@ export const UserProvider = ({ children }) => {
               ? { ...c, savedShows: [...c.savedShows, showId] }
               : c
           );
-          setUserInfo({ ...userInfo, categories: nextCategories });
-        },
-        getShows: async (savedShows) => {
-          const showData = await Promise.all(
-            savedShows.map((show) => getShow(show.id))
-          );
-          console.log(showData);
+          const nextToshow = [...userInfo.toShow.savedShows, { id: showId }];
+          const nextsavedShows = await getShows(nextToshow);
+          setUserInfo({
+            ...userInfo,
+            categories: nextCategories,
+            savedShows: nextsavedShows,
+          });
         },
       }}
     >

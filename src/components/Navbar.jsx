@@ -20,7 +20,6 @@ const ScrollableArea = styled.div`
 
 function Navbar() {
   const { userInfo, getCategories } = useUser();
-
   useEffect(() => {
     async function handleNavbar() {
       await getCategories();
