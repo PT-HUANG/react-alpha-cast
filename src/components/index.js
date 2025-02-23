@@ -1,35 +1,44 @@
+// Login Page Component
 import FeatureSlide from "./FeatureSlide";
+
+// Navbar & Components under Navbar
 import Navbar from "./Navbar";
-import Main from "./Main";
-import UserInfo from "./UserInfo";
-import Player from "./Player";
-import EditModal from "./Modal/EditModal";
-import DeleteModal from "./Modal/DeleteModal";
-import CreateModal from "./Modal/CreateModal";
-import LogoutModal from "./Modal/LogoutModal";
-import AddCategory from "./AddCategory";
-import Favorites from "./Favorites";
 import Category from "./Category";
+import Favorites from "./Favorites";
+import AddCategory from "./AddCategory";
+
+// Main & Components under Main
+import Main from "./Main";
 import DefaultStatus from "./DefaultStatus";
-import SearchModal from "./Modal/SearchModal";
-import Result from "./SearchResult";
 import Card from "./Card";
+import Result from "./SearchResult";
+import Player from "./Player";
+import UserInfo from "./UserInfo";
+
+// Modal Components
+import CreateModal from "./Modal/CreateModal";
+import DeleteModal from "./Modal/DeleteModal";
+import EditModal from "./Modal/EditModal";
+import LogoutModal from "./Modal/LogoutModal";
+import PodcastModal from "./Modal/PodcastModal";
+import SearchModal from "./Modal/SearchModal";
 
 export {
   FeatureSlide,
   Navbar,
-  Main,
-  UserInfo,
-  Player,
-  EditModal,
-  DeleteModal,
-  CreateModal,
-  LogoutModal,
-  AddCategory,
   Category,
   Favorites,
+  AddCategory,
+  Main,
   DefaultStatus,
-  SearchModal,
-  Result,
   Card,
+  Result,
+  Player,
+  UserInfo,
+  CreateModal,
+  DeleteModal,
+  EditModal,
+  LogoutModal,
+  PodcastModal,
+  SearchModal,
 };

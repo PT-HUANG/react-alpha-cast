@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { Button } from "react-bootstrap";
+import { useState } from "react";
+import { PodcastModal } from "../components";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -10,7 +12,7 @@ const StyledContainer = styled.div`
   padding-top: 1rem;
   box-shadow: 24px 8px 24px 0px #c7c7c73d;
   cursor: pointer;
-  max-height: 280px;
+  max-height: 300px;
   & img {
     max-width: 80%;
     border-radius: 8px;
@@ -42,17 +44,27 @@ const StyledSubtitle = styled.div`
 `;
 
 function Card({ info }) {
-  const { images, name, publisher, id } = info;
-  const imagesToShow = images[1];
-  const { height, url, width } = imagesToShow;
+  const [modalStatus, setModalStatus] = useState(false);
+  const { images, name, publisher, id, description } = info;
+  const { height, url, width } = images[1];
+
+  const handleClose = () => {
+    setModalStatus(false);
+  };
+
+  const handleShow = () => {
+    setModalStatus(true);
+  };
+
   return (
     <StyledContainer>
       <StyledImage src={url} width={width} height={height} />
       <StyledTitle>{name}</StyledTitle>
       <StyledSubtitle>{publisher}</StyledSubtitle>
-      <Button className="card_button" variant="primary">
+      <Button className="card_button" variant="primary" onClick={handleShow}>
         更多
       </Button>
+      <PodcastModal show={modalStatus} onHide={handleClose} info={info} />
     </StyledContainer>
   );
 }
