@@ -4,7 +4,15 @@ import { useUser } from "../../Context/UserContext";
 
 function PodcastModal({ show, onHide, info }) {
   const { images, name, publisher, id, description } = info;
-  const { height, url, width } = images[1];
+  const { url } = images[1];
+  const { removeShow, userInfo } = useUser();
+  const categoryId = userInfo.toShow.id;
+  const showId = id;
+
+  async function handleRemoveShow() {
+    await removeShow(categoryId, showId);
+    onHide();
+  }
 
   return (
     <Modal show={show} onHide={onHide} dialogClassName="podcast_modal">
@@ -15,7 +23,9 @@ function PodcastModal({ show, onHide, info }) {
             <div className="podcast_name">{name}</div>
             <div className="podcast_subtitle">{publisher}</div>
             <div className="podcast_description">{description}</div>
-            <button className="podcast_delete">刪除</button>
+            <button className="podcast_delete" onClick={handleRemoveShow}>
+              刪除
+            </button>
           </div>
         </Modal.Title>
       </Modal.Header>

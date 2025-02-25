@@ -186,22 +186,6 @@ export async function searchPodcast(str) {
   }
 }
 
-// export async function getShow(showId) {
-//   try {
-//     const { data } = await axios.get(
-//       `https://api.spotify.com/v1/shows/${showId}?market=TW`,
-//       {
-//         headers: {
-//           Authorization: "Bearer " + currentToken.access_token,
-//         },
-//       }
-//     );
-//     return data;
-//   } catch (error) {
-//     console.error("[Get show failed]: ", error);
-//   }
-// }
-
 export async function getShows(showIds) {
   try {
     const requests = showIds.map((showId) =>
@@ -216,6 +200,24 @@ export async function getShows(showIds) {
     return responses.map((response) => response.data) || [];
   } catch (error) {
     console.error("[Get shows failed]: ", error);
+    return [];
+  }
+}
+
+export async function getShowEpisodes(showId) {
+  try {
+    const { data } = await axios.get(
+      `https://api.spotify.com/v1/shows/${showId}/episodes?market=TW&limit=20`,
+      {
+        headers: {
+          Authorization: "Bearer " + currentToken.access_token,
+        },
+      }
+    );
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error("[Get episodes failed]: ", error);
     return [];
   }
 }

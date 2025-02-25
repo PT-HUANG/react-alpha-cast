@@ -1,6 +1,7 @@
 import { useUser } from "../Context/UserContext";
 import { useState, useEffect } from "react";
 import { DefaultStatus, Card, UserInfo, Player } from "../components";
+import { getShowEpisodes } from "../api/Spotify";
 
 function Main() {
   const { userInfo, getCategories } = useUser();

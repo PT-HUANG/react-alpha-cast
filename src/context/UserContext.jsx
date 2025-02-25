@@ -6,6 +6,7 @@ import {
   updateCategoryName,
   deleteCategory,
   addShow,
+  removeShow,
 } from "../api/AC";
 import { getShows } from "../api/Spotify";
 
@@ -171,6 +172,28 @@ export const UserProvider = ({ children }) => {
               : c
           );
           const nextToshow = [...userInfo.toShow.savedShows, { id: showId }];
+          const nextsavedShows = await getShows(nextToshow);
+          setUserInfo({
+            ...userInfo,
+            categories: nextCategories,
+            savedShows: nextsavedShows,
+          });
+        },
+        removeShow: async (categoryId, showId) => {
+          await removeShow(categoryId, showId);
+          const nextCategories = userInfo.categories.map((c) => {
+            if (c.id === categoryId) {
+              return {
+                ...c,
+                savedShows: c.savedShows.filter((show) => show.id !== showId),
+              };
+            } else {
+              return c;
+            }
+          });
+          const nextToshow = userInfo.savedShows.filter(
+            (show) => show.id !== showId
+          );
           const nextsavedShows = await getShows(nextToshow);
           setUserInfo({
             ...userInfo,

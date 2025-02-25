@@ -45,7 +45,7 @@ const StyledSubtitle = styled.div`
 
 function Card({ info }) {
   const [modalStatus, setModalStatus] = useState(false);
-  const { images, name, publisher, id, description } = info;
+  const { images, name, publisher } = info;
   const { height, url, width } = images[1];
 
   const handleClose = () => {
