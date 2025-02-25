@@ -732,6 +732,8 @@ hr {
   display: grid;
   grid-template-columns: repeat(auto-fit, 190px);
   grid-template-rows: auto;
+  align-content: baseline;
+  justify-content: center;  
 }
 .console_button {
   position: absolute;
@@ -803,6 +805,7 @@ hr {
 }
 
 .podcast_description {
+  width: 80%;
   font-size: 0.75rem;
   font-weight: 400;
   margin-top: 0.5rem;

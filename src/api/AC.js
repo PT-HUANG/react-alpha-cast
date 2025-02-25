@@ -109,4 +109,18 @@ export const addShow = async (categoryId, showId) => {
     console.error("[Delete category failed]: ", error);
   }
 };
-export const removeShow = async () => {};
+export const removeShow = async (categoryId, showId) => {
+  const apiToken = localStorage.getItem("apiToken");
+  try {
+    await axios.delete(
+      `${baseURL}/api/categories/${categoryId}/shows/${showId}`,
+      {
+        headers: {
+          Authorization: "Bearer " + apiToken,
+        },
+      }
+    );
+  } catch (error) {
+    console.error("[Delete category failed]: ", error);
+  }
+};
