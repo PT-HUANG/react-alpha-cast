@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { Button } from "react-bootstrap";
 import { useState } from "react";
-import { PodcastModal } from "../components";
+import { PodcastModal } from ".";
+import { useUser } from "../context/UserContext";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -43,17 +44,21 @@ const StyledSubtitle = styled.div`
   overflow: hidden;
 `;
 
-function Card({ info }) {
+function PodcastCard({ info }) {
   const [modalStatus, setModalStatus] = useState(false);
-  const { images, name, publisher } = info;
+  const [currentEpisodes, setCurrentEpisodes] = useState([]);
+  const { getShowEpisodes } = useUser();
+  const { images, name, publisher, id } = info;
   const { height, url, width } = images[1];
 
   const handleClose = () => {
     setModalStatus(false);
   };
 
-  const handleShow = () => {
+  const handleShow = async () => {
     setModalStatus(true);
+    const { items } = await getShowEpisodes(id);
+    setCurrentEpisodes(items);
   };
 
   return (
@@ -64,9 +69,14 @@ function Card({ info }) {
       <Button className="card_button" variant="primary" onClick={handleShow}>
         更多
       </Button>
-      <PodcastModal show={modalStatus} onHide={handleClose} info={info} />
+      <PodcastModal
+        show={modalStatus}
+        onHide={handleClose}
+        info={info}
+        episodes={currentEpisodes}
+      />
     </StyledContainer>
   );
 }
 
-export default Card;
+export default PodcastCard;

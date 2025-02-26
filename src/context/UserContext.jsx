@@ -8,7 +8,7 @@ import {
   addShow,
   removeShow,
 } from "../api/AC";
-import { getShows } from "../api/Spotify";
+import { getShows, getShowEpisodes } from "../api/Spotify";
 
 const defaultUserContext = {
   userInfo: null,
@@ -200,6 +200,9 @@ export const UserProvider = ({ children }) => {
             categories: nextCategories,
             savedShows: nextsavedShows,
           });
+        },
+        getShowEpisodes: async (showId) => {
+          return await getShowEpisodes(showId);
         },
       }}
     >

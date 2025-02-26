@@ -1,7 +1,6 @@
 import { useUser } from "../Context/UserContext";
-import { useState, useEffect } from "react";
-import { DefaultStatus, Card, UserInfo, Player } from "../components";
-import { getShowEpisodes } from "../api/Spotify";
+import { useEffect } from "react";
+import { DefaultStatus, PodcastCard, UserInfo, Player } from "../components";
 
 function Main() {
   const { userInfo, getCategories } = useUser();
@@ -23,7 +22,7 @@ function Main() {
         <div className="main_container">
           <div className="podcast_container">
             {savedShows.map((show) => {
-              return <Card key={show.id} info={show} />;
+              return <PodcastCard key={show.id} info={show} />;
             })}
           </div>
         </div>

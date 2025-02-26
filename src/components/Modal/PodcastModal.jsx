@@ -1,8 +1,17 @@
-import { useState } from "react";
+import { EpisodeCard } from "../../components";
 import Modal from "react-bootstrap/Modal";
 import { useUser } from "../../Context/UserContext";
+import styled from "styled-components";
 
-function PodcastModal({ show, onHide, info }) {
+const StyledEpisodeContainer = styled.div`
+  padding: 1rem;
+  padding-top: 0;
+  width: 100%;
+  height: 50vh;
+  overflow-y: scroll;
+`;
+
+function PodcastModal({ show, onHide, info, episodes }) {
   const { images, name, publisher, id, description } = info;
   const { url } = images[1];
   const { removeShow, userInfo } = useUser();
@@ -29,7 +38,15 @@ function PodcastModal({ show, onHide, info }) {
           </div>
         </Modal.Title>
       </Modal.Header>
-      <div className="result_container"></div>
+      <StyledEpisodeContainer>
+        <div className="episodeInfo">
+          {episodes
+            ? episodes.map((episode) => {
+                return <EpisodeCard key={episode.id} episode={episode} />;
+              })
+            : ""}
+        </div>
+      </StyledEpisodeContainer>
     </Modal>
   );
 }

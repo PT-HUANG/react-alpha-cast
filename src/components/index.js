@@ -10,7 +10,8 @@ import AddCategory from "./AddCategory";
 // Main & Components under Main
 import Main from "./Main";
 import DefaultStatus from "./DefaultStatus";
-import Card from "./Card";
+import PodcastCard from "./PodcastCard";
+import EpisodeCard from "./EpisodeCard";
 import Result from "./SearchResult";
 import Player from "./Player";
 import UserInfo from "./UserInfo";
@@ -31,7 +32,8 @@ export {
   AddCategory,
   Main,
   DefaultStatus,
-  Card,
+  PodcastCard,
+  EpisodeCard,
   Result,
   Player,
   UserInfo,

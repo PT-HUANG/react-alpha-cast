@@ -214,7 +214,7 @@ export async function getShowEpisodes(showId) {
         },
       }
     );
-    console.log(data);
+    console.log(data)
     return data;
   } catch (error) {
     console.error("[Get episodes failed]: ", error);

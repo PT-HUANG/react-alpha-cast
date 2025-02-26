@@ -765,7 +765,7 @@ hr {
 }
 
 .podcast_modal {
-  max-width: 60%;
+  max-width: 50%;
   max-height: 72%;
   overflow: hidden;
 }
@@ -777,17 +777,23 @@ hr {
 }
 
 .podcast_title {
+  width: 100%;
   position: relative;
   display: flex;
   max-height: 144px;
 }
 
 .podcast_image {
+  width: 20%;
+  height: 20%;
+  max-width: 127px;
   max-height: 127px;
   border-radius: 10px;
 }
 
 .podcast_text {
+  width: 80%;
+  position: relative;
   padding: 0.5rem;
   padding-left: 1rem;
 }
@@ -805,12 +811,13 @@ hr {
 }
 
 .podcast_description {
-  width: 80%;
+  width: 90%;
   font-size: 0.75rem;
   font-weight: 400;
   margin-top: 0.5rem;
   color: #718096;
   white-space: normal;
+  word-wrap: break-word;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -820,7 +827,7 @@ hr {
 
 .podcast_delete {
   position: absolute;
-  top: 82%;
+  top: 80%;
   right: 2.5%;
   background-color: #fff;
   border: 1px solid #ff5050;
