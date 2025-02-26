@@ -1,4 +1,5 @@
 import { useState, useContext, createContext } from "react";
+
 import {
   getUserInfo,
   getCategories,
@@ -7,7 +8,10 @@ import {
   deleteCategory,
   addShow,
   removeShow,
+  saveToFavorite,
+  removeFromFavorite,
 } from "../api/AC";
+
 import { getShows, getShowEpisodes } from "../api/Spotify";
 
 const defaultUserContext = {
@@ -203,6 +207,26 @@ export const UserProvider = ({ children }) => {
         },
         getShowEpisodes: async (showId) => {
           return await getShowEpisodes(showId);
+        },
+        handleFavorite: async (episodeId) => {
+          const { favoriteEpisodeIds } = userInfo.favorites;
+          const isExist = favoriteEpisodeIds.some(
+            (favorite) => favorite.id === episodeId
+          );
+          if (isExist) {
+            await removeFromFavorite(episodeId);
+          } else {
+            await saveToFavorite(episodeId);
+          }
+          const data = await getUserInfo();
+          const nextFavorites = data.favoriteEpisodeIds;
+          setUserInfo({
+            ...userInfo,
+            favorites: {
+              ...userInfo.favorites,
+              favoriteEpisodeIds: nextFavorites,
+            },
+          });
         },
       }}
     >

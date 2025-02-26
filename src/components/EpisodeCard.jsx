@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useUser } from "../context/UserContext";
 
 const StyledContainer = styled.div`
   position: relative;
@@ -62,7 +63,9 @@ const StyledBookmark = styled.div`
 `;
 
 function EpisodeCard({ episode }) {
-  const favorites = ["1Dak1w2CNmHZAkR0r4g2pQ"];
+  const { userInfo, handleFavorite } = useUser();
+  const { favoriteEpisodeIds } = userInfo.favorites;
+
   const { images, name, description, release_date, duration_ms, id } = episode;
   const url = images[0].url;
 
@@ -87,8 +90,13 @@ function EpisodeCard({ episode }) {
             {release_date} · {length}
           </span>
         </StyledInfo>
-        <StyledBookmark>
-          {favorites.find((eipsodeId) => eipsodeId === id) ? (
+        <StyledBookmark
+          onClick={() => {
+            handleFavorite(episode.id);
+          }}
+        >
+          {favoriteEpisodeIds &&
+          favoriteEpisodeIds.some((favorite) => favorite.id === id) ? (
             <i className="fa-solid fa-bookmark"></i>
           ) : (
             <i className="fa-regular fa-bookmark"></i>
