@@ -32,7 +32,7 @@ const StyledButton = styled.div`
   }
 `;
 
-function DefaultStatus({ categoryId }) {
+function DefaultStatus({ categoryId, name }) {
   const [modalStatus, setModalStatus] = useState(false);
 
   const handleClose = () => {
@@ -47,8 +47,16 @@ function DefaultStatus({ categoryId }) {
     <>
       <StyledContainer>
         <img src={empty} alt="emoty_folder" className="empty_icon" />
-        <StyledTitle>您尚未加入任何 Podcast，可以點擊按鈕新增！</StyledTitle>
-        <StyledButton onClick={handleShow}>新增Podcast</StyledButton>
+        {name === "favorites" ? (
+          <StyledTitle>您尚未收藏任何Podcast</StyledTitle>
+        ) : (
+          <>
+            <StyledTitle>
+              您尚未加入任何 Podcast，可以點擊按鈕新增！
+            </StyledTitle>
+            <StyledButton onClick={handleShow}>新增Podcast</StyledButton>
+          </>
+        )}
       </StyledContainer>
       <SearchModal
         categoryId={categoryId}

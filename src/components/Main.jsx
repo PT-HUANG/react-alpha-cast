@@ -5,6 +5,7 @@ import { DefaultStatus, PodcastCard, UserInfo, Player } from "../components";
 function Main() {
   const { userInfo, getCategories } = useUser();
   const savedShows = userInfo.savedShows || [];
+  const currentCategoryName = userInfo.toShow.id;
 
   useEffect(() => {
     async function handleMain() {
@@ -14,16 +15,23 @@ function Main() {
     handleMain();
   }, []);
 
+  const isFavorites =
+    userInfo.toShow.id === "favorites" || userInfo.toShow.id === undefined;
+  const podcastList = savedShows.map((show) => (
+    <PodcastCard key={show.id} info={show} />
+  ));
+
   return (
     <div>
       {savedShows === undefined || savedShows.length === 0 ? (
-        <DefaultStatus categoryId={userInfo.toShow.id} />
+        <DefaultStatus
+          categoryId={userInfo.toShow.id}
+          name={currentCategoryName}
+        />
       ) : (
         <div className="main_container">
           <div className="podcast_container">
-            {savedShows.map((show) => {
-              return <PodcastCard key={show.id} info={show} />;
-            })}
+            {isFavorites ? <h2>最愛</h2> : podcastList}
           </div>
         </div>
       )}
@@ -31,8 +39,8 @@ function Main() {
         className="console_button"
         onClick={() => {
           console.log(userInfo);
-          console.log(userInfo.toShow);
-          console.log(savedShows);
+          console.log(userInfo.toShow.id);
+          console.log(userInfo.savedShows);
         }}
       >
         Console

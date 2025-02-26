@@ -29,7 +29,12 @@ const UserContext = createContext(defaultUserContext);
 export const UserProvider = ({ children }) => {
   const [userInfo, setUserInfo] = useState({
     categories: [],
-    favorites: { name: "已收藏", favoriteEpisodeIds: [], isSelected: false },
+    favorites: {
+      id: "favorites",
+      name: "已收藏",
+      favoriteEpisodeIds: [],
+      isSelected: false,
+    },
     toShow: {},
     savedShows: [],
   });
@@ -61,7 +66,8 @@ export const UserProvider = ({ children }) => {
                   c.id === lastSelectedId || (id === 0 && !lastSelectedId)
               ) || {};
 
-            const nextsavedShows = await getShows(toShow.savedShows);
+            const nextsavedShows =
+              (await getShows(toShow.savedShows)) || favoriteEpisodeIds;
 
             setUserInfo({
               ...userInfo,
@@ -75,12 +81,13 @@ export const UserProvider = ({ children }) => {
                 };
               }),
               favorites: {
+                id: "favorites",
                 name: "已收藏",
                 favoriteEpisodeIds,
                 isSelected: lastSelectedId === "favorites" ? true : false,
               },
               toShow,
-              savedShows: nextsavedShows,
+              savedShows: nextsavedShows || [],
             });
           };
 

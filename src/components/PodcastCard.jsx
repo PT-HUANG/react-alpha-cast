@@ -63,7 +63,7 @@ function PodcastCard({ info }) {
 
   return (
     <StyledContainer>
-      <StyledImage src={url} width={width} height={height} />
+      <StyledImage src={url} />
       <StyledTitle>{name}</StyledTitle>
       <StyledSubtitle>{publisher}</StyledSubtitle>
       <Button className="card_button" variant="primary" onClick={handleShow}>

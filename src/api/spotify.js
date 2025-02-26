@@ -187,6 +187,9 @@ export async function searchPodcast(str) {
 }
 
 export async function getShows(showIds) {
+  if (showIds === undefined) {
+    return false;
+  }
   try {
     const requests = showIds.map((showId) =>
       axios.get(`https://api.spotify.com/v1/shows/${showId.id}?market=TW`, {
