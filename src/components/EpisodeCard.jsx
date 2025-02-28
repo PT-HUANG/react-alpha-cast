@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useUser } from "../context/UserContext";
+import { useUser } from "../Context/UserContext";
 
 const StyledContainer = styled.div`
   position: relative;

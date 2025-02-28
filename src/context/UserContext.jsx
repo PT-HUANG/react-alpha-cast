@@ -1,8 +1,8 @@
 import { useState, useContext, createContext } from "react";
 
 import {
-  getUserInfo,
-  getCategories,
+  getUserInfo as fetchUserInfo,
+  getCategories as fetchCategories,
   createCategory,
   updateCategoryName,
   deleteCategory,
@@ -12,7 +12,7 @@ import {
   removeFromFavorite,
 } from "../api/AC";
 
-import { getShows, getShowEpisodes } from "../api/Spotify";
+import { getShows, getShowEpisodes, getEpisodes } from "../api/Spotify";
 
 const defaultUserContext = {
   userInfo: null,
@@ -44,8 +44,8 @@ export const UserProvider = ({ children }) => {
       value={{
         userInfo,
         getCategories: async () => {
-          const { categories } = await getCategories();
-          const { favoriteEpisodeIds } = await getUserInfo();
+          const { categories } = await fetchCategories();
+          const { favoriteEpisodeIds } = await fetchUserInfo();
 
           const defaultCategories = [
             "🚌通勤清單",
@@ -60,14 +60,20 @@ export const UserProvider = ({ children }) => {
             });
 
             const lastSelectedId = localStorage.getItem("selectedCategoryId");
+
             const toShow =
               categories.find(
                 (c, id) =>
                   c.id === lastSelectedId || (id === 0 && !lastSelectedId)
               ) || {};
 
+            const nextToshow =
+              lastSelectedId === "favorites" ? userInfo.favorites : toShow;
+
             const nextsavedShows =
-              (await getShows(toShow.savedShows)) || favoriteEpisodeIds;
+              toShow.savedShows && toShow.savedShows.length > 0
+                ? await getShows(toShow.savedShows)
+                : [];
 
             setUserInfo({
               ...userInfo,
@@ -81,12 +87,11 @@ export const UserProvider = ({ children }) => {
                 };
               }),
               favorites: {
-                id: "favorites",
-                name: "已收藏",
+                ...userInfo.favorites,
                 favoriteEpisodeIds,
                 isSelected: lastSelectedId === "favorites" ? true : false,
               },
-              toShow,
+              toShow: nextToshow,
               savedShows: nextsavedShows || [],
             });
           };
@@ -96,16 +101,15 @@ export const UserProvider = ({ children }) => {
             for (const category of defaultCategories) {
               await createCategory(category, isDefault);
             }
-            const { categories } = await getCategories();
+            const { categories } = await fetchCategories();
             handleCategories(categories);
           } else {
-            const isDefault = false;
-            handleCategories(categories, isDefault);
+            handleCategories(categories);
           }
         },
         createCategory: async (name) => {
           await createCategory(name);
-          const { categories } = await getCategories();
+          const { categories } = await fetchCategories();
           const newCategory = categories.reduce((latest, current) => {
             return Number(current.id) > Number(latest.id) ? current : latest;
           });
@@ -125,7 +129,6 @@ export const UserProvider = ({ children }) => {
         },
         selectCategory: async (id) => {
           localStorage.setItem("selectedCategoryId", id);
-
           if (id === "favorites") {
             const nextCategories = userInfo.categories.map((c) => {
               return { ...c, isSelected: false };
@@ -135,6 +138,7 @@ export const UserProvider = ({ children }) => {
               ...userInfo,
               categories: nextCategories,
               favorites: nextFavorites,
+              savedShows: userInfo.favorites.favoriteEpisodeIds,
               toShow: nextFavorites,
             });
           } else {
@@ -174,6 +178,10 @@ export const UserProvider = ({ children }) => {
             categories: nextCategories,
             toShow: nextCategories[0] || {},
           });
+          localStorage.setItem(
+            "selectedCategoryId",
+            nextCategories[0].id || "favorites"
+          );
         },
         addShow: async (categoryId, showId) => {
           await addShow(categoryId, showId);
@@ -225,7 +233,7 @@ export const UserProvider = ({ children }) => {
           } else {
             await saveToFavorite(episodeId);
           }
-          const data = await getUserInfo();
+          const data = await fetchUserInfo();
           const nextFavorites = data.favoriteEpisodeIds;
           setUserInfo({
             ...userInfo,
@@ -234,6 +242,9 @@ export const UserProvider = ({ children }) => {
               favoriteEpisodeIds: nextFavorites,
             },
           });
+        },
+        getEpisodes: async (episodeIds) => {
+          return await getEpisodes(episodeIds);
         },
       }}
     >

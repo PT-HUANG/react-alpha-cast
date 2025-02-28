@@ -1,46 +1,37 @@
-import { useUser } from "../Context/UserContext";
-import { useEffect } from "react";
 import { DefaultStatus, PodcastCard, UserInfo, Player } from "../components";
 
-function Main() {
-  const { userInfo, getCategories } = useUser();
-  const savedShows = userInfo.savedShows || [];
-  const currentCategoryName = userInfo.toShow.id;
-
-  useEffect(() => {
-    async function handleMain() {
-      await getCategories();
-      console.log(savedShows);
-    }
-    handleMain();
-  }, []);
-
-  const isFavorites =
-    userInfo.toShow.id === "favorites" || userInfo.toShow.id === undefined;
-  const podcastList = savedShows.map((show) => (
-    <PodcastCard key={show.id} info={show} />
-  ));
+function Main({ userInfo }) {
+  const { toShow, savedShows } = userInfo;
+  const categoryId = toShow.id;
+  const isFavorites = categoryId === "favorites" || categoryId === undefined;
 
   return (
     <div>
       {savedShows === undefined || savedShows.length === 0 ? (
-        <DefaultStatus
-          categoryId={userInfo.toShow.id}
-          name={currentCategoryName}
-        />
+        <DefaultStatus categoryId={categoryId} name={categoryId} />
       ) : (
         <div className="main_container">
-          <div className="podcast_container">
-            {isFavorites ? <h2>最愛</h2> : podcastList}
-          </div>
+          {isFavorites ? (
+            <div className="favorite_container">
+              {savedShows.map((show) => (
+                <div key={show.id}>{show.id}</div>
+              ))}
+            </div>
+          ) : (
+            <div className="podcast_container">
+              {savedShows.map((show) => (
+                <PodcastCard key={show.id} info={show} />
+              ))}
+            </div>
+          )}
         </div>
       )}
       <button
         className="console_button"
         onClick={() => {
           console.log(userInfo);
-          console.log(userInfo.toShow.id);
-          console.log(userInfo.savedShows);
+          console.log(categoryId);
+          console.log("savedShows", savedShows);
         }}
       >
         Console

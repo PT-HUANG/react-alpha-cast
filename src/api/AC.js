@@ -135,7 +135,7 @@ export const addShow = async (categoryId, showId) => {
       }
     );
   } catch (error) {
-    console.error("[Delete category failed]: ", error);
+    console.error("[Add show failed]: ", error);
   }
 };
 export const removeShow = async (categoryId, showId) => {
@@ -150,6 +150,6 @@ export const removeShow = async (categoryId, showId) => {
       }
     );
   } catch (error) {
-    console.error("[Delete category failed]: ", error);
+    console.error("[Remove show failed]: ", error);
   }
 };

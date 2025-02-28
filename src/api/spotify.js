@@ -187,8 +187,8 @@ export async function searchPodcast(str) {
 }
 
 export async function getShows(showIds) {
-  if (showIds === undefined) {
-    return false;
+  if (!Array.isArray(showIds) || showIds.length === 0) {
+    return [];
   }
   try {
     const requests = showIds.map((showId) =>
@@ -218,6 +218,26 @@ export async function getShowEpisodes(showId) {
       }
     );
     return data;
+  } catch (error) {
+    console.error("[Get episodes from show failed]: ", error);
+    return [];
+  }
+}
+
+export async function getEpisodes(episodeIds) {
+  try {
+    const requests = episodeIds.map(episodeId => 
+      axios.get(
+        `https://api.spotify.com/v1/episodes/${episodeId.id}`,
+        {
+          headers: {
+            Authorization: "Bearer " + currentToken.access_token,
+          },
+        }
+      )
+    );
+    const responses = await Promise.all(requests);
+    return responses.map((response) => response.data) || [];
   } catch (error) {
     console.error("[Get episodes failed]: ", error);
     return [];

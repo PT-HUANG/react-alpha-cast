@@ -389,7 +389,7 @@ hr {
   position: relative;
   max-width: 1440px;
   margin: 0 auto;
-  background-color: #ececec;
+  background-color: #fff;
   display: grid;
   grid-template-columns: 16% 84%;
   grid-template-rows: 100vh;
@@ -723,7 +723,6 @@ hr {
 }
 
 .podcast_container {
-  background-color: #1ed760;
   width: 77%;
   height: 100vh;
   overflow-y: scroll;
@@ -733,8 +732,18 @@ hr {
   grid-template-columns: repeat(auto-fit, 190px);
   grid-template-rows: auto;
   align-content: baseline;
-  justify-content: center;  
+  justify-content: start;
 }
+
+.favorite_container {
+  width: 77%;
+  height: 100vh;
+  overflow-y: scroll;
+  padding: 0 1rem;
+  padding-top: 5rem;
+  background-color: #1ed760;
+}
+
 .console_button {
   position: absolute;
   top: 20%;

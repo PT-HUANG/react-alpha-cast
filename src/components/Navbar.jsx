@@ -1,8 +1,6 @@
 import logo from "../assets/images/logo.png";
 import { Category, Favorites } from "../components";
 import AddCategory from "./AddCategory";
-import { useEffect } from "react";
-import { useUser } from "../Context/UserContext";
 import styled from "styled-components";
 
 const ScrollableArea = styled.div`
@@ -18,22 +16,16 @@ const ScrollableArea = styled.div`
   }
 `;
 
-function Navbar() {
-  const { userInfo, getCategories } = useUser();
-  useEffect(() => {
-    async function handleNavbar() {
-      await getCategories();
-    }
-    handleNavbar();
-  }, []);
+function Navbar({ userInfo }) {
+  const { categories } = userInfo;
 
   return (
     <div className="navbar_container">
       <img src={logo} className="navbar_logo" alt="logo" />
       <hr className="navbar_hr" />
       <ScrollableArea>
-        {userInfo.categories
-          ? userInfo.categories.map((data) => {
+        {categories
+          ? categories.map((data) => {
               return (
                 <Category
                   key={data.id}
