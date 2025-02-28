@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { searchPodcast } from "../../api/spotify";
-import { Result } from "../../components";
+import { SearchResult } from "../../components";
 import { useUser } from "../../Context/UserContext";
 
 function SearchModal({ categoryId, show, onHide }) {
@@ -23,7 +23,6 @@ function SearchModal({ categoryId, show, onHide }) {
     });
     setPodcasts(nextPodcasts);
     setIsChosen(false);
-    console.log(podcasts);
   }
 
   function hadleSelect(showId) {
@@ -83,7 +82,7 @@ function SearchModal({ categoryId, show, onHide }) {
         {podcasts
           ? podcasts.map((p) => {
               return (
-                <Result
+                <SearchResult
                   key={p.id}
                   info={p}
                   $isSelected={p.isSelected}

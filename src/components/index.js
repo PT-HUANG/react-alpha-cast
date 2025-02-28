@@ -12,7 +12,7 @@ import Main from "./Main";
 import DefaultStatus from "./DefaultStatus";
 import PodcastCard from "./PodcastCard";
 import EpisodeCard from "./EpisodeCard";
-import Result from "./SearchResult";
+import SearchResult from "./SearchResult";
 import Player from "./Player";
 import UserInfo from "./UserInfo";
 
@@ -34,7 +34,7 @@ export {
   DefaultStatus,
   PodcastCard,
   EpisodeCard,
-  Result,
+  SearchResult,
   Player,
   UserInfo,
   CreateModal,

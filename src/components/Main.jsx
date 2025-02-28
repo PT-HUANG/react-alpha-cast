@@ -1,43 +1,104 @@
-import { DefaultStatus, PodcastCard, UserInfo, Player } from "../components";
+import {
+  DefaultStatus,
+  EpisodeCard,
+  PodcastCard,
+  UserInfo,
+  Player,
+} from "../components";
+import { useEffect, useState } from "react";
+import { getEpisodes } from "../api/Spotify";
 
 function Main({ userInfo }) {
-  const { toShow, savedShows } = userInfo;
-  const categoryId = toShow.id;
-  const isFavorites = categoryId === "favorites" || categoryId === undefined;
+  const categoryId = localStorage.getItem("selectedCategoryId");
+  const { savedShows } = userInfo;
+  const [currentShows, setCurrentShows] = useState([]);
+  const [greetings, setGreetings] = useState("");
+
+  useEffect(() => {
+    function getGreetings() {
+      const now = new Date();
+      const hours = now.getHours();
+
+      if (hours >= 5 && hours < 12) {
+        setGreetings("早安"); // 5:00 AM - 11:59 AM
+      } else if (hours >= 12 && hours < 18) {
+        setGreetings("午安"); // 12:00 PM - 5:59 PM
+      } else {
+        setGreetings("晚安"); // 6:00 PM - 4:59 AM
+      }
+    }
+
+    async function handleFetchShows() {
+      if (categoryId === "favorites") {
+        const fetchData = await getEpisodes(savedShows);
+        const formattedData = fetchData.map((data) => {
+          return { ...data, isSelected: false };
+        });
+        setCurrentShows(formattedData);
+      } else {
+        setCurrentShows(savedShows);
+      }
+    }
+    getGreetings();
+    handleFetchShows();
+  }, [categoryId, savedShows.length]);
+
+  function handleSelectEpisode(episodeId) {
+    const nextFavoriteEpisodes = currentShows.map((show) => {
+      if (show.id === episodeId) {
+        return { ...show, isSelected: true };
+      } else {
+        return { ...show, isSelected: false };
+      }
+    });
+    setCurrentShows(nextFavoriteEpisodes);
+  }
 
   return (
-    <div>
-      {savedShows === undefined || savedShows.length === 0 ? (
-        <DefaultStatus categoryId={categoryId} name={categoryId} />
-      ) : (
+    <div className="main_container">
+      <h2 className="greetings">{greetings}</h2>
+      {currentShows?.length ? (
         <div className="main_container">
-          {isFavorites ? (
-            <div className="favorite_container">
-              {savedShows.map((show) => (
-                <div key={show.id}>{show.id}</div>
-              ))}
-            </div>
+          {categoryId === "favorites" ? (
+            <FavoriteList shows={currentShows} onSelect={handleSelectEpisode} />
           ) : (
-            <div className="podcast_container">
-              {savedShows.map((show) => (
-                <PodcastCard key={show.id} info={show} />
-              ))}
-            </div>
+            <PodcastList shows={currentShows} />
           )}
         </div>
+      ) : (
+        <DefaultStatus />
       )}
       <button
         className="console_button"
         onClick={() => {
           console.log(userInfo);
-          console.log(categoryId);
-          console.log("savedShows", savedShows);
+          console.log(currentShows);
         }}
       >
         Console
       </button>
       <UserInfo />
       {/* <Player /> */}
+    </div>
+  );
+}
+
+function FavoriteList({ shows, onSelect }) {
+  return (
+    <div className="favorite_container">
+      {shows.map((show) => (
+        <EpisodeCard key={show.id} episode={show} onSelect={onSelect} />
+      ))}
+    </div>
+  );
+}
+
+function PodcastList({ shows }) {
+  return (
+    <div className="podcast_container">
+      {shows.map((show) => (
+        <PodcastCard key={show.id} info={show} />
+      ))}
     </div>
   );
 }

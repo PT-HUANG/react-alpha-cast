@@ -11,7 +11,7 @@ const StyledEpisodeContainer = styled.div`
   overflow-y: scroll;
 `;
 
-function PodcastModal({ show, onHide, info, episodes }) {
+function PodcastModal({ show, onHide, onSelect, info, episodes }) {
   const { images, name, publisher, id, description } = info;
   const { url } = images[1];
   const { removeShow, userInfo } = useUser();
@@ -42,7 +42,13 @@ function PodcastModal({ show, onHide, info, episodes }) {
         <div className="episodeInfo">
           {episodes
             ? episodes.map((episode) => {
-                return <EpisodeCard key={episode.id} episode={episode} />;
+                return (
+                  <EpisodeCard
+                    key={episode.id}
+                    episode={episode}
+                    onSelect={onSelect}
+                  />
+                );
               })
             : ""}
         </div>

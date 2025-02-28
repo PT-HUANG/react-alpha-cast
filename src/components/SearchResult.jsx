@@ -37,7 +37,7 @@ const StyledSubtitle = styled.div`
   overflow: hidden;
 `;
 
-function Result({ info, $isSelected, onSelect }) {
+function SearchResult({ info, $isSelected, onSelect }) {
   const { images, name, publisher, id } = info;
   const imagesToShow = images[1];
   const { height, url, width } = imagesToShow;
@@ -55,4 +55,4 @@ function Result({ info, $isSelected, onSelect }) {
   );
 }
 
-export default Result;
+export default SearchResult;

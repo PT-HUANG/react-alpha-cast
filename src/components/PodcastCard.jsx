@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Button } from "react-bootstrap";
 import { useState } from "react";
 import { PodcastModal } from ".";
-import { useUser } from "../context/UserContext";
+import { getShowEpisodes } from "../api/Spotify";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -47,7 +47,6 @@ const StyledSubtitle = styled.div`
 function PodcastCard({ info }) {
   const [modalStatus, setModalStatus] = useState(false);
   const [currentEpisodes, setCurrentEpisodes] = useState([]);
-  const { getShowEpisodes } = useUser();
   const { images, name, publisher, id } = info;
   const { height, url, width } = images[1];
 
@@ -58,7 +57,23 @@ function PodcastCard({ info }) {
   const handleShow = async () => {
     setModalStatus(true);
     const { items } = await getShowEpisodes(id);
-    setCurrentEpisodes(items);
+    const validItems = items.filter((item) => item !== null);
+    const formattedData = validItems.map((item) => {
+      return { ...item, isSelected: false };
+    });
+
+    setCurrentEpisodes(formattedData);
+  };
+
+  const handleSelect = (episodeId) => {
+    const nextEpisodes = currentEpisodes.map((episode) => {
+      if (episode.id === episodeId) {
+        return { ...episode, isSelected: true };
+      } else {
+        return { ...episode, isSelected: false };
+      }
+    });
+    setCurrentEpisodes(nextEpisodes);
   };
 
   return (
@@ -72,6 +87,7 @@ function PodcastCard({ info }) {
       <PodcastModal
         show={modalStatus}
         onHide={handleClose}
+        onSelect={handleSelect}
         info={info}
         episodes={currentEpisodes}
       />

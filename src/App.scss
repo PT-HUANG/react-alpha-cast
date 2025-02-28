@@ -724,10 +724,10 @@ hr {
 
 .podcast_container {
   width: 77%;
-  height: 100vh;
+  height: 80vh;
   overflow-y: scroll;
   padding: 0 1rem;
-  padding-top: 5rem;
+  margin-top: 6rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, 190px);
   grid-template-rows: auto;
@@ -737,11 +737,10 @@ hr {
 
 .favorite_container {
   width: 77%;
-  height: 100vh;
+  height: 80vh;
   overflow-y: scroll;
   padding: 0 1rem;
-  padding-top: 5rem;
-  background-color: #1ed760;
+  margin-top: 6rem;
 }
 
 .console_button {
@@ -845,6 +844,17 @@ hr {
   font-size: 0.75rem;
   font-weight: 400;
   color: #ff5050;
+}
+
+.main_container {
+  position: relative;
+}
+
+.greetings {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  font-weight: 700;
 }
 
 // ======> Home Page <======

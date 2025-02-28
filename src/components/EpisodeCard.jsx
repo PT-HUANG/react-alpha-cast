@@ -1,13 +1,15 @@
 import styled from "styled-components";
 import { useUser } from "../Context/UserContext";
 
-const StyledContainer = styled.div`
+const StyledContainer = styled(({ isSelected, ...rest }) => <div {...rest} />)`
   position: relative;
   display: flex;
   border-radius: 1rem;
-  border: 1px solid #edf2f7;
+  border: ${(props) =>
+    props.isSelected ? "2px solid #ff7f50" : "2px solid #edf2f7"};
   margin: 1rem 0;
   padding: 1rem;
+  cursor: pointer;
   & img {
     width: 11%;
     height: 11%;
@@ -62,7 +64,7 @@ const StyledBookmark = styled.div`
   color: #ff7f50;
 `;
 
-function EpisodeCard({ episode }) {
+function EpisodeCard({ episode, onSelect }) {
   const { userInfo, handleFavorite } = useUser();
   const { favoriteEpisodeIds } = userInfo.favorites;
 
@@ -79,7 +81,12 @@ function EpisodeCard({ episode }) {
   const length = formatTime(duration_ms);
 
   return (
-    <StyledContainer>
+    <StyledContainer
+      isSelected={episode.isSelected}
+      onClick={() => {
+        onSelect(episode.id);
+      }}
+    >
       <img src={url} />
       <StyledContentContainer>
         <StyledEpisodeTitle>{name}</StyledEpisodeTitle>

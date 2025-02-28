@@ -32,8 +32,9 @@ const StyledButton = styled.div`
   }
 `;
 
-function DefaultStatus({ categoryId, name }) {
+function DefaultStatus() {
   const [modalStatus, setModalStatus] = useState(false);
+  const categoryId = localStorage.getItem("selectedCategoryId");
 
   const handleClose = () => {
     setModalStatus(false);
@@ -47,7 +48,7 @@ function DefaultStatus({ categoryId, name }) {
     <>
       <StyledContainer>
         <img src={empty} alt="emoty_folder" className="empty_icon" />
-        {name === "favorites" ? (
+        {categoryId === "favorites" ? (
           <StyledTitle>您尚未收藏任何Podcast</StyledTitle>
         ) : (
           <>
