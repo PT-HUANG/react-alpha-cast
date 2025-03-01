@@ -4,10 +4,10 @@ import SearchModal from "./Modal/SearchModal";
 import { useState } from "react";
 
 const StyledContainer = styled.div`
-  width: 32.2%;
+  width: 40%;
   position: absolute;
-  top: 10%;
-  left: 30%;
+  top: 15%;
+  left: 15%;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -47,6 +47,7 @@ function PodcastModal({ show, onHide, onSelect, info, episodes }) {
                     key={episode.id}
                     episode={episode}
                     onSelect={onSelect}
+                    publisher={publisher}
                   />
                 );
               })

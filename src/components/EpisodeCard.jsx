@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useUser } from "../Context/UserContext";
-
+import { usePlayer } from "../Context/PlayerContext";
 const StyledContainer = styled(({ isSelected, ...rest }) => <div {...rest} />)`
   position: relative;
   display: flex;
@@ -52,7 +52,7 @@ const StyledInfo = styled.div`
     color: #ff7f50;
     cursor: pointer;
     font-size: 1.5rem;
-    margin: 0 0.5rem;
+    margin-right: 0.5rem;
   }
 `;
 
@@ -64,8 +64,9 @@ const StyledBookmark = styled.div`
   color: #ff7f50;
 `;
 
-function EpisodeCard({ episode, onSelect }) {
+function EpisodeCard({ episode, onSelect, publisher }) {
   const { userInfo, handleFavorite } = useUser();
+  const { handlePlayPause, currentEpisode } = usePlayer();
   const { favoriteEpisodeIds } = userInfo.favorites;
 
   const { images, name, description, release_date, duration_ms, id } = episode;
@@ -92,7 +93,16 @@ function EpisodeCard({ episode, onSelect }) {
         <StyledEpisodeTitle>{name}</StyledEpisodeTitle>
         <StyledEpisodeDescription>{description}</StyledEpisodeDescription>
         <StyledInfo>
-          <i className="fa-solid fa-circle-play"></i>
+          <i
+            className={
+              currentEpisode.id === episode.id && currentEpisode.isPlaying
+                ? "fa-solid fa-circle-pause"
+                : "fa-solid fa-circle-play"
+            }
+            onClick={() => {
+              handlePlayPause({ ...episode, show: { name: publisher } });
+            }}
+          ></i>
           <span>
             {release_date} · {length}
           </span>

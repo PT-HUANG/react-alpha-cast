@@ -570,7 +570,7 @@ hr {
 .userinfo {
   position: absolute;
   top: 5%;
-  right: 1%;
+  right: 5%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -609,14 +609,19 @@ hr {
 
 .player_container {
   position: absolute;
-  top: 22.5%;
-  left: 69%;
-  width: 26.4%;
-  height: 43%;
+  top: 16.5%;
+  right: 2%;
+  width: 30%;
+  height: 60%;
   background-color: #fff;
   padding: 1rem 2rem;
   border-radius: 16px;
   box-shadow: 16px 16px 40px 0px #c7c7c73d;
+}
+
+.player_container iframe {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .player_title {
@@ -723,7 +728,7 @@ hr {
 }
 
 .podcast_container {
-  width: 77%;
+  width: 65%;
   height: 80vh;
   overflow-y: scroll;
   padding: 0 1rem;
@@ -736,17 +741,18 @@ hr {
 }
 
 .favorite_container {
-  width: 77%;
+  width: 65%;
   height: 80vh;
   overflow-y: scroll;
   padding: 0 1rem;
+  padding-left: 2rem;
   margin-top: 6rem;
 }
 
 .console_button {
   position: absolute;
-  top: 20%;
-  right: 10%;
+  top: 6%;
+  right: 70%;
 }
 
 .card_button {

@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { Button } from "react-bootstrap";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { PodcastModal } from ".";
 import { getShowEpisodes } from "../api/Spotify";
+import { usePlayer } from "../Context/PlayerContext";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -15,7 +16,7 @@ const StyledContainer = styled.div`
   cursor: pointer;
   max-height: 300px;
   & img {
-    max-width: 80%;
+    max-width: 70%;
     border-radius: 8px;
     margin: 0 auto;
   }
@@ -47,6 +48,7 @@ const StyledSubtitle = styled.div`
 function PodcastCard({ info }) {
   const [modalStatus, setModalStatus] = useState(false);
   const [currentEpisodes, setCurrentEpisodes] = useState([]);
+  const { playingEpisodeId } = usePlayer();
   const { images, name, publisher, id } = info;
   const { height, url, width } = images[1];
 
@@ -59,7 +61,7 @@ function PodcastCard({ info }) {
     const { items } = await getShowEpisodes(id);
     const validItems = items.filter((item) => item !== null);
     const formattedData = validItems.map((item) => {
-      return { ...item, isSelected: false };
+      return { ...item, isSelected: false, isNowPlaying: false };
     });
 
     setCurrentEpisodes(formattedData);
@@ -75,6 +77,14 @@ function PodcastCard({ info }) {
     });
     setCurrentEpisodes(nextEpisodes);
   };
+
+  useEffect(() => {
+    const nextEpisodes = currentEpisodes.map((episode) => ({
+      ...episode,
+      isNowPlaying: episode.id === playingEpisodeId,
+    }));
+    setCurrentEpisodes(nextEpisodes);
+  }, [playingEpisodeId]);
 
   return (
     <StyledContainer>

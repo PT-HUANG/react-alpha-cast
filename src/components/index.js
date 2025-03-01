@@ -12,6 +12,7 @@ import Main from "./Main";
 import DefaultStatus from "./DefaultStatus";
 import PodcastCard from "./PodcastCard";
 import EpisodeCard from "./EpisodeCard";
+import PlayerCard from "./PlayerCard";
 import SearchResult from "./SearchResult";
 import Player from "./Player";
 import UserInfo from "./UserInfo";
@@ -34,6 +35,7 @@ export {
   DefaultStatus,
   PodcastCard,
   EpisodeCard,
+  PlayerCard,
   SearchResult,
   Player,
   UserInfo,

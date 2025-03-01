@@ -7,12 +7,14 @@ import {
 } from "../components";
 import { useEffect, useState } from "react";
 import { getEpisodes } from "../api/Spotify";
+import { usePlayer } from "../Context/PlayerContext";
 
 function Main({ userInfo }) {
   const categoryId = localStorage.getItem("selectedCategoryId");
   const { savedShows } = userInfo;
   const [currentShows, setCurrentShows] = useState([]);
   const [greetings, setGreetings] = useState("");
+  const { currentEpisode } = usePlayer();
 
   useEffect(() => {
     function getGreetings() {
@@ -72,13 +74,13 @@ function Main({ userInfo }) {
         className="console_button"
         onClick={() => {
           console.log(userInfo);
-          console.log(currentShows);
+          console.log(currentEpisode);
         }}
       >
         Console
       </button>
       <UserInfo />
-      {/* <Player /> */}
+      {currentEpisode && <Player />}
     </div>
   );
 }
