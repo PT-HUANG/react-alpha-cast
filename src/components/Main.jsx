@@ -52,8 +52,8 @@ function Main({ userInfo }) {
     }
 
     async function handleFetchShows() {
+      const fetchData = await getEpisodes(favoriteEpisodeIds);
       if (categoryId === "favorites") {
-        const fetchData = await getEpisodes(savedShows);
         const formattedData = fetchData.map((data) => {
           return { ...data, isSelected: false };
         });
@@ -64,7 +64,7 @@ function Main({ userInfo }) {
     }
     getGreetings();
     handleFetchShows();
-  }, [categoryId, savedShows.length]);
+  }, [categoryId, savedShows.length, favoriteEpisodeIds.length]);
 
   function handleSelectEpisode(episodeId) {
     const nextFavoriteEpisodes = currentShows.map((show) => {
@@ -91,7 +91,13 @@ function Main({ userInfo }) {
       ) : (
         <DefaultStatus />
       )}
-      <button className="console_button" onClick={() => {}}>
+      <button
+        className="console_button"
+        onClick={async () => {
+          console.log(userInfo);
+          console.log(currentShows);
+        }}
+      >
         debug用按鈕
       </button>
       <UserInfo />
@@ -104,7 +110,12 @@ function FavoriteList({ shows, onSelect }) {
   return (
     <div className="favorite_container">
       {shows.map((show) => (
-        <EpisodeCard key={show.id} episode={show} onSelect={onSelect} />
+        <EpisodeCard
+          key={show.id}
+          episode={show}
+          onSelect={onSelect}
+          publisher={show.show?.name}
+        />
       ))}
     </div>
   );

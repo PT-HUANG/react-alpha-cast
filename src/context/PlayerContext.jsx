@@ -13,12 +13,19 @@ export function PlayerProvider({ children }) {
   const [episodePlayedSeconds, setEpisodePlayedSeconds] = useState(0);
   const intervalRef = useRef(null);
 
+  async function handleRestart(episode) {
+    StopTimer();
+    await EmbedController.play();
+    setCurrentEpisode({ ...episode, isPlaying: true });
+    StartTimer();
+  }
+
   async function handlePlayPause(episode) {
     if (isDisabled) return;
     setIsDisabled(true);
     if (currentEpisode.id !== episode.id) {
       await EmbedController.loadUri(`spotify:episode:${episode.id}`);
-      await EmbedController.togglePlay();
+      await EmbedController.play();
       setCurrentEpisode({ ...episode, isPlaying: true });
       StartTimer();
     } else {
@@ -62,6 +69,7 @@ export function PlayerProvider({ children }) {
       value={{
         EmbedController,
         setEmbedController,
+        handleRestart,
         handlePlayPause,
         currentEpisode,
         episodePlayedSeconds,

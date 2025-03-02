@@ -891,12 +891,12 @@ hr {
 
 @media screen and (min-width: 900px) {
   .episode_control {
-    grid-template-columns: 15% 40% 35%;
+    grid-template-columns: 15% 50% 35%;
     grid-template-rows: auto;
     grid-template-areas: "playbutton timer progressbar";
   }
   .progressbar {
-    width: 90%;
+    width: 70%;
   }
 }
 

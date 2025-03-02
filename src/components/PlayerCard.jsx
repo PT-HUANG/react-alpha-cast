@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState, useRef } from "react";
+import { useEffect } from "react";
 import { useUser } from "../Context/UserContext";
 import { usePlayer } from "../Context/PlayerContext";
 const StyledContainer = styled.div`
@@ -68,7 +68,7 @@ const StyledContent = styled.div`
 const StyledEpisodeControl = styled.div`
   position: absolute;
   top: 72.5%;
-  width: 100%;
+  width: 90%;
   .playbutton {
     color: #ff7f50;
     cursor: pointer;
@@ -82,7 +82,7 @@ const StyledEpisodeControl = styled.div`
 
 const StyledProgressBar = styled.div`
   position: relative;
-  width: 90%;
+  width: 70%;
   height: 4px;
   background-color: #cccccc;
   border-radius: 10px;
@@ -102,7 +102,12 @@ const ProgressFill = styled.div.attrs((props) => ({
 
 function PlayerCard() {
   const { userInfo, handleFavorite } = useUser();
-  const { handlePlayPause, currentEpisode, episodePlayedSeconds } = usePlayer();
+  const {
+    handleRestart,
+    handlePlayPause,
+    currentEpisode,
+    episodePlayedSeconds,
+  } = usePlayer();
 
   const { favoriteEpisodeIds } = userInfo.favorites;
   const {
@@ -141,6 +146,12 @@ function PlayerCard() {
   const progress =
     ((episodePlayedSeconds / episodeDuration) * 100).toFixed(2).toString() +
     "%";
+
+  useEffect(() => {
+    if (runningSeconds === episodeTotalDuration) {
+      handleRestart(currentEpisode);
+    }
+  }, [runningSeconds]);
 
   return (
     <StyledContainer>
