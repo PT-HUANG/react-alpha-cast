@@ -30,14 +30,17 @@ export const getNewToken = async () => {
 export const saveToFavorite = async (episodeId) => {
   const apiToken = localStorage.getItem("apiToken");
   try {
-    const { data } = await axios.post(`${baseURL}/api/episodes`, {
-      episodeId: episodeId
-    }, {
-      headers: {
-        Authorization: "Bearer " + apiToken,
+    const { data } = await axios.post(
+      `${baseURL}/api/episodes`,
+      {
+        episodeId: episodeId,
       },
-    });
-    console.log('已新增至favorites')
+      {
+        headers: {
+          Authorization: "Bearer " + apiToken,
+        },
+      }
+    );
     return data;
   } catch (error) {
     console.error("[Save To Favorite failed]: ", error);
@@ -52,7 +55,6 @@ export const removeFromFavorite = async (episodeId) => {
         Authorization: "Bearer " + apiToken,
       },
     });
-    console.log('已從favorites刪除')
     return res;
   } catch (error) {
     console.error("[Remove from Favorite failed]: ", error);

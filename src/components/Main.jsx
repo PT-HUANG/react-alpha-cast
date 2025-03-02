@@ -8,13 +8,34 @@ import {
 import { useEffect, useState } from "react";
 import { getEpisodes } from "../api/Spotify";
 import { usePlayer } from "../Context/PlayerContext";
+import Swal from "sweetalert2";
 
 function Main({ userInfo }) {
   const categoryId = localStorage.getItem("selectedCategoryId");
-  const { savedShows } = userInfo;
+  const { savedShows, favorites, message } = userInfo;
+  const { favoriteEpisodeIds } = favorites;
   const [currentShows, setCurrentShows] = useState([]);
   const [greetings, setGreetings] = useState("");
   const { currentEpisode } = usePlayer();
+
+  useEffect(() => {
+    if (message === "default") {
+      return;
+    }
+    Swal.fire({
+      position: "bottom-end",
+      icon: "success",
+      iconColor: "#4CAF50",
+      title: `${message}`,
+      showConfirmButton: false,
+      timer: 1000,
+      customClass: {
+        popup: "custom_dialog",
+        icon: "custom_dialog_icon",
+        title: "custom_dialog_title",
+      },
+    });
+  }, [favoriteEpisodeIds.length]);
 
   useEffect(() => {
     function getGreetings() {
@@ -70,14 +91,8 @@ function Main({ userInfo }) {
       ) : (
         <DefaultStatus />
       )}
-      <button
-        className="console_button"
-        onClick={() => {
-          console.log(userInfo);
-          console.log(currentEpisode);
-        }}
-      >
-        Console
+      <button className="console_button" onClick={() => {}}>
+        debug用按鈕
       </button>
       <UserInfo />
       {currentEpisode && <Player />}

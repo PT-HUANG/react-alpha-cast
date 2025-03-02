@@ -148,11 +148,53 @@ export async function refreshTokenClick() {
 }
 
 // 在每次發送Spotify API前都做這個檢查
+// export async function isTokenValid() {
+//   const access_token = localStorage.getItem("access_token");
+//   try {
+//     await axios.get("https://api.spotify.com/v1/me", {
+//       headers: {
+//         Authorization: "Bearer " + access_token,
+//       },
+//     });
+//     return true;
+//   } catch (error) {
+//     if (error.status === 401) {
+//       await refreshTokenClick();
+//       console.log("Spotiy Token Refreshed");
+//       return true;
+//     } else return false;
+//   }
+// }
+
 export async function isTokenValid() {
   const access_token = localStorage.getItem("access_token");
-  if (access_token === undefined || !access_token) {
+  const expires = localStorage.getItem("expires");
+
+  if (!access_token || !expires) {
     return false;
   }
+
+  // 轉換 expires 為 Date 物件
+  const expiryDate = new Date(expires);
+  const now = new Date();
+
+  const timeDiff = expiryDate - now;
+
+  if (timeDiff < 10 * 60 * 1000) {
+    console.log("⚠️ Token 即將過期，請刷新");
+    refreshTokenClick();
+  } else {
+    console.log("✅ Token 仍有效");
+  }
+
+  // // 如果 token 已過期，則刷新
+  // if (now >= expiryDate) {
+  //   console.log("Token 已過期，正在刷新...");
+  //   await refreshTokenClick();
+  //   return true;
+  // }
+
+  // 嘗試發送 API，確認 token 是否有效
   try {
     await axios.get("https://api.spotify.com/v1/me", {
       headers: {
@@ -161,11 +203,13 @@ export async function isTokenValid() {
     });
     return true;
   } catch (error) {
-    if (error.status === 401) {
-      await refreshTokenClick();
-      console.log("Spotiy Token Refreshed");
-      return true;
-    } else return false;
+    // if (error.response && error.response.status === 401) {
+    //   console.log("Spotify Token 無效，正在刷新...");
+    //   await refreshTokenClick();
+    //   return true;
+    // }
+    console.error("Token Invalid", error);
+    return false;
   }
 }
 
@@ -226,15 +270,12 @@ export async function getShowEpisodes(showId) {
 
 export async function getEpisodes(episodeIds) {
   try {
-    const requests = episodeIds.map(episodeId => 
-      axios.get(
-        `https://api.spotify.com/v1/episodes/${episodeId.id}`,
-        {
-          headers: {
-            Authorization: "Bearer " + currentToken.access_token,
-          },
-        }
-      )
+    const requests = episodeIds.map((episodeId) =>
+      axios.get(`https://api.spotify.com/v1/episodes/${episodeId.id}`, {
+        headers: {
+          Authorization: "Bearer " + currentToken.access_token,
+        },
+      })
     );
     const responses = await Promise.all(requests);
     return responses.map((response) => response.data) || [];

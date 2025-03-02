@@ -11,8 +11,6 @@ function Player() {
         uri: "spotify:episode:7makk4oTQel546B0PZlDM5",
       };
       let callback = (EmbedController) => {
-        console.log("加載完成");
-        console.log(EmbedController);
         setEmbedController(EmbedController);
       };
       IFrameAPI.createController(element, options, callback);

@@ -7,7 +7,7 @@ const StyledEpisodeContainer = styled.div`
   padding: 1rem;
   padding-top: 0;
   width: 100%;
-  height: 50vh;
+  height: 40vh;
   overflow-y: scroll;
 `;
 

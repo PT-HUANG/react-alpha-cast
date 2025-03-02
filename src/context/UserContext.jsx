@@ -39,6 +39,7 @@ export const UserProvider = ({ children }) => {
     },
     toShow: {},
     savedShows: [],
+    message: "default",
   });
 
   return (
@@ -243,12 +244,17 @@ export const UserProvider = ({ children }) => {
           }
           const data = await fetchUserInfo();
           const nextFavorites = data.favoriteEpisodeIds;
+          const message =
+            nextFavorites.length - favoriteEpisodeIds.length > 0
+              ? "成功加入收藏 😁"
+              : "成功移除收藏 😊";
           setUserInfo({
             ...userInfo,
             favorites: {
               ...userInfo.favorites,
               favoriteEpisodeIds: nextFavorites,
             },
+            message,
           });
         },
       }}

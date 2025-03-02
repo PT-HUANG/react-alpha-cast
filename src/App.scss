@@ -900,4 +900,35 @@ hr {
   }
 }
 
+.custom_dialog {
+  width: 24%;
+  display: flex !important;
+  align-items: center !important;
+  padding-bottom: 0 !important;
+}
+
+.custom_dialog_icon {
+  display: none !important;
+}
+
+.custom_dialog_title::before {
+  font-family: "Font Awesome 6 Free";
+  content: "\f058";
+  font-weight: 400;
+  font-size: 24px;
+  color: #4caf50;
+  margin-right: 0.5rem;
+}
+
+.custom_dialog_title {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #141416;
+  margin-left: 0.5rem;
+  padding: 1rem !important;
+  display: flex !important;
+  width: 100%;
+  align-items: center;
+}
+
 // ======> Home Page <======
