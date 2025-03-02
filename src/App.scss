@@ -620,7 +620,9 @@ hr {
 }
 
 .player_container iframe {
+  position: absolute;
   opacity: 0;
+  right: 5%;
   pointer-events: none;
 }
 
@@ -861,6 +863,41 @@ hr {
   top: 5%;
   left: 5%;
   font-weight: 700;
+}
+
+.episode_control {
+  width: 80%;
+  display: grid;
+  grid-template-columns: 20% 80%;
+  grid-template-rows: 30% 70%;
+  grid-template-areas:
+    "playbutton progressbar"
+    "playbutton timer";
+  align-items: center;
+  justify-items: center;
+}
+
+.playbutton {
+  grid-area: playbutton;
+}
+
+.timer {
+  grid-area: timer;
+}
+
+.progressbar {
+  grid-area: progressbar;
+}
+
+@media screen and (min-width: 900px) {
+  .episode_control {
+    grid-template-columns: 15% 40% 35%;
+    grid-template-rows: auto;
+    grid-template-areas: "playbutton timer progressbar";
+  }
+  .progressbar {
+    width: 90%;
+  }
 }
 
 // ======> Home Page <======

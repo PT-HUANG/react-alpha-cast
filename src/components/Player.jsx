@@ -24,7 +24,7 @@ function Player() {
       <div className="player_title">正在播放</div>
       <hr className="player_hr" />
       <div id="embed-iframe"></div>
-      {currentEpisode.id !== "initail" ? <PlayerCard /> : ""}
+      {currentEpisode.id !== "default" ? <PlayerCard /> : ""}
     </div>
   );
 }
