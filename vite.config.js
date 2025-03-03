@@ -10,5 +10,5 @@ export default defineConfig({
   build: {
     target: "esnext",
   },
-  base: "/react-alpha-cast",
+  base: "/react-alpha-cast/",
 });

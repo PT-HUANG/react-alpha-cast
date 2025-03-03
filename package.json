@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://pt-huang.github.io/react-alpha-cast",
+  "homepage": "https://pt-huang.github.io/react-alpha-cast/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
