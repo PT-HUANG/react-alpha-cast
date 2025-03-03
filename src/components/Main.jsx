@@ -59,7 +59,7 @@ function Main({ userInfo }) {
         });
         setCurrentShows(formattedData);
       } else {
-        setCurrentShows(savedShows);
+        setCurrentShows(savedShows.shows);
       }
     }
     getGreetings();
@@ -95,7 +95,7 @@ function Main({ userInfo }) {
         className="console_button"
         onClick={async () => {
           console.log(userInfo);
-          console.log(currentShows);
+          console.log(savedShows);
         }}
       >
         debug用按鈕
@@ -114,7 +114,7 @@ function FavoriteList({ shows, onSelect }) {
           key={show.id}
           episode={show}
           onSelect={onSelect}
-          publisher={show.show?.name}
+          // publisher={show.show?.name}
         />
       ))}
     </div>

@@ -207,20 +207,17 @@ export async function getShows(showIds) {
   if (!Array.isArray(showIds) || showIds.length === 0) {
     return [];
   }
-  try {
-    const requests = showIds.map((showId) =>
-      axios.get(`https://api.spotify.com/v1/shows/${showId.id}?market=TW`, {
-        headers: {
-          Authorization: "Bearer " + currentToken.access_token,
-        },
-      })
-    );
+  const payload = showIds.map(show => show.id).join(",");
 
-    const responses = await Promise.all(requests);
-    return responses.map((response) => response.data) || [];
+  try {
+    const {data} = await axios.get(`https://api.spotify.com/v1/shows?market=TW&ids=${payload}`, {
+      headers: {
+        Authorization: "Bearer " + currentToken.access_token,
+      },
+    })
+    return data
   } catch (error) {
     console.error("[Get shows failed]: ", error);
-    return [];
   }
 }
 

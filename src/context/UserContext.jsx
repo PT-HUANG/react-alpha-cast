@@ -70,6 +70,7 @@ export const UserProvider = ({ children }) => {
                   c.id === lastSelectedId || (id === 0 && !lastSelectedId)
               ) || {};
 
+            // 也許可以不用判斷式
             if (toShow.id === categories[0].id) {
               localStorage.setItem("selectedCategoryId", toShow.id);
             }
