@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { searchPodcast } from "../../api/spotify";
@@ -9,6 +9,8 @@ function SearchModal({ categoryId, show, onHide }) {
   const [currentInputValue, setCurrentInputValue] = useState("");
   const [podcasts, setPodcasts] = useState([]);
   const [isChosen, setIsChosen] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
+
   const inputRef = useRef(null);
   const { addShow } = useUser();
 
@@ -47,15 +49,29 @@ function SearchModal({ categoryId, show, onHide }) {
 
   async function handleKeyDown(e) {
     if (currentInputValue && e.key === "Enter") {
-      await handleSpotifySearch();
+      setPodcasts([]);
+      setIsSearching(true);
+      setTimeout(() => {
+        handleSpotifySearch();
+      }, 1200);
     }
   }
 
   async function handleSearch() {
     if (currentInputValue) {
-      await handleSpotifySearch();
+      setPodcasts([]);
+      setIsSearching(true);
+      setTimeout(() => {
+        handleSpotifySearch();
+      }, 1200);
     }
   }
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsSearching(false);
+    }, 1650);
+  }, [podcasts.length]);
 
   return (
     <Modal show={show} onHide={onHide} dialogClassName="search_modal">
@@ -79,18 +95,21 @@ function SearchModal({ categoryId, show, onHide }) {
         {podcasts.length !== 0 && <div className="result_title">搜尋結果</div>}
       </div>
       <div className="result_container">
-        {podcasts
-          ? podcasts.map((p) => {
-              return (
-                <SearchResult
-                  key={p.id}
-                  info={p}
-                  $isSelected={p.isSelected}
-                  onSelect={hadleSelect}
-                />
-              );
-            })
-          : ""}
+        {podcasts ? (
+          podcasts.map((p) => {
+            return (
+              <SearchResult
+                key={p.id}
+                info={p}
+                $isSelected={p.isSelected}
+                onSelect={hadleSelect}
+              />
+            );
+          })
+        ) : (
+          <span className="search_loader"></span>
+        )}
+        {isSearching && <span className="search_loader"></span>}
       </div>
       <Modal.Footer>
         <Button variant="light" className="btn-cancel" onClick={onHide}>

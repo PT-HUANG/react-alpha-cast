@@ -52,8 +52,8 @@ function Main({ userInfo }) {
     }
 
     async function handleFetchShows() {
-      const fetchData = await getEpisodes(favoriteEpisodeIds);
       if (categoryId === "favorites") {
+        const fetchData = await getEpisodes(favoriteEpisodeIds);
         const formattedData = fetchData.map((data) => {
           return { ...data, isSelected: false };
         });

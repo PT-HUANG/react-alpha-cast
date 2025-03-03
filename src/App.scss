@@ -589,6 +589,21 @@ hr {
   border-radius: 25px;
 }
 
+.default_avatar {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0%;
+  left: 0%;
+  height: 100%;
+  width: 25%;
+  border-radius: 25px;
+  background-color: #1ed760;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
 .account {
   margin: 0 0.5rem;
   margin-left: 25%;
@@ -930,5 +945,62 @@ hr {
   width: 100%;
   align-items: center;
 }
+
+.loader_container {
+  position: absolute;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+  background-color: #777777;
+  opacity: 0.5;
+  backdrop-filter: blur(8px);
+}
+
+.home_loader {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ffffff;;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  }
+
+  @keyframes rotation {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+  } 
+
+.search_loader {
+  position: absolute;
+  top: 28%;
+  left: 47.5%;
+  width: 40px;
+  height: 40px;
+  border: 4px solid #0a0a0a6b;;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  }
+
+  @keyframes rotation {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+  } 
 
 // ======> Home Page <======

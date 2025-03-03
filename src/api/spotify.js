@@ -124,6 +124,8 @@ async function refreshToken() {
 }
 
 export async function getProfile() {
+  const isValid = await isTokenValid();
+  if (!isValid) return null;
   const { data } = await axios.get("https://api.spotify.com/v1/me", {
     headers: {
       Authorization: "Bearer " + currentToken.access_token,
@@ -147,25 +149,6 @@ export async function refreshTokenClick() {
   currentToken.save(token);
 }
 
-// 在每次發送Spotify API前都做這個檢查
-// export async function isTokenValid() {
-//   const access_token = localStorage.getItem("access_token");
-//   try {
-//     await axios.get("https://api.spotify.com/v1/me", {
-//       headers: {
-//         Authorization: "Bearer " + access_token,
-//       },
-//     });
-//     return true;
-//   } catch (error) {
-//     if (error.status === 401) {
-//       await refreshTokenClick();
-//       console.log("Spotiy Token Refreshed");
-//       return true;
-//     } else return false;
-//   }
-// }
-
 export async function isTokenValid() {
   const access_token = localStorage.getItem("access_token");
   const expires = localStorage.getItem("expires");
@@ -174,7 +157,6 @@ export async function isTokenValid() {
     return false;
   }
 
-  // 轉換 expires 為 Date 物件
   const expiryDate = new Date(expires);
   const now = new Date();
 
@@ -182,17 +164,9 @@ export async function isTokenValid() {
 
   if (timeDiff < 10 * 60 * 1000) {
     console.log("⚠️ Token 即將過期，請刷新");
-    refreshTokenClick();
-  } else {
-    console.log("✅ Token 仍有效");
+    await refreshTokenClick();
+    console.log("✅ Token 刷新完成");
   }
-
-  // // 如果 token 已過期，則刷新
-  // if (now >= expiryDate) {
-  //   console.log("Token 已過期，正在刷新...");
-  //   await refreshTokenClick();
-  //   return true;
-  // }
 
   // 嘗試發送 API，確認 token 是否有效
   try {
@@ -203,17 +177,14 @@ export async function isTokenValid() {
     });
     return true;
   } catch (error) {
-    // if (error.response && error.response.status === 401) {
-    //   console.log("Spotify Token 無效，正在刷新...");
-    //   await refreshTokenClick();
-    //   return true;
-    // }
     console.error("Token Invalid", error);
     return false;
   }
 }
 
 export async function searchPodcast(str) {
+  const isValid = await isTokenValid();
+  if (!isValid) return null;
   try {
     const queryStr = encodeURIComponent(str);
     const { data } = await axios.get(
@@ -231,6 +202,8 @@ export async function searchPodcast(str) {
 }
 
 export async function getShows(showIds) {
+  const isValid = await isTokenValid();
+  if (!isValid) return null;
   if (!Array.isArray(showIds) || showIds.length === 0) {
     return [];
   }
@@ -252,6 +225,8 @@ export async function getShows(showIds) {
 }
 
 export async function getShowEpisodes(showId) {
+  const isValid = await isTokenValid();
+  if (!isValid) return null;
   try {
     const { data } = await axios.get(
       `https://api.spotify.com/v1/shows/${showId}/episodes?market=TW&limit=20`,
@@ -269,6 +244,8 @@ export async function getShowEpisodes(showId) {
 }
 
 export async function getEpisodes(episodeIds) {
+  const isValid = await isTokenValid();
+  if (!isValid) return null;
   try {
     const requests = episodeIds.map((episodeId) =>
       axios.get(`https://api.spotify.com/v1/episodes/${episodeId.id}`, {

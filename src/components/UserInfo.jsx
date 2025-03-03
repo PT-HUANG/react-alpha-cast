@@ -65,7 +65,13 @@ function UserInfo() {
     <div className="userInfo_container" onClick={handleToggleDropdown}>
       {currentMember.display_name && currentMember.images ? (
         <div className="userinfo">
-          <img src={currentMember.images[0].url} className="avatar" alt="" />
+          {currentMember.images[0] ? (
+            <img src={currentMember.images[0]?.url} className="avatar" alt="" />
+          ) : (
+            <div className="default_avatar">
+              {currentMember?.display_name[0].toUpperCase()}
+            </div>
+          )}
           <div className="account">{currentMember.display_name}</div>
           {isDropdownOpen ? (
             <>
