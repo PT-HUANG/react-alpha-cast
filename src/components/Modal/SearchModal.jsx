@@ -53,7 +53,7 @@ function SearchModal({ categoryId, show, onHide }) {
       setIsSearching(true);
       setTimeout(() => {
         handleSpotifySearch();
-      }, 1200);
+      }, 1500);
     }
   }
 
@@ -63,14 +63,14 @@ function SearchModal({ categoryId, show, onHide }) {
       setIsSearching(true);
       setTimeout(() => {
         handleSpotifySearch();
-      }, 1200);
+      }, 1500);
     }
   }
 
   useEffect(() => {
     setTimeout(() => {
       setIsSearching(false);
-    }, 1650);
+    }, 2000);
   }, [podcasts.length]);
 
   return (

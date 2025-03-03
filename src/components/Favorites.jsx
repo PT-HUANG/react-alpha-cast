@@ -20,15 +20,13 @@ function Favorites() {
         selectCategory("favorites");
       }}
     >
-      <div className="category_title">
-        <span className="category_emoji">❤️</span>
-        <StyledContent
-          className="category_content"
-          $isSelected={userInfo.favorites.isSelected}
-        >
-          已收藏
-        </StyledContent>
-      </div>
+      <span className="category_emoji">❤️</span>
+      <StyledContent
+        className="category_content"
+        $isSelected={userInfo.favorites.isSelected}
+      >
+        已收藏
+      </StyledContent>
     </StyledCategoryContainer>
   );
 }

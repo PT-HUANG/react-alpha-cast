@@ -420,7 +420,6 @@ hr {
   }
 }
 
-.category,
 .addCategory {
   width: 85%;
   display: flex;
@@ -435,12 +434,40 @@ hr {
   box-sizing: border-box;
 }
 
+.category{
+  width: 85%;
+  display: grid;
+  grid-template-columns: 20% 70% 10%;
+  grid-template-rows: auto;
+  grid-template-areas: "emoji content option";
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.category_emoji {
+  grid-area: emoji;
+}
+
 .category_content {
-  margin-left: 10px;
+  grid-area: content;
+  overflow: hidden;
+  margin-right: 12px;
+  white-space: nowrap;
+}
+
+.category_option {
+  grid-area: option;
 }
 
 .category_option i {
-  padding-left: 12.5px;
+  padding-left: 5px;
 }
 
 .addCategory {
@@ -540,6 +567,10 @@ hr {
   padding: 1rem;
   padding-left: 1.5rem;
   font-size: 1.2rem;
+}
+
+.deleteContent {
+  word-break: break-all;
 }
 
 .modal-footer {
@@ -745,7 +776,7 @@ hr {
 }
 
 .podcast_container {
-  width: 65%;
+  width: 66%;
   height: 80vh;
   overflow-y: scroll;
   padding: 0 1rem;
@@ -917,6 +948,7 @@ hr {
 
 .custom_dialog {
   width: 24%;
+  max-width: 250px !important;
   display: flex !important;
   align-items: center !important;
   padding-bottom: 0 !important;
@@ -930,16 +962,16 @@ hr {
   font-family: "Font Awesome 6 Free";
   content: "\f058";
   font-weight: 400;
-  font-size: 24px;
+  font-size: 1.5rem;
   color: #4caf50;
   margin-right: 0.5rem;
 }
 
 .custom_dialog_title {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #141416;
-  margin-left: 0.5rem;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  color: #141416 !important;
+  margin-left: 0.5rem !important;
   padding: 1rem !important;
   display: flex !important;
   width: 100%;

@@ -91,15 +91,6 @@ function Main({ userInfo }) {
       ) : (
         <DefaultStatus />
       )}
-      <button
-        className="console_button"
-        onClick={async () => {
-          console.log(userInfo);
-          console.log(savedShows);
-        }}
-      >
-        debug用按鈕
-      </button>
       <UserInfo />
       {currentEpisode && <Player />}
     </div>

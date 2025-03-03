@@ -88,12 +88,10 @@ function Category({ id, emoji, name, isSelected }) {
       $isSelected={isSelected}
       onClick={() => selectCategory(id)}
     >
-      <div className="category_title">
-        <span className="category_emoji">{emoji}</span>
-        <StyledContent className="category_content" $isSelected={isSelected}>
-          {name}
-        </StyledContent>
-      </div>
+      <span className="category_emoji">{emoji}</span>
+      <StyledContent className="category_content" $isSelected={isSelected}>
+        {name}
+      </StyledContent>
       <StyledOption
         className="category_option"
         $isSelected={isSelected}

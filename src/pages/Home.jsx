@@ -26,7 +26,7 @@ export default function Home() {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 1500);
+    }, 2000);
   }, [userInfo.categories.length]);
 
   return (
