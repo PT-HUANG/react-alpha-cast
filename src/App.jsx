@@ -12,13 +12,13 @@ function App() {
         <AuthProvider>
           <UserProvider>
             <PlayerProvider>
-              <BrowserRouter>
-                <Routes>
-                  <Route path="/" element={<Welcome />} />
-                  <Route path="login" element={<Login />} />
-                  <Route path="home" element={<Home />} />
-                </Routes>
-              </BrowserRouter>
+              {/* <BrowserRouter> */}
+              <Routes>
+                <Route path="/" element={<Welcome />} />
+                <Route path="login" element={<Login />} />
+                <Route path="home" element={<Home />} />
+              </Routes>
+              {/* </BrowserRouter> */}
             </PlayerProvider>
           </UserProvider>
         </AuthProvider>
