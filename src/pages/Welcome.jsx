@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const WelcomeContainer = styled.div`
   margin: 0 auto;
@@ -51,10 +52,10 @@ function Welcome() {
         <Title>ALPHA Cast：你的個性化播客夥伴</Title>
         <Introduction className="introduction"></Introduction>
         <div className="link_container">
-          <a className="login_link" href="/login">
+          <Link className="login_link" to="/login">
             <i className="fa-solid fa-right-to-bracket"></i>
             <span>開始體驗</span>
-          </a>
+          </Link>
         </div>
       </WelcomeWrapper>
     </WelcomeContainer>

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { isTokenValid } from "../api/Spotify";
 import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 // image
 import ac_logo from "../assets/images/login_logo.png";
@@ -52,9 +53,9 @@ export default function Login() {
           <div className="login_register">
             <span>沒有帳號嗎? </span>
             <strong>
-              <a href="https://www.spotify.com/tw/signup" target="_blank">
+              <Link to="https://www.spotify.com/tw/signup" target="_blank">
                 註冊帳號
-              </a>
+              </Link>
             </strong>
           </div>
         </div>
