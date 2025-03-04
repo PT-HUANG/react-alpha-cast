@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { useUser } from "../../Context/UserContext";
+import { useUser } from "../../context/UserContext";
 
 function CreateModal({ show, onHide }) {
   const [currentInputValue, setCurrentInputValue] = useState("");

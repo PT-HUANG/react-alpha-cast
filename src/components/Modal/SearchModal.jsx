@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { searchPodcast } from "../../api/spotify";
 import { SearchResult } from "../../components";
-import { useUser } from "../../Context/UserContext";
+import { useUser } from "../../context/UserContext";
 
 function SearchModal({ categoryId, show, onHide }) {
   const [currentInputValue, setCurrentInputValue] = useState("");

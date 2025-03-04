@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { PodcastModal } from ".";
 import { getShowEpisodes } from "../api/spotify";
-import { usePlayer } from "../Context/PlayerContext";
+import { usePlayer } from "../context/PlayerContext";
 
 const StyledContainer = styled.div`
   display: flex;

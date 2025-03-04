@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { useUser } from "../Context/UserContext";
-import { usePlayer } from "../Context/PlayerContext";
+import { useUser } from "../context/UserContext";
+import { usePlayer } from "../context/PlayerContext";
 const StyledContainer = styled(({ isSelected, ...rest }) => <div {...rest} />)`
   position: relative;
   display: flex;

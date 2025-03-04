@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { EditModal, DeleteModal, SearchModal } from "../components";
-import { useUser } from "../Context/UserContext";
+import { useUser } from "../context/UserContext";
 import { createPortal } from "react-dom";
 
 const StyledCategoryContainer = styled.div`

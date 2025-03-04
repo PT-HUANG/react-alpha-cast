@@ -7,7 +7,7 @@ import {
 } from "../components";
 import { useEffect, useState } from "react";
 import { getEpisodes } from "../api/spotify";
-import { usePlayer } from "../Context/PlayerContext";
+import { usePlayer } from "../context/PlayerContext";
 import Swal from "sweetalert2";
 
 function Main({ userInfo }) {

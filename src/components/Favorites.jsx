@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useUser } from "../Context/UserContext";
+import { useUser } from "../context/UserContext";
 
 const StyledCategoryContainer = styled.div`
   background-color: ${(props) => (props.$isSelected ? "#111111" : "#F6F7F8")};

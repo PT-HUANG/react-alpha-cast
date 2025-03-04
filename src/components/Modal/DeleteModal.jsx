@@ -1,6 +1,6 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { useUser } from "../../Context/UserContext";
+import { useUser } from "../../context/UserContext";
 
 function EditModal({ id, show, onHide, emoji, name }) {
   const { deleteCategory } = useUser();

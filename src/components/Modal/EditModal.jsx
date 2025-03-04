@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import EmojiPicker from "emoji-picker-react";
-import { useUser } from "../../Context/UserContext";
+import { useUser } from "../../context/UserContext";
 
 function EditModal({ id, name, emoji, show, onHide }) {
   const [currentInputValue, setCurrentInputValue] = useState(name);

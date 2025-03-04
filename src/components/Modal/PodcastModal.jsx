@@ -1,6 +1,6 @@
 import { EpisodeCard } from "../../components";
 import Modal from "react-bootstrap/Modal";
-import { useUser } from "../../Context/UserContext";
+import { useUser } from "../../context/UserContext";
 import styled from "styled-components";
 
 const StyledEpisodeContainer = styled.div`

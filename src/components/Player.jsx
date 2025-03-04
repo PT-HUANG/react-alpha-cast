@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { usePlayer } from "../Context/PlayerContext";
+import { usePlayer } from "../context/PlayerContext";
 import { PlayerCard } from "../components";
 
 function Player() {
