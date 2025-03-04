@@ -12,7 +12,7 @@ import {
   removeFromFavorite,
 } from "../api/AC";
 
-import { getShows, getEpisodes } from "../api/Spotify";
+import { getShows, getEpisodes } from "../api/spotify";
 
 const defaultUserContext = {
   userInfo: null,
