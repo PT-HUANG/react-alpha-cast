@@ -1,8 +1,8 @@
 import { FeatureSlide } from "../components";
-import { loginWithSpotifyClick } from "../api/Spotify";
+import { loginWithSpotifyClick } from "../api/spotify";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { isTokenValid } from "../api/Spotify";
+import { isTokenValid } from "../api/spotify";
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 

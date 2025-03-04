@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Navbar, Main } from "../components";
-import { isTokenValid } from "../api/Spotify";
+import { isTokenValid } from "../api/spotify";
 import { useAuth } from "../context/AuthContext";
 import { useUser } from "../Context/UserContext";
 

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { isTokenValid } from "../api/Spotify";
+import { isTokenValid } from "../api/spotify";
 import { useAuth } from "../context/AuthContext";
 
 const WelcomeContainer = styled.div`

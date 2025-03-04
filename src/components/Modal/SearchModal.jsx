@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { searchPodcast } from "../../api/Spotify";
+import { searchPodcast } from "../../api/spotify";
 import { SearchResult } from "../../components";
 import { useUser } from "../../Context/UserContext";
 

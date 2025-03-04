@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { PodcastModal } from ".";
-import { getShowEpisodes } from "../api/Spotify";
+import { getShowEpisodes } from "../api/spotify";
 import { usePlayer } from "../Context/PlayerContext";
 
 const StyledContainer = styled.div`

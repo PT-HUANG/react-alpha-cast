@@ -6,7 +6,7 @@ import {
   Player,
 } from "../components";
 import { useEffect, useState } from "react";
-import { getEpisodes } from "../api/Spotify";
+import { getEpisodes } from "../api/spotify";
 import { usePlayer } from "../Context/PlayerContext";
 import Swal from "sweetalert2";
 
