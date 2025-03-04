@@ -4,55 +4,70 @@
 
 ## Features
 
-- ※目前功能開發中
-
 - 使用 Spotify 帳號登入，並取得使用者資訊
 
 - 登入後有預設的播放清單
 
-- 可以新增、修改、刪除播放清單，能修改預設的 emoji 圖示
+- 可以新增、編輯、刪除播放清單，能修改預設的 emoji 圖示
 
-- 每個播放清單都可以新增內容，可以將內容加入/移除收藏
+- 每個播放清單都可以新增Podcast節目，若無Podcast則會顯示預設畫面
 
-- 右側播放器能顯示當前播放的 Podcast
+- 可以將Podcast單集加入/移除收藏
 
-## Environment requirements
+- 右側播放器能顯示當前播放的 Podcast，顯示當前播放秒數與進度條
 
-- Node.js v20.14.0
+- 主畫面上方依據現在時間，顯示早安/午安/晚安
 
-- React v18.3.1
+## Environment Requirements
 
-- react-router-dom v7.1.3
+- **Node.js** v22.13.1  
 
-- react-bootstrap v2.10.9
+- **React** v18.3.1  
 
-## Installation
+- **react-router-dom** v7.1.3  
 
-1. Clone the repository
+- **bootstrap** v5.3.3  
 
-```
-git clone https://github.com/LoS-Light/react-alpha-cast.git
-```
+- **react-bootstrap** v2.10.9  
 
-2. Move to the alpha-shop directory
+- **styled-components** v6.1.14  
 
-```
-$ cd react-alpha-cast
-```
+- **slick-carousel** v1.8.1  
 
-3. Restore the dependencies
+- **react-slick** v0.30.3  
 
-```
-$ npm install
-```
+- **axios** v1.7.9  
 
-4. Launch the application
+- **emoji-picker-react** v4.12.0  
 
-```
-$ npm run dev
-```
 
-In your browser, visit (http://localhost:3000/) to use this web app.
+## Start Using
+
+1. **Create a Spotify Account**
+    
+    Sign up for a Spotify account if you don't have one:
+    
+    [Spotify Signup](https://www.spotify.com/tw/signup)
+
+2. **Request Usage Permission**
+    
+    Send your Spotify username and email address to the following email to request access:
+    
+    📩 **qwe1593574268@gmail.com**
+    
+    **Email Subject:** `[Alpha Cast Usage Permission]`
+    
+    **Email Content:**
+    ```
+    Username: [Your Spotify Username]
+    Email: [Your Email Address]
+    ```
+    
+3. **Access the Web App**
+    
+    Once your request is approved, visit the following link to start using the app:
+    
+    👉 [Alpha Cast Web App](https://pt-huang.github.io/react-alpha-cast/)
 
 ## Screenshots
 
@@ -63,3 +78,6 @@ In your browser, visit (http://localhost:3000/) to use this web app.
 ![image](https://github.com/PT-HUANG/react-alpha-cast/blob/main/screenshot_home3.png)
 ![image](https://github.com/PT-HUANG/react-alpha-cast/blob/main/screenshot_home4.png)
 ![image](https://github.com/PT-HUANG/react-alpha-cast/blob/main/screenshot_home5.png)
+![image](https://github.com/PT-HUANG/react-alpha-cast/blob/main/screenshot_home6.png)
+![image](https://github.com/PT-HUANG/react-alpha-cast/blob/main/screenshot_home7.png)
+![image](https://github.com/PT-HUANG/react-alpha-cast/blob/main/screenshot_home8.png)
