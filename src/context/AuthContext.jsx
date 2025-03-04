@@ -1,6 +1,6 @@
 import { useState, useContext, createContext } from "react";
 import { getUserInfo, getNewToken } from "../api/AC";
-import { getProfile, logoutClick } from "../api/Spotify";
+import { getProfile, logoutClick } from "../api/spotify";
 
 const defaultAuthContext = {
   isAuthenticated: false,
