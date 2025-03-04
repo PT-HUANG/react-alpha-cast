@@ -2,8 +2,8 @@ import "./App.scss";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Welcome, Login, Home } from "./pages";
 import { AuthProvider } from "./context/AuthContext";
-import { UserProvider } from "./Context/UserContext";
-import { PlayerProvider } from "./Context/PlayerContext";
+import { UserProvider } from "./context/UserContext";
+import { PlayerProvider } from "./context/PlayerContext";
 
 function App() {
   return (
