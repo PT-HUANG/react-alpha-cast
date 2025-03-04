@@ -1,5 +1,9 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { isTokenValid } from "../api/Spotify";
+import { useAuth } from "../context/AuthContext";
 
 const WelcomeContainer = styled.div`
   margin: 0 auto;
@@ -34,6 +38,8 @@ const Introduction = styled.p`
 `;
 
 function Welcome() {
+  const navigate = useNavigate();
+
   window.onload = function () {
     const introduction = document.querySelector(".introduction");
     const content = `ALPHA Cast 是一款讓播客體驗更簡單直觀的應用程式，支援Spotify登入，快速連結你的音樂與播客世界。在主要頁面，使用者可看到自己的名字、編輯個人資訊，並透過分類如「上班途中」「學習」快速找到合適內容，輕鬆收藏並控制播放。`;
@@ -46,6 +52,18 @@ function Welcome() {
     }
     setInterval(typewriter, 75);
   };
+
+  useEffect(() => {
+    async function handleLogin() {
+      const validity = await isTokenValid();
+      if (!validity) {
+        return;
+      }
+      navigate("/login");
+    }
+    handleLogin();
+  }, [navigate]);
+
   return (
     <WelcomeContainer className="welcomeContainer">
       <WelcomeWrapper>
