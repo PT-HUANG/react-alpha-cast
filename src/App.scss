@@ -182,13 +182,13 @@ hr {
   transform: translate(-50%, -50%);
   width: 40px;
   height: 40px;
-  border: 4px solid #ffffff;;
+  border: 4px solid #ffffff;
   border-bottom-color: transparent;
   border-radius: 50%;
   display: inline-block;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
-  }
+}
 
 // React Slick Custom CSS
 .slider-container {
@@ -358,17 +358,24 @@ hr {
 
 .navbar {
   &_container {
-    display: none;
-    width: 30%;
+    width: 60%;
+    max-width: 260px;
+    height: 100%;
     position: absolute;
     z-index: 100;
     background-color: #f6f7f8;
+    transition: all 0.3s;
+    clip-path: inset(0 100% 0 0);
+    padding-top: 5%;
+    padding-bottom: 10%;
     @media screen and (min-width: 768px) {
       display: block;
       position: relative;
       width: 100%;
       max-width: 260px;
       height: 100vh;
+      padding-bottom: 0;
+      clip-path: inset(0 0 0 0);
     }
   }
   &_logo {
@@ -381,6 +388,10 @@ hr {
     margin: 0 auto;
     margin-bottom: 1rem;
   }
+}
+
+.navbar--active {
+  clip-path: inset(0 0% 0 0);
 }
 
 @media screen and (min-width: 768px) {
@@ -397,7 +408,6 @@ hr {
     grid-template-areas: "navbar main";
   }
 }
-
 
 .addCategory {
   width: 85%;
@@ -674,29 +684,32 @@ hr {
 }
 
 .podcast_container {
+  position: absolute;
+  top: 15%;
   width: 100%;
-  height: 100%;
-  padding-top: 15%;
+  height: 85%;
   overflow-y: scroll;
   display: grid;
   grid-template-columns: repeat(auto-fit, 160px);
   grid-template-rows: auto;
-  align-content: baseline;
   justify-content: center;
 }
 
 @media screen and (min-width: 768px) {
   .podcast_container {
-    width: 60%;
-    height: 90%;
-    padding-top: 2.5%;
-    margin-top: 10%;
+    top: 12.5%;
+    left: -4%;
+    width: 70%;
+    height: 87.5%;
     grid-template-columns: repeat(auto-fit, 190px);
-    grid-template-rows: auto;
-    align-content: baseline;
   }
 }
-
+@media screen and (min-width: 1200px) {
+  .podcast_container {
+    left: -8%;
+    width: 73%;
+  }
+}
 
 .favorite_container {
   width: 66%;
@@ -817,7 +830,8 @@ hr {
 
 .custom_dialog {
   width: 24%;
-  max-width: 250px !important;
+  min-width: 250px !important;
+  max-width: 300px !important;
   display: flex !important;
   align-items: center !important;
   padding-bottom: 0 !important;
@@ -864,22 +878,22 @@ hr {
   transform: translate(-50%, -50%);
   width: 40px;
   height: 40px;
-  border: 4px solid #ffffff;;
+  border: 4px solid #ffffff;
   border-bottom-color: transparent;
   border-radius: 50%;
   display: inline-block;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
-  }
+}
 
-  @keyframes rotation {
+@keyframes rotation {
   0% {
-      transform: rotate(0deg);
+    transform: rotate(0deg);
   }
   100% {
-      transform: rotate(360deg);
+    transform: rotate(360deg);
   }
-  } 
+}
 
 .search_loader {
   position: absolute;
@@ -887,21 +901,21 @@ hr {
   left: 47.5%;
   width: 40px;
   height: 40px;
-  border: 4px solid #0a0a0a6b;;
+  border: 4px solid #0a0a0a6b;
   border-bottom-color: transparent;
   border-radius: 50%;
   display: inline-block;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
-  }
+}
 
-  @keyframes rotation {
+@keyframes rotation {
   0% {
-      transform: rotate(0deg);
+    transform: rotate(0deg);
   }
   100% {
-      transform: rotate(360deg);
+    transform: rotate(360deg);
   }
-  } 
+}
 
 // ======> Home Page <======

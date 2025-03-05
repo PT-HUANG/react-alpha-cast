@@ -6,6 +6,7 @@ import styled from "styled-components";
 const StylePlayerContainer = styled.div`
   display: ${(props) => props.$isHidden && "none"};
   position: fixed;
+  z-index: 1;
   bottom: 0.5%;
   left: 50%;
   transform: translateX(-50%);
@@ -19,9 +20,9 @@ const StylePlayerContainer = styled.div`
 
   @media screen and (min-width: 768px) {
     top: 15%;
-    left: 71%;
+    left: 74.5%;
     transform: translateX(0%);
-    width: 28%;
+    width: 25%;
     max-width: 312px;
     height: 60%;
     max-height: 440px;

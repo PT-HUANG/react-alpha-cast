@@ -8,8 +8,21 @@ import {
 import { useEffect, useState } from "react";
 import { getEpisodes } from "../api/spotify";
 import { usePlayer } from "../context/PlayerContext";
+import { useNavbar } from "../context/NavbarContext";
 import Swal from "sweetalert2";
 import styled from "styled-components";
+
+const StyleToggleButton = styled.div`
+  position: absolute;
+  top: 4%;
+  left: 4%;
+  width: 30px;
+  height: 30px;
+  font-size: 1.75rem;
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
+`;
 
 const Greetings = styled.h2`
   position: absolute;
@@ -17,7 +30,8 @@ const Greetings = styled.h2`
   left: 14%;
   font-weight: 700;
   @media screen and (min-width: 768px) {
-    left: 5%;
+    left: -4%;
+    padding-left: 2rem;
   }
 `;
 
@@ -28,6 +42,7 @@ function Main({ userInfo }) {
   const [currentShows, setCurrentShows] = useState([]);
   const [greetings, setGreetings] = useState("");
   const { currentEpisode } = usePlayer();
+  const { handleToggleNavbar } = useNavbar();
 
   useEffect(() => {
     if (message === "default") {
@@ -90,6 +105,9 @@ function Main({ userInfo }) {
 
   return (
     <div className="main_container">
+      <StyleToggleButton onClick={handleToggleNavbar}>
+        <i className="fa-solid fa-bars"></i>
+      </StyleToggleButton>
       <Greetings>{greetings}</Greetings>
       <UserInfo />
       {currentShows?.length ? (
