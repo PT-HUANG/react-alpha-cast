@@ -4,33 +4,71 @@ import { useUser } from "../context/UserContext";
 import { usePlayer } from "../context/PlayerContext";
 const StyledContainer = styled.div`
   position: absolute;
-  top: 10%;
+  top: 0%;
   left: 0%;
   width: 100%;
   height: 100%;
   border-radius: 1rem;
-  margin: 1rem 0;
-  padding: 1rem;
+  @media screen and (min-width: 768px) {
+    position: absolute;
+    top: 8%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+    margin: 1rem 0;
+    padding: 1rem;
+  }
 `;
 
 const StyledTitle = styled.div`
   display: flex;
   font-size: 0.875rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
-  height: 22%;
+  height: 100%;
+  padding: 0.5rem;
   & div {
-    margin-top: 0.5rem;
-    margin-left: 1rem;
+    width: 65%;
+    margin-top: 0.25rem;
+    margin-left: 0.5rem;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 1;
+    white-space: nowrap;
     overflow: hidden;
     line-height: 1.2rem;
+    @media screen and (min-width: 768px) {
+      margin-top: 0.25rem;
+      margin-left: 0.5rem;
+      white-space: normal;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
+      line-height: 1.2rem;
+    }
   }
   & img {
     max-width: 30%;
     object-fit: contain;
     border-radius: 8px;
+  }
+  @media screen and (min-width: 768px) {
+    font-size: 0.875rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    height: 22%;
+    & div {
+      margin-top: 0.5rem;
+      margin-left: 0.5rem;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
+      line-height: 1.2rem;
+    }
+    & img {
+      max-width: 33%;
+      object-fit: contain;
+      border-radius: 8px;
+    }
   }
 `;
 
@@ -40,58 +78,95 @@ const StyledContent = styled.div`
     color: #30a9de;
     font-size: 0.875rem;
     font-weight: 500;
+    position: absolute;
+    top: 45%;
+    left: 10vh;
+    @media screen and (min-width: 768px) {
+      position: relative;
+      left: 0;
+    }
   }
   .date_length {
-    font-size: 0.75rem;
-    color: #93989a;
+    display: none;
+    @media screen and (min-width: 768px) {
+      display: block;
+      font-size: 0.75rem;
+      color: #93989a;
+    }
   }
   .description {
-    font-size: 0.75rem;
-    color: #93989a;
-    white-space: normal;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 5;
-    overflow: hidden;
-    line-height: 1.2rem;
+    display: none;
+    @media screen and (min-width: 768px) {
+      font-size: 0.75rem;
+      color: #93989a;
+      white-space: normal;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 5;
+      overflow: hidden;
+      line-height: 1.2rem;
+    }
   }
   .favorite_button {
     position: absolute;
     top: 30%;
-    right: 10%;
+    right: 13%;
     cursor: pointer;
     color: #ff7f50;
+    @media screen and (min-width: 768px) {
+      right: 10%;
+      top: 28%;
+    }
   }
 `;
 
 const StyledEpisodeControl = styled.div`
-  position: absolute;
-  top: 72.5%;
-  width: 90%;
   .playbutton {
     color: #ff7f50;
     cursor: pointer;
     font-size: 2rem;
+    position: absolute;
+    top: 50%;
+    left: 90%;
+    transform: translateY(-50%);
+    @media screen and (min-width: 768px) {
+      top: 75%;
+      left: 8%;
+    }
   }
   .timer {
-    font-size: 0.75rem;
-    font-weight: 700;
+    display: none;
+    @media screen and (min-width: 768px) {
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: block;
+      position: absolute;
+      top: 74%;
+      left: 24%;
+    }
   }
 `;
 
 const StyledProgressBar = styled.div`
-  position: relative;
-  width: 70%;
+  position: absolute;
+  bottom: 0%;
+  left: 2%;
+  width: 98%;
   height: 4px;
   background-color: #cccccc;
   border-radius: 10px;
   overflow: hidden;
+  @media screen and (min-width: 768px) {
+    bottom: 26.5%;
+    left: 24%;
+    width: 65%;
+  }
 `;
 
 const ProgressFill = styled.div.attrs((props) => ({
   style: {
-    width: `${props.progress}`,
+    width: `${props.$progress}`,
   },
 }))`
   height: 100%;
@@ -180,7 +255,7 @@ function PlayerCard() {
             {runningSeconds} / {episodeTotalDuration}
           </div>
           <StyledProgressBar className="progressbar">
-            <ProgressFill progress={progress} />
+            <ProgressFill $progress={progress} />
           </StyledProgressBar>
         </StyledEpisodeControl>
         <div

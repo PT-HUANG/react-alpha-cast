@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 const StyleUserInfo = styled.div`
   position: absolute;
-  top: 5%;
+  top: 2.5%;
   right: 5%;
   display: flex;
   align-items: center;

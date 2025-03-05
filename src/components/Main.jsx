@@ -13,9 +13,12 @@ import styled from "styled-components";
 
 const Greetings = styled.h2`
   position: absolute;
-  top: 6%;
-  left: 12%;
+  top: 3.5%;
+  left: 14%;
   font-weight: 700;
+  @media screen and (min-width: 768px) {
+    left: 5%;
+  }
 `;
 
 function Main({ userInfo }) {

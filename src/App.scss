@@ -137,7 +137,7 @@ hr {
     text-align: center;
     cursor: pointer;
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 0.95rem;
     color: white;
     background-color: #1ed760;
     border-radius: 16px;
@@ -353,34 +353,23 @@ hr {
   max-width: 1440px;
   margin: 0 auto;
   background-color: #fff;
-  display: grid;
-  grid-template-columns: 100%;
-  grid-template-rows: auto;
-  grid-template-areas: "main";
   overflow-y: hidden;
-}
-
-@media screen and (min-width: 768px) {
-  .home_container {
-    grid-template-columns: 16% 84%;
-    grid-template-areas: "navbar main";
-  }
-}
-
-.navbar {
-  grid-area: navbar;
-}
-
-.main {
-  grid-area: main;
 }
 
 .navbar {
   &_container {
-    // 03.05追加 for debug
     display: none;
-
+    width: 30%;
+    position: absolute;
+    z-index: 100;
     background-color: #f6f7f8;
+    @media screen and (min-width: 768px) {
+      display: block;
+      position: relative;
+      width: 100%;
+      max-width: 260px;
+      height: 100vh;
+    }
   }
   &_logo {
     margin: 2.5rem auto;
@@ -393,6 +382,22 @@ hr {
     margin-bottom: 1rem;
   }
 }
+
+@media screen and (min-width: 768px) {
+  .navbar {
+    grid-area: navbar;
+  }
+  .main {
+    grid-area: main;
+  }
+  .home_container {
+    display: grid;
+    grid-template-columns: 25% 75%;
+    grid-template-rows: auto;
+    grid-template-areas: "navbar main";
+  }
+}
+
 
 .addCategory {
   width: 85%;
@@ -576,36 +581,6 @@ hr {
   pointer-events: none;
 }
 
-.player_container {
-  position: absolute;
-  top: 16.5%;
-  right: 2%;
-  width: 30%;
-  height: 60%;
-  background-color: #fff;
-  padding: 1rem 2rem;
-  border-radius: 16px;
-  box-shadow: 16px 16px 40px 0px #c7c7c73d;
-}
-
-.player_container iframe {
-  position: absolute;
-  opacity: 0;
-  right: 5%;
-  pointer-events: none;
-}
-
-.player_title {
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: #1a202c;
-}
-
-.player_hr {
-  height: 2px;
-  background-color: #c3c8ce;
-}
-
 .empty_icon {
   width: 3.5rem;
   height: 3.5rem;
@@ -699,20 +674,32 @@ hr {
 }
 
 .podcast_container {
-  width: 66%;
-  height: 80vh;
+  width: 100%;
+  height: 100%;
+  padding-top: 15%;
   overflow-y: scroll;
-  padding: 0 1rem;
-  margin-top: 6rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, 190px);
+  grid-template-columns: repeat(auto-fit, 160px);
   grid-template-rows: auto;
   align-content: baseline;
-  justify-content: start;
+  justify-content: center;
 }
 
+@media screen and (min-width: 768px) {
+  .podcast_container {
+    width: 60%;
+    height: 90%;
+    padding-top: 2.5%;
+    margin-top: 10%;
+    grid-template-columns: repeat(auto-fit, 190px);
+    grid-template-rows: auto;
+    align-content: baseline;
+  }
+}
+
+
 .favorite_container {
-  width: 65%;
+  width: 66%;
   height: 80vh;
   overflow-y: scroll;
   padding: 0 1rem;
@@ -825,41 +812,7 @@ hr {
 
 .main_container {
   position: relative;
-}
-
-.episode_control {
-  width: 80%;
-  display: grid;
-  grid-template-columns: 20% 80%;
-  grid-template-rows: 30% 70%;
-  grid-template-areas:
-    "playbutton progressbar"
-    "playbutton timer";
-  align-items: center;
-  justify-items: center;
-}
-
-.playbutton {
-  grid-area: playbutton;
-}
-
-.timer {
-  grid-area: timer;
-}
-
-.progressbar {
-  grid-area: progressbar;
-}
-
-@media screen and (min-width: 900px) {
-  .episode_control {
-    grid-template-columns: 15% 50% 35%;
-    grid-template-rows: auto;
-    grid-template-areas: "playbutton timer progressbar";
-  }
-  .progressbar {
-    width: 70%;
-  }
+  height: 100vh;
 }
 
 .custom_dialog {
