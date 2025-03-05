@@ -5,11 +5,7 @@ import { useEffect } from "react";
 import { isTokenValid } from "../api/spotify";
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
-
-// image
 import ac_logo from "../assets/images/login_logo.png";
-
-// CSS
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -38,8 +34,8 @@ export default function Login() {
       }
     >
       {isAuthenticated ? (
-        <div className="loading_container">
-          <div className="loader"></div>
+        <div className="loader_container">
+          <div className="login_loader"></div>
         </div>
       ) : (
         ""

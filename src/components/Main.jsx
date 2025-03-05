@@ -9,6 +9,14 @@ import { useEffect, useState } from "react";
 import { getEpisodes } from "../api/spotify";
 import { usePlayer } from "../context/PlayerContext";
 import Swal from "sweetalert2";
+import styled from "styled-components";
+
+const Greetings = styled.h2`
+  position: absolute;
+  top: 6%;
+  left: 12%;
+  font-weight: 700;
+`;
 
 function Main({ userInfo }) {
   const categoryId = localStorage.getItem("selectedCategoryId");
@@ -79,19 +87,19 @@ function Main({ userInfo }) {
 
   return (
     <div className="main_container">
-      <h2 className="greetings">{greetings}</h2>
+      <Greetings>{greetings}</Greetings>
+      <UserInfo />
       {currentShows?.length ? (
-        <div className="main_container">
+        <>
           {categoryId === "favorites" ? (
             <FavoriteList shows={currentShows} onSelect={handleSelectEpisode} />
           ) : (
             <PodcastList shows={currentShows} />
           )}
-        </div>
+        </>
       ) : (
         <DefaultStatus />
       )}
-      <UserInfo />
       {currentEpisode && <Player />}
     </div>
   );
@@ -101,12 +109,7 @@ function FavoriteList({ shows, onSelect }) {
   return (
     <div className="favorite_container">
       {shows.map((show) => (
-        <EpisodeCard
-          key={show.id}
-          episode={show}
-          onSelect={onSelect}
-          // publisher={show.show?.name}
-        />
+        <EpisodeCard key={show.id} episode={show} onSelect={onSelect} />
       ))}
     </div>
   );

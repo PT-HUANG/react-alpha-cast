@@ -62,7 +62,6 @@ hr {
   height: 1px;
   background-color: #000000;
 }
-// ======> Reset CSS <======
 
 // ======> Welcome Page <======
 .welcomeContainer {
@@ -102,6 +101,14 @@ hr {
     "Login";
 }
 
+.illustrator {
+  grid-area: Illustrator;
+}
+
+.login {
+  grid-area: Login;
+}
+
 .loading_container .disabled {
   pointer-events: none;
 }
@@ -112,14 +119,6 @@ hr {
     grid-template-rows: 1fr;
     grid-template-areas: "Login Illustrator";
   }
-}
-
-.illustrator {
-  grid-area: Illustrator;
-}
-
-.login {
-  grid-area: Login;
 }
 
 .login {
@@ -133,7 +132,7 @@ hr {
     width: 57.6%;
   }
   &_button {
-    width: 62.5%;
+    width: 63.5%;
     margin: 0 auto;
     text-align: center;
     cursor: pointer;
@@ -145,7 +144,7 @@ hr {
     padding: 1rem 2rem;
     margin-top: 0.5rem;
     transition: all 0.3s ease;
-    max-width: 400px;
+    max-width: 320px;
   }
   &_button:hover {
     opacity: 0.7;
@@ -165,6 +164,31 @@ hr {
     left: 50%;
   }
 }
+
+.loader_container {
+  position: absolute;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+  background-color: #777777;
+  opacity: 0.5;
+  backdrop-filter: blur(8px);
+}
+
+.login_loader {
+  position: absolute;
+  top: 45%;
+  left: 47%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ffffff;;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  }
 
 // React Slick Custom CSS
 .slider-container {
@@ -323,42 +347,6 @@ hr {
   }
 }
 
-// Login Loading...
-.loading_container {
-  position: absolute;
-  top: 0%;
-  left: 0%;
-  color: #fff;
-  z-index: 999;
-  width: 100%;
-  height: 100%;
-  background-color: rgb(0 0 0 / 58%);
-}
-
-.loader {
-  position: absolute;
-  top: 38.5%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: fit-content;
-  height: 10rem;
-  line-height: 10rem;
-  font-weight: bold;
-  font-family: monospace;
-  font-size: 5rem;
-  clip-path: inset(0 3ch 0 0);
-  animation: l4 1s steps(4) infinite;
-}
-.loader:before {
-  content: "Loading...";
-}
-@keyframes l4 {
-  to {
-    clip-path: inset(0 -1ch 0 0);
-  }
-}
-// ======> Login Page <======
-
 // ======> Home Page <======
 .home_container {
   position: relative;
@@ -366,9 +354,17 @@ hr {
   margin: 0 auto;
   background-color: #fff;
   display: grid;
-  grid-template-columns: 16% 84%;
-  grid-template-rows: 100vh;
-  grid-template-areas: "navbar main";
+  grid-template-columns: 100%;
+  grid-template-rows: auto;
+  grid-template-areas: "main";
+  overflow-y: hidden;
+}
+
+@media screen and (min-width: 768px) {
+  .home_container {
+    grid-template-columns: 16% 84%;
+    grid-template-areas: "navbar main";
+  }
 }
 
 .navbar {
@@ -381,6 +377,9 @@ hr {
 
 .navbar {
   &_container {
+    // 03.05追加 for debug
+    display: none;
+
     background-color: #f6f7f8;
   }
   &_logo {
@@ -409,7 +408,7 @@ hr {
   box-sizing: border-box;
 }
 
-.category{
+.category {
   width: 85%;
   display: grid;
   grid-template-columns: 20% 70% 10%;
@@ -573,59 +572,8 @@ hr {
   --bs-btn-active-bg: #f35921;
 }
 
-.userinfo {
-  position: absolute;
-  top: 5%;
-  right: 5%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 184px;
-  height: 48px;
-  background-color: #fafafa;
-  border-radius: 25px;
-  cursor: pointer;
-}
-
-.avatar {
-  position: absolute;
-  top: 0%;
-  left: 0%;
-  height: 100%;
-  border-radius: 25px;
-}
-
-.default_avatar {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  top: 0%;
-  left: 0%;
-  height: 100%;
-  width: 25%;
-  border-radius: 25px;
-  background-color: #1ed760;
-  font-size: 1.5rem;
-  font-weight: 700;
-}
-
-.account {
-  margin: 0 0.5rem;
-  margin-left: 25%;
-}
-
 .click-disabled {
   pointer-events: none;
-}
-
-.logout {
-  top: 130%;
-  left: 0%;
-}
-
-.logout li {
-  padding: 10px 20px;
 }
 
 .player_container {
@@ -877,13 +825,6 @@ hr {
 
 .main_container {
   position: relative;
-}
-
-.greetings {
-  position: absolute;
-  top: 5%;
-  left: 5%;
-  font-weight: 700;
 }
 
 .episode_control {
