@@ -4,12 +4,14 @@ import Modal from "react-bootstrap/Modal";
 import { searchPodcast } from "../../api/spotify";
 import { SearchResult } from "../../components";
 import { useUser } from "../../context/UserContext";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 function SearchModal({ categoryId, show, onHide }) {
   const [currentInputValue, setCurrentInputValue] = useState("");
   const [podcasts, setPodcasts] = useState([]);
   const [isChosen, setIsChosen] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
+  const [offset, setOffset] = useState(0);
 
   const inputRef = useRef(null);
   const { addShow } = useUser();
@@ -19,13 +21,24 @@ function SearchModal({ categoryId, show, onHide }) {
   }
 
   async function handleSpotifySearch() {
-    const result = await searchPodcast(currentInputValue);
+    const result = await searchPodcast(currentInputValue, offset);
     const nextPodcasts = result.shows.items.map((item) => {
       return { ...item, isSelected: false };
     });
     setPodcasts(nextPodcasts);
     setIsChosen(false);
+    setOffset((prev) => prev + 20);
   }
+
+  const handleSearchMore = async () => {
+    const result = await searchPodcast(currentInputValue, offset);
+    const nextPodcasts = result.shows.items.map((item) => {
+      return { ...item, isSelected: false };
+    });
+    setPodcasts([...podcasts, ...nextPodcasts]);
+    setIsChosen(false);
+    setOffset((prev) => prev + 20);
+  };
 
   function hadleSelect(showId) {
     const nextPodcasts = podcasts.map((podcast) => {
@@ -94,7 +107,16 @@ function SearchModal({ categoryId, show, onHide }) {
         ></input>
         {podcasts.length !== 0 && <div className="result_title">搜尋結果</div>}
       </div>
-      <div className="result_container">
+      <div className="result_container" id="scrollableDiv">
+        <InfiniteScroll
+          dataLength={podcasts.length}
+          next={() => {
+            setTimeout(handleSearchMore, 1000);
+          }}
+          hasMore={true}
+          scrollableTarget="scrollableDiv"
+          className="infinitescroll"
+        ></InfiniteScroll>
         {podcasts ? (
           podcasts.map((p) => {
             return (

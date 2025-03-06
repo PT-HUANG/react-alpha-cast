@@ -182,13 +182,13 @@ export async function isTokenValid() {
   }
 }
 
-export async function searchPodcast(str) {
+export async function searchPodcast(str, offset) {
   const isValid = await isTokenValid();
   if (!isValid) return null;
   try {
     const queryStr = encodeURIComponent(str);
     const { data } = await axios.get(
-      `https://api.spotify.com/v1/search?q=${queryStr}&type=show&limit=12&include_external=audio`,
+      `https://api.spotify.com/v1/search?q=${queryStr}&type=show&limit=20&offset=${offset}&include_external=audio`,
       {
         headers: {
           Authorization: "Bearer " + currentToken.access_token,

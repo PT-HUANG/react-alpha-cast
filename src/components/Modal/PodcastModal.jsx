@@ -47,14 +47,6 @@ function PodcastModal({
         </Modal.Title>
       </Modal.Header>
       <StyledEpisodeContainer id="scrollableDiv">
-        <InfiniteScroll
-          dataLength={episodes.length}
-          next={() => {
-            setTimeout(fetchMoreData, 1500);
-          }}
-          hasMore={true}
-          scrollableTarget="scrollableDiv"
-        ></InfiniteScroll>
         <div className="episodeInfo">
           {episodes
             ? episodes.map((episode) => {
@@ -69,6 +61,14 @@ function PodcastModal({
               })
             : ""}
         </div>
+        <InfiniteScroll
+          dataLength={episodes.length}
+          next={() => {
+            setTimeout(fetchMoreData, 1500);
+          }}
+          hasMore={true}
+          scrollableTarget="scrollableDiv"
+        ></InfiniteScroll>
       </StyledEpisodeContainer>
     </Modal>
   );
