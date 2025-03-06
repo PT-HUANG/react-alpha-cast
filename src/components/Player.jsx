@@ -6,7 +6,7 @@ import styled from "styled-components";
 const StylePlayerContainer = styled.div`
   display: ${(props) => props.$isHidden && "none"};
   position: fixed;
-  z-index: 1;
+  z-index: 2;
   bottom: 0.5%;
   left: 50%;
   transform: translateX(-50%);

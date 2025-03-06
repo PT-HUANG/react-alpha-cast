@@ -362,7 +362,7 @@ hr {
     max-width: 260px;
     height: 100%;
     position: absolute;
-    z-index: 100;
+    z-index: 1;
     background-color: #f6f7f8;
     transition: all 0.3s;
     clip-path: inset(0 100% 0 0);
@@ -565,6 +565,7 @@ hr {
 .modal-footer {
   all: unset;
   width: 90%;
+  height: 12.5%;
   margin: 1rem auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -610,8 +611,10 @@ hr {
 }
 
 .search_modal {
-  max-width: 60%;
-  max-height: 72%;
+  width: 60%;
+  max-width: 868px;
+  height: 72%;
+  max-height: 740px;
 }
 
 .search_title {
@@ -628,9 +631,12 @@ hr {
   font-size: 1.2rem;
   position: absolute;
   top: 30%;
-  left: 8%;
+  left: 10%;
   color: #acadb9;
   cursor: pointer;
+  @media screen and (min-width: 992px) {
+    left: 8%;  
+  }
 }
 
 .search_icon:hover {
@@ -641,10 +647,16 @@ hr {
   width: 90%;
   margin: 1rem auto 3rem auto;
   padding: 1rem;
-  padding-left: 3rem;
+  padding-left: calc(15% - 1vw);
   background-color: #f2f0f0;
   border: none;
   border-radius: 8px;
+  @media screen and (min-width: 768px) {
+    padding-left: calc(15% - 2vw);
+  }
+  @media screen and (min-width: 992px) {
+    padding-left: calc(15% - 3.5vw);
+  }
 }
 
 .searchInput::placeholder {
@@ -656,7 +668,7 @@ hr {
   margin: 0 auto;
   padding: 1rem;
   width: 100%;
-  height: 15rem;
+  height: 53%;
   overflow-y: scroll;
   display: grid;
   grid-template-columns: repeat(auto-fit, 200px);
@@ -752,6 +764,11 @@ hr {
 
 .modal.show .podcast_modal {
   transform: translate(0, 20%);
+}
+
+
+.modal-content {
+  height: 100%;
 }
 
 .podcast_modal {
