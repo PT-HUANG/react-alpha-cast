@@ -223,7 +223,7 @@ export const UserProvider = ({ children }) => {
               return c;
             }
           });
-          const nextToshow = userInfo.savedShows.filter(
+          const nextToshow = userInfo.savedShows.shows.filter(
             (show) => show.id !== showId
           );
           const nextsavedShows = await getShows(nextToshow);

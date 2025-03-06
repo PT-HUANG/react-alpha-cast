@@ -90,7 +90,7 @@ function Main({ userInfo }) {
     }
     getGreetings();
     handleFetchShows();
-  }, [categoryId, savedShows.length, favoriteEpisodeIds.length]);
+  }, [categoryId, savedShows.shows?.length, favoriteEpisodeIds.length]);
 
   function handleSelectEpisode(episodeId) {
     const nextFavoriteEpisodes = currentShows.map((show) => {

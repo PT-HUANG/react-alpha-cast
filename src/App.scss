@@ -704,6 +704,7 @@ hr {
   display: grid;
   grid-template-columns: repeat(auto-fit, 160px);
   grid-template-rows: auto;
+  align-content: start;
   justify-content: center;
 }
 
