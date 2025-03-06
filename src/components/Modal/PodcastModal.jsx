@@ -2,16 +2,24 @@ import { EpisodeCard } from "../../components";
 import Modal from "react-bootstrap/Modal";
 import { useUser } from "../../context/UserContext";
 import styled from "styled-components";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const StyledEpisodeContainer = styled.div`
   padding: 1rem;
   padding-top: 0;
   width: 100%;
   height: 40vh;
-  overflow-y: scroll;
+  overflow-y: auto;
 `;
 
-function PodcastModal({ show, onHide, onSelect, info, episodes }) {
+function PodcastModal({
+  show,
+  onHide,
+  onSelect,
+  info,
+  episodes,
+  fetchMoreData,
+}) {
   const { images, name, publisher, id, description } = info;
   const { url } = images[1];
   const { removeShow, userInfo } = useUser();
@@ -38,7 +46,15 @@ function PodcastModal({ show, onHide, onSelect, info, episodes }) {
           </div>
         </Modal.Title>
       </Modal.Header>
-      <StyledEpisodeContainer>
+      <StyledEpisodeContainer id="scrollableDiv">
+        <InfiniteScroll
+          dataLength={episodes.length}
+          next={() => {
+            setTimeout(fetchMoreData, 1500);
+          }}
+          hasMore={true}
+          scrollableTarget="scrollableDiv"
+        ></InfiniteScroll>
         <div className="episodeInfo">
           {episodes
             ? episodes.map((episode) => {

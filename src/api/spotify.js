@@ -221,12 +221,12 @@ export async function getShows(showIds) {
   }
 }
 
-export async function getShowEpisodes(showId) {
+export async function getShowEpisodes(showId, offset) {
   const isValid = await isTokenValid();
   if (!isValid) return null;
   try {
     const { data } = await axios.get(
-      `https://api.spotify.com/v1/shows/${showId}/episodes?market=TW&limit=20`,
+      `https://api.spotify.com/v1/shows/${showId}/episodes?market=TW&offset=${offset}&limit=20`,
       {
         headers: {
           Authorization: "Bearer " + currentToken.access_token,

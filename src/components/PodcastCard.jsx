@@ -50,7 +50,8 @@ function PodcastCard({ info }) {
   const [currentEpisodes, setCurrentEpisodes] = useState([]);
   const { playingEpisodeId } = usePlayer();
   const { images, name, publisher, id } = info;
-  const { height, url, width } = images[1];
+  const { url } = images[1];
+  const [offset, setOffset] = useState(0);
 
   const handleClose = () => {
     setModalStatus(false);
@@ -58,13 +59,23 @@ function PodcastCard({ info }) {
 
   const handleShow = async () => {
     setModalStatus(true);
-    const { items } = await getShowEpisodes(id);
+    const { items } = await getShowEpisodes(id, offset);
     const validItems = items.filter((item) => item !== null);
     const formattedData = validItems.map((item) => {
       return { ...item, isSelected: false, isNowPlaying: false };
     });
-
+    setOffset((prev) => prev + 20);
     setCurrentEpisodes(formattedData);
+  };
+
+  const fetchMoreData = async () => {
+    const { items } = await getShowEpisodes(id, offset);
+    const validItems = items.filter((item) => item !== null);
+    const formattedData = validItems.map((item) => {
+      return { ...item, isSelected: false, isNowPlaying: false };
+    });
+    setOffset((prev) => prev + 20);
+    setCurrentEpisodes((prevEpisodes) => [...prevEpisodes, ...formattedData]);
   };
 
   const handleSelect = (episodeId) => {
@@ -84,7 +95,7 @@ function PodcastCard({ info }) {
       isNowPlaying: episode.id === playingEpisodeId,
     }));
     setCurrentEpisodes(nextEpisodes);
-  }, [playingEpisodeId]);
+  }, [playingEpisodeId, currentEpisodes.length]);
 
   return (
     <StyledContainer>
@@ -100,6 +111,7 @@ function PodcastCard({ info }) {
         onSelect={handleSelect}
         info={info}
         episodes={currentEpisodes}
+        fetchMoreData={fetchMoreData}
       />
     </StyledContainer>
   );
