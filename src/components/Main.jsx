@@ -79,8 +79,9 @@ function Main({ userInfo }) {
 
     async function handleFetchShows() {
       if (categoryId === "favorites") {
-        const fetchData = await getEpisodes(favoriteEpisodeIds);
-        const formattedData = fetchData.map((data) => {
+        if (!favoriteEpisodeIds.length) return;
+        const episodes = await getEpisodes(favoriteEpisodeIds);
+        const formattedData = episodes.map((data) => {
           return { ...data, isSelected: false };
         });
         setCurrentShows(formattedData);
@@ -105,7 +106,7 @@ function Main({ userInfo }) {
 
   return (
     <div className="main_container">
-      <StyleToggleButton onClick={handleToggleNavbar}>
+      <StyleToggleButton onClick={handleToggleNavbar} className="toggle_navbar">
         <i className="fa-solid fa-bars"></i>
       </StyleToggleButton>
       <Greetings>{greetings}</Greetings>
@@ -130,7 +131,12 @@ function FavoriteList({ shows, onSelect }) {
   return (
     <div className="favorite_container">
       {shows.map((show) => (
-        <EpisodeCard key={show.id} episode={show} onSelect={onSelect} />
+        <EpisodeCard
+          key={show.id}
+          episode={show}
+          onSelect={onSelect}
+          publisher=""
+        />
       ))}
     </div>
   );

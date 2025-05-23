@@ -16,6 +16,14 @@ function SearchModal({ categoryId, show, onHide }) {
   const inputRef = useRef(null);
   const { addShow } = useUser();
 
+  useEffect(() => {
+    if (podcasts.length === 0) {
+      setIsSearching(true);
+    } else {
+      setIsSearching(false);
+    }
+  }, [podcasts.length]);
+
   function handleInputChange(e) {
     setCurrentInputValue(e.target.value);
   }
@@ -79,12 +87,6 @@ function SearchModal({ categoryId, show, onHide }) {
       }, 1500);
     }
   }
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsSearching(false);
-    }, 2000);
-  }, [podcasts.length]);
 
   return (
     <Modal show={show} onHide={onHide} dialogClassName="search_modal">

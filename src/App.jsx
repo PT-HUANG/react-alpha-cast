@@ -1,6 +1,6 @@
 import "./App.scss";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Welcome, Login, Home } from "./pages";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Login, Home } from "./pages";
 import { AuthProvider } from "./context/AuthContext";
 import { UserProvider } from "./context/UserContext";
 import { PlayerProvider } from "./context/PlayerContext";
@@ -15,7 +15,7 @@ function App() {
             <PlayerProvider>
               <BrowserRouter basename="/react-alpha-cast">
                 <Routes>
-                  <Route path="/" element={<Welcome />} />
+                  <Route path="/" element={<Navigate to="/login" replace />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/home" element={<Home />} />
                 </Routes>

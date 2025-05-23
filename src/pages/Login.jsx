@@ -11,7 +11,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 export default function Login() {
   const navigate = useNavigate();
-  const { isAuthenticated, login } = useAuth();
+  const { isAuthenticated, login, getProfile } = useAuth();
 
   useEffect(() => {
     async function handleLogin() {
@@ -20,11 +20,13 @@ export default function Login() {
         return;
       }
       await login();
-      setTimeout(() => {
-        navigate("/home");
-      }, 500);
+      await getProfile();
+      navigate("/home");
     }
     handleLogin();
+    return () => {
+      handleLogin;
+    };
   }, [navigate]);
 
   return (

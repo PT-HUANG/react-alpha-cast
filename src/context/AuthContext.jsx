@@ -1,6 +1,6 @@
 import { useState, useContext, createContext } from "react";
 import { getUserInfo, getNewToken } from "../api/AC";
-import { getProfile, logoutClick } from "../api/spotify";
+import { getUserData, logoutClick } from "../api/spotify";
 
 const defaultAuthContext = {
   isAuthenticated: false,
@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
         isAuthenticated,
         currentMember,
         getProfile: async () => {
-          const { display_name, images } = await getProfile();
+          const { display_name, images } = await getUserData();
           const { id, favoriteEpisodeIds } = await getUserInfo();
           setCurrentMember({ display_name, images, id, favoriteEpisodeIds });
         },

@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const clientId = "e45b9aa8bed142158c16baceb64f9f43";
-const redirectUrl = "https://pt-huang.github.io/react-alpha-cast/";
+// const redirectUrl = "http://localhost:3000/react-alpha-cast/login";
+const redirectUrl = "https://pt-huang.github.io/react-alpha-cast/login";
 
 const authorizationEndpoint = "https://accounts.spotify.com/authorize";
 const tokenEndpoint = "https://accounts.spotify.com/api/token";
@@ -108,7 +109,7 @@ async function getToken(code) {
   return await response.json();
 }
 
-async function refreshToken() {
+export async function refreshToken() {
   const response = await fetch(tokenEndpoint, {
     method: "POST",
     headers: {
@@ -120,18 +121,17 @@ async function refreshToken() {
       refresh_token: currentToken.refresh_token,
     }),
   });
+
   return await response.json();
 }
 
-export async function getProfile() {
-  const isValid = await isTokenValid();
-  if (!isValid) return null;
-  const { data } = await axios.get("https://api.spotify.com/v1/me", {
-    headers: {
-      Authorization: "Bearer " + currentToken.access_token,
-    },
+export async function getUserData() {
+  const response = await fetch("https://api.spotify.com/v1/me", {
+    method: "GET",
+    headers: { Authorization: "Bearer " + currentToken.access_token },
   });
-  return data;
+
+  return await response.json();
 }
 
 // Click handlers
@@ -149,26 +149,15 @@ export async function refreshTokenClick() {
   currentToken.save(token);
 }
 
+// 驗證Token是否有效
 export async function isTokenValid() {
-  const access_token = localStorage.getItem("access_token");
-  const expires = localStorage.getItem("expires");
+  const access_token = currentToken.access_token;
 
-  if (!access_token || !expires) {
+  if (!access_token) {
+    console.log("access_token不存在");
     return false;
   }
 
-  const expiryDate = new Date(expires);
-  const now = new Date();
-
-  const timeDiff = expiryDate - now;
-
-  if (timeDiff < 10 * 60 * 1000) {
-    console.log("⚠️ Token 即將過期，請刷新");
-    await refreshTokenClick();
-    console.log("✅ Token 刷新完成");
-  }
-
-  // 嘗試發送 API，確認 token 是否有效
   try {
     await axios.get("https://api.spotify.com/v1/me", {
       headers: {
@@ -182,6 +171,7 @@ export async function isTokenValid() {
   }
 }
 
+// Search Podcasts
 export async function searchPodcast(str, offset) {
   const isValid = await isTokenValid();
   if (!isValid) return null;
@@ -201,26 +191,31 @@ export async function searchPodcast(str, offset) {
   }
 }
 
+// Get Shows
 export async function getShows(showIds) {
   const isValid = await isTokenValid();
   if (!isValid) return null;
   if (!Array.isArray(showIds) || showIds.length === 0) {
     return [];
   }
-  const payload = showIds.map(show => show.id).join(",");
+  const payload = showIds.map((show) => show.id).join(",");
 
   try {
-    const {data} = await axios.get(`https://api.spotify.com/v1/shows?market=TW&ids=${payload}`, {
-      headers: {
-        Authorization: "Bearer " + currentToken.access_token,
-      },
-    })
-    return data
+    const { data } = await axios.get(
+      `https://api.spotify.com/v1/shows?market=TW&ids=${payload}`,
+      {
+        headers: {
+          Authorization: "Bearer " + currentToken.access_token,
+        },
+      }
+    );
+    return data;
   } catch (error) {
     console.error("[Get shows failed]: ", error);
   }
 }
 
+// Get Episode Under Each Show
 export async function getShowEpisodes(showId, offset) {
   const isValid = await isTokenValid();
   if (!isValid) return null;
@@ -240,19 +235,28 @@ export async function getShowEpisodes(showId, offset) {
   }
 }
 
+// Get Episodes From Array of EpisodeIds
 export async function getEpisodes(episodeIds) {
+  const ids = episodeIds.reduce((acc, cur, index) => {
+    if (index === 0) {
+      return cur.id;
+    } else {
+      return acc + "," + cur.id;
+    }
+  }, "");
   const isValid = await isTokenValid();
   if (!isValid) return null;
   try {
-    const requests = episodeIds.map((episodeId) =>
-      axios.get(`https://api.spotify.com/v1/episodes/${episodeId.id}`, {
+    const { data } = await axios.get(
+      `https://api.spotify.com/v1/episodes?ids=${ids}&market=TW`,
+      {
         headers: {
           Authorization: "Bearer " + currentToken.access_token,
         },
-      })
+      }
     );
-    const responses = await Promise.all(requests);
-    return responses.map((response) => response.data) || [];
+    const { episodes } = data;
+    return episodes.filter((episode) => episode !== null);
   } catch (error) {
     console.error("[Get episodes failed]: ", error);
     return [];

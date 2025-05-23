@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Navbar, Main } from "../components";
-import { isTokenValid } from "../api/spotify";
-import { useAuth } from "../context/AuthContext";
+import { isTokenValid, refreshTokenClick } from "../api/spotify";
 import { useUser } from "../context/UserContext";
+import { useAuth } from "../context/AuthContext";
 
 export default function Home() {
   const navigate = useNavigate();
-  const { getProfile } = useAuth();
   const { userInfo, getCategories } = useUser();
   const [isLoading, setIsLoading] = useState(true);
+  const { getProfile } = useAuth();
 
   useEffect(() => {
     async function handleHomePage() {
@@ -17,16 +17,28 @@ export default function Home() {
       if (!isValid) {
         navigate("/login");
       }
-      await getProfile();
       await getCategories();
+      await getProfile();
     }
     handleHomePage();
-  }, [navigate]);
+  }, []);
 
   useEffect(() => {
-    setTimeout(() => {
+    const interval = setInterval(async () => {
+      const expires = localStorage.getItem("expires");
+      if (Date.now() > expires - 60000) {
+        await refreshTokenClick();
+        console.log("🙏Token刷新");
+      }
+    }, 60000);
+
+    return () => clearInterval(interval);
+  });
+
+  useEffect(() => {
+    if (userInfo.categories.length) {
       setIsLoading(false);
-    }, 2000);
+    }
   }, [userInfo.categories.length]);
 
   return (
