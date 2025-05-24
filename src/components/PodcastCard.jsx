@@ -59,7 +59,7 @@ function PodcastCard({ info }) {
 
   const handleShow = async () => {
     setModalStatus(true);
-    const { items } = await getShowEpisodes(id, offset);
+    const { items } = await getShowEpisodes(id, 0);
     const validItems = items.filter((item) => item !== null);
     const formattedData = validItems.map((item) => {
       return { ...item, isSelected: false, isNowPlaying: false };

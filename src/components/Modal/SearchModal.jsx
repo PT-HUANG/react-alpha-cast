@@ -17,7 +17,7 @@ function SearchModal({ categoryId, show, onHide }) {
   const { addShow } = useUser();
 
   useEffect(() => {
-    if (podcasts.length === 0) {
+    if (podcasts.length === 0 && currentInputValue) {
       setIsSearching(true);
     } else {
       setIsSearching(false);
@@ -119,20 +119,18 @@ function SearchModal({ categoryId, show, onHide }) {
           scrollableTarget="scrollableDiv"
           className="infinitescroll"
         ></InfiniteScroll>
-        {podcasts ? (
-          podcasts.map((p) => {
-            return (
-              <SearchResult
-                key={p.id}
-                info={p}
-                $isSelected={p.isSelected}
-                onSelect={hadleSelect}
-              />
-            );
-          })
-        ) : (
-          <span className="search_loader"></span>
-        )}
+        {podcasts
+          ? podcasts.map((p) => {
+              return (
+                <SearchResult
+                  key={p.id}
+                  info={p}
+                  $isSelected={p.isSelected}
+                  onSelect={hadleSelect}
+                />
+              );
+            })
+          : ""}
         {isSearching && <span className="search_loader"></span>}
       </div>
       <Modal.Footer>

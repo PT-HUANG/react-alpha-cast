@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useUser } from "../context/UserContext";
 import { usePlayer } from "../context/PlayerContext";
 const StyledContainer = styled.div`
@@ -178,6 +178,7 @@ const ProgressFill = styled.div.attrs((props) => ({
 function PlayerCard() {
   const { userInfo, handleFavorite } = useUser();
   const {
+    isPlaying,
     handleRestart,
     handlePlayPause,
     currentEpisode,
@@ -192,10 +193,10 @@ function PlayerCard() {
     release_date,
     duration_ms: episodeDuration,
     id,
-    show,
+    publisher,
   } = currentEpisode;
   const url = images[0].url;
-  const author = show.name;
+  const author = publisher;
 
   function formatEpisodeLength(ms) {
     const hours = Math.floor(ms / (1000 * 60 * 60));
@@ -226,7 +227,7 @@ function PlayerCard() {
     if (runningSeconds === episodeTotalDuration) {
       handleRestart(currentEpisode);
     }
-  }, [runningSeconds]);
+  }, [episodePlayedSeconds]);
 
   return (
     <StyledContainer>
@@ -243,7 +244,7 @@ function PlayerCard() {
         <StyledEpisodeControl progress={progress} className="episode_control">
           <i
             className={
-              currentEpisode.isPlaying
+              isPlaying
                 ? "fa-solid fa-circle-pause playbutton"
                 : "fa-solid fa-circle-play playbutton"
             }

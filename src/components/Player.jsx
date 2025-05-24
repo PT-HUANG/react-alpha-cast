@@ -56,9 +56,16 @@ const StylePlayerHR = styled.hr`
 `;
 
 function Player() {
-  const { setEmbedController, currentEpisode } = usePlayer();
+  const {
+    EmbedController,
+    setEmbedController,
+    currentEpisode,
+    setIsPlaying,
+    resetTimer,
+    startTimer,
+  } = usePlayer();
   useEffect(() => {
-    window.onSpotifyIframeApiReady = (IFrameAPI) => {
+    window.onSpotifyIframeApiReady = async (IFrameAPI) => {
       let element = document.getElementById("embed-iframe");
       let options = {
         uri: "spotify:episode:7makk4oTQel546B0PZlDM5",
@@ -66,9 +73,24 @@ function Player() {
       let callback = (EmbedController) => {
         setEmbedController(EmbedController);
       };
-      IFrameAPI.createController(element, options, callback);
+      await IFrameAPI.createController(element, options, callback);
     };
   }, []);
+
+  useEffect(() => {
+    if (!EmbedController) return;
+
+    const handlePlaybackStarted = () => {
+      setIsPlaying(true);
+      startTimer();
+    };
+
+    EmbedController.addListener("playback_started", handlePlaybackStarted);
+
+    return () => {
+      EmbedController.removeListener("playback_started", handlePlaybackStarted);
+    };
+  }, [EmbedController]);
 
   return (
     <StylePlayerContainer $isHidden={currentEpisode.id === "default"}>

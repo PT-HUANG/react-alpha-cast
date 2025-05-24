@@ -66,7 +66,7 @@ const StyledBookmark = styled.div`
 
 function EpisodeCard({ episode, onSelect, publisher }) {
   const { userInfo, handleFavorite } = useUser();
-  const { handlePlayPause, currentEpisode } = usePlayer();
+  const { handlePlayPause, currentEpisode, isPlaying } = usePlayer();
   const { favoriteEpisodeIds } = userInfo.favorites;
 
   const { images, name, description, release_date, duration_ms, id } = episode;
@@ -95,12 +95,14 @@ function EpisodeCard({ episode, onSelect, publisher }) {
         <StyledInfo>
           <i
             className={
-              currentEpisode.id === episode.id && currentEpisode.isPlaying
+              currentEpisode.id === episode.id && isPlaying
                 ? "fa-solid fa-circle-pause"
                 : "fa-solid fa-circle-play"
             }
-            onClick={() => {
-              handlePlayPause({ ...episode, show: { name: publisher } });
+            onClick={async () => {
+              episode.publisher = publisher;
+              // console.log(episode.id);
+              await handlePlayPause(episode);
             }}
           ></i>
           <span>

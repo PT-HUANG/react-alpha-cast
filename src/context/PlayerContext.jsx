@@ -6,73 +6,76 @@ export function PlayerProvider({ children }) {
   const [EmbedController, setEmbedController] = useState(null);
   const [currentEpisode, setCurrentEpisode] = useState({
     id: "default",
-    isPlaying: false,
   });
-
-  const [isDisabled, setIsDisabled] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [episodePlayedSeconds, setEpisodePlayedSeconds] = useState(0);
-  const intervalRef = useRef(null);
+  const timerRef = useRef(null);
 
-  async function handleRestart(episode) {
-    StopTimer();
-    await EmbedController.play();
-    setCurrentEpisode({ ...episode, isPlaying: true });
-    StartTimer();
-  }
-
-  async function handlePlayPause(episode) {
-    if (isDisabled) return;
-    setIsDisabled(true);
-    if (currentEpisode.id !== episode.id) {
-      await EmbedController.loadUri(`spotify:episode:${episode.id}`);
+  const handlePlayPause = async (episode) => {
+    // Case 1 還沒開始播放或是換曲目
+    if (currentEpisode.id === "default" && !isPlaying) {
+      setCurrentEpisode(episode);
+      await EmbedController.loadUri(episode.uri);
       await EmbedController.play();
-      setCurrentEpisode({ ...episode, isPlaying: true });
-      StartTimer();
-    } else {
-      await EmbedController.togglePlay();
-      setCurrentEpisode({
-        ...currentEpisode,
-        isPlaying: !currentEpisode.isPlaying,
-      });
-      if (currentEpisode.isPlaying) {
-        StopTimer();
-      } else {
-        ResumeTimer();
-      }
+
+      // Case 2 暫停正在放的曲目
+    } else if (currentEpisode.id === episode.id && isPlaying) {
+      await EmbedController.pause();
+      setIsPlaying(false);
+      pauseTimer();
+
+      // Case 3 恢復正在放的曲目
+    } else if (currentEpisode.id === episode.id && !isPlaying) {
+      await EmbedController.resume();
+      setIsPlaying(true);
+      startTimer();
+
+      // Casw 4 更換曲目
+    } else if (currentEpisode.id !== episode.id) {
+      setCurrentEpisode(episode);
+      await EmbedController.loadUri(episode.uri);
+      await EmbedController.play();
+      resetTimer();
     }
-    setTimeout(() => {
-      setIsDisabled(false);
-    }, 1000);
-  }
+  };
 
-  function StartTimer() {
-    clearInterval(intervalRef.current);
+  const handleRestart = async (episode) => {
+    await EmbedController.loadUri(episode.uri);
+    await EmbedController.play();
+    setIsPlaying(true);
+  };
+
+  const startTimer = () => {
+    if (timerRef.current) return; // 避免重複啟動
+    timerRef.current = setInterval(() => {
+      setEpisodePlayedSeconds((prev) => prev + 1000);
+    }, 1000);
+  };
+
+  const pauseTimer = () => {
+    clearInterval(timerRef.current);
+    timerRef.current = null;
+  };
+
+  const resetTimer = () => {
+    pauseTimer();
     setEpisodePlayedSeconds(0);
-    intervalRef.current = setInterval(() => {
-      setEpisodePlayedSeconds((prevTimer) => prevTimer + 1000);
-    }, 1000);
-  }
-
-  function StopTimer() {
-    clearInterval(intervalRef.current);
-    intervalRef.current = null;
-  }
-
-  function ResumeTimer() {
-    intervalRef.current = setInterval(() => {
-      setEpisodePlayedSeconds((prevTimer) => prevTimer + 1000);
-    }, 1000);
-  }
+  };
 
   return (
     <PlayerContext.Provider
       value={{
         EmbedController,
         setEmbedController,
-        handleRestart,
-        handlePlayPause,
         currentEpisode,
+        handlePlayPause,
+        isPlaying,
+        setIsPlaying,
+        handleRestart,
         episodePlayedSeconds,
+        startTimer,
+        pauseTimer,
+        resetTimer,
       }}
     >
       {children}
