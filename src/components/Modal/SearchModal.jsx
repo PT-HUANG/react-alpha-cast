@@ -22,7 +22,7 @@ function SearchModal({ categoryId, show, onHide }) {
     } else {
       setIsSearching(false);
     }
-  }, [podcasts.length]);
+  }, [podcasts]);
 
   function handleInputChange(e) {
     setCurrentInputValue(e.target.value);
@@ -64,6 +64,7 @@ function SearchModal({ categoryId, show, onHide }) {
     }).id;
     if (showId) {
       addShow(categoryId, showId);
+      setIsSearching(false);
       onHide();
     }
   }

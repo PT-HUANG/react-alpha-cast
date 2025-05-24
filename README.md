@@ -10,9 +10,9 @@
 
 - 可以新增、編輯、刪除播放清單，能修改預設的 emoji 圖示
 
-- 每個播放清單都可以新增Podcast節目，若無Podcast則會顯示預設畫面
+- 每個播放清單都可以新增 Podcast 節目，若無 Podcast 則會顯示預設畫面
 
-- 可以將Podcast單集加入/移除收藏
+- 可以將 Podcast 單集加入/移除收藏
 
 - 右側播放器能顯示當前播放的 Podcast，顯示當前播放秒數與進度條
 
@@ -20,54 +20,58 @@
 
 ## Environment Requirements
 
-- **Node.js** v22.13.1  
+- **Node.js** v22.13.1
 
-- **React** v18.3.1  
+- **React** v18.3.1
 
-- **react-router-dom** v7.1.3  
+- **react-router-dom** v7.1.3
 
-- **bootstrap** v5.3.3  
+- **bootstrap** v5.3.3
 
-- **react-bootstrap** v2.10.9  
+- **react-bootstrap** v2.10.9
 
-- **styled-components** v6.1.14  
+- **styled-components** v6.1.14
 
-- **slick-carousel** v1.8.1  
+- **slick-carousel** v1.8.1
 
-- **react-slick** v0.30.3  
+- **react-slick** v0.30.3
 
-- **axios** v1.7.9  
+- **axios** v1.7.9
 
-- **emoji-picker-react** v4.12.0  
-
+- **emoji-picker-react** v4.12.0
 
 ## Start Using
 
-1. **Create a Spotify Account**
-    
-    Sign up for a Spotify account if you don't have one:
-    
-    [Spotify Signup](https://www.spotify.com/tw/signup)
+1. **Create a Spotify Account or use a test account**
+
+   Sign up for a Spotify account if you don't have one:
+
+   [Spotify Signup](https://www.spotify.com/tw/signup)
+
+   Test account: tenfrontdev+spotifytest@gmail.com
+
+   Test password: Spotify_test123
 
 2. **Request Usage Permission**
-    
-    Send your Spotify username and email address to the following email to request access:
-    
-    📩 **qwe1593574268@gmail.com**
-    
-    **Email Subject:** `[Alpha Cast Usage Permission]`
-    
-    **Email Content:**
-    ```
-    Username: [Your Spotify Username]
-    Email: [Your Email Address]
-    ```
-    
+
+   Send your Spotify username and email address to the following email to request access:
+
+   📩 **qwe1593574268@gmail.com**
+
+   **Email Subject:** `[Alpha Cast Usage Permission]`
+
+   **Email Content:**
+
+   ```
+   Username: [Your Spotify Username]
+   Email: [Your Email Address]
+   ```
+
 3. **Access the Web App**
-    
-    Once your request is approved, visit the following link to start using the app:
-    
-    👉 [Alpha Cast Web App](https://pt-huang.github.io/react-alpha-cast/)
+
+   Once your request is approved, visit the following link to start using the app:
+
+   👉 [Alpha Cast Web App](https://pt-huang.github.io/react-alpha-cast/)
 
 ## Screenshots
 

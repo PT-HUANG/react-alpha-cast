@@ -190,6 +190,12 @@ hr {
   animation: rotation 1s linear infinite;
 }
 
+.login_register {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+
 // React Slick Custom CSS
 .slider-container {
   overflow: hidden;
@@ -635,7 +641,7 @@ hr {
   color: #acadb9;
   cursor: pointer;
   @media screen and (min-width: 992px) {
-    left: 8%;  
+    left: 8%;
   }
 }
 
@@ -766,7 +772,6 @@ hr {
 .modal.show .podcast_modal {
   transform: translate(0, 20%);
 }
-
 
 .modal-content {
   height: 100%;

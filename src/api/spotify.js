@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const clientId = "e45b9aa8bed142158c16baceb64f9f43";
-// const redirectUrl = "http://localhost:3000/react-alpha-cast/login";
-const redirectUrl = "https://pt-huang.github.io/react-alpha-cast/login";
+const redirectUrl = "http://localhost:3000/react-alpha-cast/login";
+// const redirectUrl = "https://pt-huang.github.io/react-alpha-cast/login";
 
 const authorizationEndpoint = "https://accounts.spotify.com/authorize";
 const tokenEndpoint = "https://accounts.spotify.com/api/token";

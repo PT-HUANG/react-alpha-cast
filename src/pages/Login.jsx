@@ -49,12 +49,21 @@ export default function Login() {
             使用 SPOTIFY 帳號登入
           </div>
           <div className="login_register">
-            <span>沒有帳號嗎? </span>
-            <strong>
-              <Link to="https://www.spotify.com/tw/signup" target="_blank">
-                註冊帳號
-              </Link>
-            </strong>
+            <div>
+              <span>沒有帳號嗎? </span>
+              <strong>
+                <Link to="https://www.spotify.com/tw/signup" target="_blank">
+                  註冊帳號
+                </Link>
+              </strong>
+            </div>
+            <br />
+            <div>
+              <strong>測試帳號: tenfrontdev+spotifytest@gmail.com</strong>
+            </div>
+            <div>
+              <strong>測試密碼: Spotify_test123</strong>
+            </div>
           </div>
         </div>
         <div className="login_footer">Copyright 2025</div>
