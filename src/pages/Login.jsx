@@ -66,7 +66,6 @@ export default function Login() {
             </div>
           </div>
         </div>
-        <div className="login_footer">Copyright 2025</div>
       </div>
       <FeatureSlide />
     </div>
